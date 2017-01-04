@@ -1,0 +1,3 @@
+caf_cantine:
+    resource: "@CAFCantineBundle/Resources/config/routing.yml"
+    prefix:   /cantine

@@ -1,0 +1,16 @@
+caf_cantine_home:
+    path:      /
+    defaults: { _controller: CAFCantineBundle:Menus:index }
+    
+caf_repas_index:
+    path:      /repas/{id}
+    defaults: { _controller: CAFCantineBundle:Repas:index, id: 12}
+    requirements:
+        id:   \d{1,4}
+        
+caf_repas_add:
+    path:      /add
+    defaults: { _controller: CAFCantineBundle:Repas:add }
+
+
+    
