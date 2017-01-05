@@ -2,16 +2,31 @@ caf_cantine_home:
     path:      /
     defaults: { _controller: CAFCantineBundle:Menus:index }
 
-caf_plats_index:
+caf_plats_view:
     path:      /plats/{id}
-    defaults: { _controller: CAFCantineBundle:Plats:index, id: 12}
+    defaults: { _controller: CAFCantineBundle:Plats:view}
     requirements:
-        id:   \d{1,4}
+        id:   \d{1,2}
+        
+caf_plats_edit:
+    path:      /plats/edit/{id}
+    defaults: { _controller: CAFCantineBundle:Plats:edit}
+    requirements:
+        id:   \d{1,2}
+        
+caf_plats_delete:
+    path:      /plats/delete/{id}
+    defaults: { _controller: CAFCantineBundle:Plats:delete}
+    requirements:
+        id:   \d{1,2}
         
 caf_plats_add:
-    path:      /add
-    defaults: { _controller: CAFCantineBundle:Plats:add } 
-    
+    path:      /plats/add/{type}/{libelle}/{porc}
+    defaults: { _controller: CAFCantineBundle:Plats:add, porc: 1} 
+    requirements:
+        type:   \d{1}
+        porc:   0|1
+        
 caf_repas_index:
     path:      /repas/{id}
     defaults: { _controller: CAFCantineBundle:Repas:index, id: 12}
