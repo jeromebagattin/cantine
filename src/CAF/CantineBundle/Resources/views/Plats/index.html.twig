@@ -1,0 +1,18 @@
+{# src/CAF/CantineBundle/Resources/views/Menus/index.html.twig #}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bienvenue sur plats !</title>
+    </head>
+    <body>
+        <h1>Hello World ! Plats {{ nom }}</h1>
+
+        <p>
+            Le Hello Plats
+            <a href="{{ url('caf_repas_index', { 'id': nom }) }}">
+                Lien vers le plat d'id {{ nom }}
+            </a>
+        </p>
+    </body>
+</html>
