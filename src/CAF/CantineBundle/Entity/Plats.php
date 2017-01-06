@@ -29,7 +29,7 @@ class Plats
     private $libelle;
 
     /**
-     * @ORM\ManyToOne(targetEntity="CAF\CantineBundle\Entity\TypePlat", inversedBy="plat", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="CAF\CantineBundle\Entity\TypePlat", inversedBy="plats", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $typePlat;
@@ -42,10 +42,12 @@ class Plats
     private $porc;
 
 
+    
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -77,30 +79,6 @@ class Plats
     }
 
     /**
-     * Set typePlat
-     *
-     * @param integer $typePlat
-     *
-     * @return Plats
-     */
-    public function setType($typePlat)
-    {
-        $this->typePlat = $typePlat;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return int
-     */
-    public function getType()
-    {
-        return $this->typePlat;
-    }
-
-    /**
      * Set porc
      *
      * @param boolean $porc
@@ -117,7 +95,7 @@ class Plats
     /**
      * Get porc
      *
-     * @return bool
+     * @return boolean
      */
     public function getPorc()
     {
