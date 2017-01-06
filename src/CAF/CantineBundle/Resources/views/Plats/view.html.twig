@@ -6,12 +6,12 @@
         <title>Bienvenue sur plats !</title>
     </head>
     <body>
-        <h1>Hello World ! Plats {{ nom }}</h1>
+       <h1>Plats : {{ plat.libelle }}</h1>
 
         <p>
-            Le Hello Plats
-            <a href="{{ url('caf_repas_index', { 'id': nom }) }}">
-                Lien vers le plat d'id {{ nom }}
+            Plat suivant : 
+            <a href="{{ url('caf_plats_view', { 'id': plat.id + 1}) }}">
+                Lien vers le plat d'id {{ plat.id + 1 }}
             </a>
         </p>
     </body>

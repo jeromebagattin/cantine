@@ -6,6 +6,7 @@ use CAF\CantineBundle\Entity\Plats;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PlatsController extends Controller
 {
@@ -54,8 +55,17 @@ class PlatsController extends Controller
     
     public function viewAction($id, Request $request)
     {
+        $repository = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('CAFCantineBundle:Plats')
+        ;
+        $plat = $repository->find($id);
+        if (null === $plat) {
+            throw new NotFoundHttpException("Le plat d'id " . $id . " n'existe pas.");
+        }
+
         $content = $this->renderView('CAFCantineBundle:Plats:view.html.twig', array (
-             'nom' => $id
+             'plat' => $plat
         ));
         $tag = $request->query->get('tag');
         return new Response($content);
