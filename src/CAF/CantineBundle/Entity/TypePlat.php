@@ -22,6 +22,11 @@ class TypePlat
     private $id;
 
     /**
+     * @ORM\OneToMany(targetEntity="CAF\CantineBundle\Entity\Plats", mappedBy="typePlat")
+     */
+    private $plats;
+    
+    /**
      * @var string
      *
      * @ORM\Column(name="libelle", type="string", length=255, unique=true)
@@ -62,5 +67,45 @@ class TypePlat
     {
         return $this->libelle;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->plats = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add plat
+     *
+     * @param \CAF\CantineBundle\Entity\Plats $plat
+     *
+     * @return TypePlat
+     */
+    public function addPlat(\CAF\CantineBundle\Entity\Plats $plat)
+    {
+        $this->plats[] = $plat;
+
+        return $this;
+    }
+
+    /**
+     * Remove plat
+     *
+     * @param \CAF\CantineBundle\Entity\Plats $plat
+     */
+    public function removePlat(\CAF\CantineBundle\Entity\Plats $plat)
+    {
+        $this->plats->removeElement($plat);
+    }
+
+    /**
+     * Get plats
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlats()
+    {
+        return $this->plats;
+    }
+}

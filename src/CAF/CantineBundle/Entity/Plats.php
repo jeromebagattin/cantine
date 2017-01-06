@@ -29,7 +29,7 @@ class Plats
     private $libelle;
 
     /**
-     * @ORM\ManyToOne(targetEntity="CAF\CantineBundle\Entity\TypePlat", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="CAF\CantineBundle\Entity\TypePlat", inversedBy="plat", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $typePlat;
