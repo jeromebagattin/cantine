@@ -29,9 +29,8 @@ class Plats
     private $libelle;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="typePlat", type="integer")
+     * @ORM\ManyToOne(targetEntity="CAF\CantineBundle\Entity\TypePlat", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
     private $typePlat;
 
@@ -124,5 +123,28 @@ class Plats
     {
         return $this->porc;
     }
-}
 
+    /**
+     * Set typePlat
+     *
+     * @param \CAF\CantineBundle\Entity\TypePlat $typePlat
+     *
+     * @return Plats
+     */
+    public function setTypePlat(\CAF\CantineBundle\Entity\TypePlat $typePlat)
+    {
+        $this->typePlat = $typePlat;
+
+        return $this;
+    }
+
+    /**
+     * Get typePlat
+     *
+     * @return \CAF\CantineBundle\Entity\TypePlat
+     */
+    public function getTypePlat()
+    {
+        return $this->typePlat;
+    }
+}

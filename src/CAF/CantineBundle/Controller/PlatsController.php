@@ -3,6 +3,7 @@
 namespace CAF\CantineBundle\Controller;
 
 use CAF\CantineBundle\Entity\Plats;
+use CAF\CantineBundle\Entity\TypePlat;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,10 +15,24 @@ class PlatsController extends Controller
 
         // Création de l'entité
         $plat = new Plats();
-        $plat->setType($type);
+//        $plat->setType($type);
         $plat->setLibelle($libelle);
         $plat->setPorc($porc);
        
+//        $typePlat = new TypePlat();
+//        $typePlat->setLibelle('entrée');
+        
+        $repository = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('CAFCantineBundle:TypePlat')
+        ;
+        $typePlat = $repository->find($type);
+        if (null === $typePlat) {
+            throw new NotFoundHttpException("Le type de plat d'id " . $type . " n'existe pas.");
+        }
+        
+        $plat->setType($typePlat);
+                
         $em = $this->getDoctrine()->getManager();
         $em->persist($plat);
         $em->flush();

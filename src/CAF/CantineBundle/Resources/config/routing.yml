@@ -27,14 +27,14 @@ caf_plats_add:
         type:   \d{1}
         porc:   0|1
         
-caf_repas_index:
+caf_repas_view:
     path:      /repas/{id}
-    defaults: { _controller: CAFCantineBundle:Repas:index, id: 12}
+    defaults: { _controller: CAFCantineBundle:Repas:view}
     requirements:
         id:   \d{1,4}
         
 caf_repas_add:
-    path:      /add
+    path:      /repas/add
     defaults: { _controller: CAFCantineBundle:Repas:add }
 
 

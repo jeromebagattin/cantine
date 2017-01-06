@@ -8,9 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class RepasController extends Controller
 {
-    public function indexAction($id, Request $request)
+    public function viewAction($id, Request $request)
     {
-        $content = $this->renderView('CAFCantineBundle:Repas:index.html.twig', array (
+        $content = $this->renderView('CAFCantineBundle:Repas:view.html.twig', array (
              'nom' => $id
         ));
         $tag = $request->query->get('tag');
