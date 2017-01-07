@@ -3,7 +3,6 @@
 namespace CAF\CantineBundle\Controller;
 
 use CAF\CantineBundle\Entity\Plats;
-use CAF\CantineBundle\Entity\TypePlat;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;

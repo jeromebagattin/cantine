@@ -34,7 +34,7 @@ caf_typeplats_view:
         id:   \d{1,4}
         
 caf_typeplats_add:
-    path:      /typePlats/add/{libelle}
+    path:      /typeplats/add/{libelle}
     defaults: { _controller: CAFCantineBundle:TypePlats:add} 
         
 caf_repas_view:
