@@ -15,7 +15,6 @@ class PlatsController extends Controller
 
         // Création de l'entité
         $plat = new Plats();
-//        $plat->setType($type);
         $plat->setLibelle($libelle);
         $plat->setPorc($porc);
        
@@ -31,7 +30,7 @@ class PlatsController extends Controller
             throw new NotFoundHttpException("Le type de plat d'id " . $type . " n'existe pas.");
         }
         
-        $plat->setType($typePlat);
+        $plat->setTypePlat($typePlat);
                 
         $em = $this->getDoctrine()->getManager();
         $em->persist($plat);

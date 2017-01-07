@@ -3,11 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/developpeur/DEV/apachetest/html/Cantine/src/CAF/CantineBundle/Entity/Plats.php</file>
-            <file>file:/home/developpeur/DEV/apachetest/html/Cantine/src/CAF/CantineBundle/Resources/views/Plats/index.html.twig</file>
-            <file>file:/home/developpeur/DEV/apachetest/html/Cantine/src/CAF/CantineBundle/Resources/config/routing.yml</file>
-            <file>file:/home/developpeur/DEV/apachetest/html/Cantine/src/CAF/CantineBundle/Resources/views/Plats/add.html.twig</file>
-            <file>file:/home/developpeur/DEV/apachetest/html/Cantine/src/CAF/CantineBundle/Controller/PlatsController.php</file>
+            <file>file:/home/jerome/DEV/cantine/src/CAF/CantineBundle/Entity/TypePlat.php</file>
+            <file>file:/home/jerome/DEV/cantine/src/CAF/CantineBundle/Resources/config/routing.yml</file>
         </group>
     </open-files>
 </project-private>
