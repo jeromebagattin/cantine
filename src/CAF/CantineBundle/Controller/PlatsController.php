@@ -18,8 +18,6 @@ class PlatsController extends Controller
         $plat->setLibelle($libelle);
         $plat->setPorc($porc);
        
-//        $typePlat = new TypePlat();
-//        $typePlat->setLibelle('entrée');
         
         $repository = $this->getDoctrine()
                 ->getManager()
