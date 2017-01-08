@@ -19,7 +19,7 @@ class TypePlatsController extends Controller
         if (null === $typeplat) {
             throw new NotFoundHttpException("Le typeplat d'id " . $id . " n'existe pas.");
         }
-
+        
         $content = $this->renderView('CAFCantineBundle:TypePlats:view.html.twig', array (
              'typeplat' => $typeplat
         ));

@@ -28,13 +28,13 @@ caf_plats_add:
         porc:   0|1
         
 caf_typeplats_view:
-    path:      /typeplats/{id}
+    path:      /typeplat/{id}
     defaults: { _controller: CAFCantineBundle:TypePlats:view}
     requirements:
         id:   \d{1,4}
         
 caf_typeplats_add:
-    path:      /typeplats/add/{libelle}
+    path:      /typeplat/add/{libelle}
     defaults: { _controller: CAFCantineBundle:TypePlats:add} 
         
 caf_repas_view:

@@ -9,6 +9,19 @@ class MenusController extends Controller
 {
     public function indexAction()
     {
+       
+        $repository = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('CAFCantineBundle:Plats')
+        ;
+
+        $listPlats = $repository->myFind();
+        foreach ($listPlats as $plat) 
+        {
+            echo $plat->getLibelle();
+        }
+        
         $content = $this->get('templating')->render('CAFCantineBundle:Menus:index.html.twig', array (
              'nom' => 'jerome'
         ));

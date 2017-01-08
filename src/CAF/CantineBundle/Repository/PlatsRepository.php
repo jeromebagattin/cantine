@@ -2,6 +2,8 @@
 
 namespace CAF\CantineBundle\Repository;
 
+use Doctrine\ORM\QueryBuilder;
+
 /**
  * PlatsRepository
  *
@@ -10,4 +12,53 @@ namespace CAF\CantineBundle\Repository;
  */
 class PlatsRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function myFindAll() {
+       return $this
+        ->createQueryBuilder('a')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+    
+    public function tout(QueryBuilder $qb) {
+        $qb
+            ->andwhere('a.id > :par')
+            ->setparameter('par',3)
+                ;
+    }
+    
+    public function myFind() {
+        $qb = $this->createQueryBuilder('a');
+
+        $qb
+                ->where('a.id < :p')
+                ->setParameter('p', 7)
+        ;
+
+        $this->tout($qb);
+        $qb->orderBy('a.libelle', 'ASC');
+
+        return $qb
+                        ->getQuery()
+                        ->getResult()
+        ;
+    }
+
+    public function myFindOne($id, $par) {
+        $qb = $this->createQueryBuilder('a');
+
+        $qb
+                ->where('a.id < :id')
+                ->setParameter('id', $id)
+                ->andwhere('a.libelle  = :par')
+                ->setParameter('par', $par)
+                ->orderby ('a.id', 'DESC')
+        ;
+
+        return $qb
+                        ->getQuery()
+                        ->getResult()
+        ;
+    }
+
 }
