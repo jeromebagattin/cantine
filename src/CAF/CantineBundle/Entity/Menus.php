@@ -28,7 +28,13 @@ class Menus
      */
     private $dateMenu;
 
-
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateValidation", type="date")
+     */
+    private $dateValidation;
+    
     /**
      * Get id
      *
@@ -62,5 +68,28 @@ class Menus
     {
         return $this->dateMenu;
     }
-}
 
+    /**
+     * Set dateValidation
+     *
+     * @param \DateTime $dateValidation
+     *
+     * @return Menus
+     */
+    public function setDateValidation($dateValidation)
+    {
+        $this->dateValidation = $dateValidation;
+
+        return $this;
+    }
+
+    /**
+     * Get dateValidation
+     *
+     * @return \DateTime
+     */
+    public function getDateValidation()
+    {
+        return $this->dateValidation;
+    }
+}

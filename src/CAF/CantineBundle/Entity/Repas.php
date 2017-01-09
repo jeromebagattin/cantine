@@ -27,6 +27,13 @@ class Repas
      * @ORM\Column(name="dateRepas", type="date")
      */
     private $dateRepas;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateValidation", type="date")
+     */
+    private $dateValidation;
 
     /**
      * @var float
@@ -92,5 +99,29 @@ class Repas
     public function getPrixRepas()
     {
         return $this->prixRepas;
+    }
+
+    /**
+     * Set dateValidation
+     *
+     * @param \DateTime $dateValidation
+     *
+     * @return Repas
+     */
+    public function setDateValidation($dateValidation)
+    {
+        $this->dateValidation = $dateValidation;
+
+        return $this;
+    }
+
+    /**
+     * Get dateValidation
+     *
+     * @return \DateTime
+     */
+    public function getDateValidation()
+    {
+        return $this->dateValidation;
     }
 }
