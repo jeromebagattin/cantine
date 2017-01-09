@@ -23,7 +23,7 @@ class PlatsRepository extends \Doctrine\ORM\EntityRepository
     public function tout(QueryBuilder $qb) {
         $qb
             ->andwhere('a.id > :par')
-            ->setparameter('par',3)
+            ->setparameter('par',0)
                 ;
     }
     

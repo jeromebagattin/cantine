@@ -32,6 +32,10 @@ caf_typeplats_view:
     defaults: { _controller: CAFCantineBundle:TypePlats:view}
     requirements:
         id:   \d{1,4}
+
+caf_typeplats_add:
+    path:      /typeplat/add/
+    defaults: { _controller: CAFCantineBundle:TypePlats:add}       
         
 caf_typeplats_add:
     path:      /typeplat/add/{libelle}
