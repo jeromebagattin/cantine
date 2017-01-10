@@ -10,4 +10,11 @@ namespace CAF\CantineBundle\Repository;
  */
 class TypePlatRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function tousTypesPlats() {
+        return $this
+            ->createQueryBuilder('a')
+            ->where('a.id < :var')
+            ->setParameter('var', 5) 
+        ;
+    }
 }

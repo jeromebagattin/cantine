@@ -28,8 +28,6 @@ class TypePlatsController extends Controller {
     }
 
     public function addAction($libelle = '', Request $request) {
-
-        // Création de l'entité
         $typeplat = new TypePlat();
   
         $form = $this->createForm(new TypePlatType(), $typeplat);
@@ -41,7 +39,7 @@ class TypePlatsController extends Controller {
             $em->persist($typeplat);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+            $request->getSession()->getFlashBag()->add('notice', 'Type bien enregistrée.');
             return $this->redirect($this->generateUrl('caf_typeplats_view', array('id' => $typeplat->getId())));
         }
 

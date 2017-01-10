@@ -19,7 +19,11 @@ caf_plats_delete:
     defaults: { _controller: CAFCantineBundle:Plats:delete}
     requirements:
         id:   \d{1,4}
-        
+
+caf_plats_addform:
+    path:      /plats/addform/
+    defaults: { _controller: CAFCantineBundle:Plats:addForm}
+
 caf_plats_add:
     path:      /plats/add/{type}/{libelle}/{porc}
     defaults: { _controller: CAFCantineBundle:Plats:add, porc: 1} 

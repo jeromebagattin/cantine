@@ -3,6 +3,7 @@
 namespace CAF\CantineBundle\Controller;
 
 use CAF\CantineBundle\Entity\Plats;
+use CAF\CantineBundle\Form\PlatsType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,6 +11,25 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PlatsController extends Controller
 {
+    public function addFormAction(Request $request) {
+        $plat = new Plats();
+  
+        $form = $this->createForm(new PlatsType(), $plat);
+
+         if ($form->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($plat);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Plat bien enregistrée.');
+            return $this->redirect($this->generateUrl('caf_plats_view', array('id' => $plat->getId())));
+        }
+
+        return $this->render('CAFCantineBundle:Plats:add.html.twig', array(
+                    'form' => $form->createView(),
+        ));
+    }
+    
     public function addAction($type, $libelle, $porc, Request $request) {
 
         // Création de l'entité
