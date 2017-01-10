@@ -14,6 +14,7 @@ class TypePlatType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('libelle', 'text')
+                ->add('ok', 'submit')
         ;
     }
     

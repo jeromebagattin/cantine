@@ -1,7 +1,8 @@
 <?php
 
 namespace CAF\CantineBundle\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="plats")
  * @ORM\Entity(repositoryClass="CAF\CantineBundle\Repository\PlatsRepository")
+ * @UniqueEntity(fields="libelle", message="Ce plat existe déjà.")
  */
 class Plats
 {
@@ -25,6 +27,7 @@ class Plats
      * @var string
      *
      * @ORM\Column(name="libelle", type="string", length=255, unique=true)
+     * @Assert\Length(min=3)
      */
     private $libelle;
 
@@ -38,6 +41,7 @@ class Plats
      * @var bool
      *
      * @ORM\Column(name="porc", type="boolean")
+     * @Assert\Type("bool")
      */
     private $porc;
 

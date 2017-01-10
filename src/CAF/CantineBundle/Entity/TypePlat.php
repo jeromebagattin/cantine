@@ -3,12 +3,15 @@
 namespace CAF\CantineBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * TypePlat
  *
  * @ORM\Table(name="type_plat")
  * @ORM\Entity(repositoryClass="CAF\CantineBundle\Repository\TypePlatRepository")
+ * @UniqueEntity(fields="libelle", message="Ce type de plat existe déjà.")
  */
 class TypePlat
 {
@@ -30,6 +33,7 @@ class TypePlat
      * @var string
      *
      * @ORM\Column(name="libelle", type="string", length=255, unique=true)
+     * @Assert\Length(min=3, minMessage="Le type de plat doit faire au moins {{ limit }} caractères.")
      */
     private $libelle;
 

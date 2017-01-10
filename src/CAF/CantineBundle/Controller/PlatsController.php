@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PlatsController extends Controller
 {
-    public function addFormAction(Request $request) {
+    public function addAction(Request $request) {
         $plat = new Plats();
   
         $form = $this->createForm(new PlatsType(), $plat);
@@ -30,7 +30,7 @@ class PlatsController extends Controller
         ));
     }
     
-    public function addAction($type, $libelle, $porc, Request $request) {
+    public function ajoutAction($type, $libelle, $porc, Request $request) {
 
         // Création de l'entité
         $plat = new Plats();

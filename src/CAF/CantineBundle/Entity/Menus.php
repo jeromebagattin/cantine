@@ -25,6 +25,7 @@ class Menus
      * @var \DateTime
      *
      * @ORM\Column(name="dateMenu", type="date")
+     * @Assert\Date()
      */
     private $dateMenu;
 
