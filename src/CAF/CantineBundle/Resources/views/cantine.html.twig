@@ -1,0 +1,21 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+  Cantine - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+  {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
+  <h1>Cantine</h1>
+
+  <hr>
+  <div id="menu">
+      {{ render(controller("CAFCantineBundle:Cantine:menu")) }}
+  </div>
+  
+  {# On définit un nouveau bloc, que les vues du bundle pourront remplir #}
+  {% block cafcantine_body %}
+  {% endblock %}
+
+{% endblock %}

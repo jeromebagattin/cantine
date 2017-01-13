@@ -5,7 +5,7 @@ namespace CAF\CantineBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class MenusController extends Controller
+class CantineController extends Controller
 {
     public function indexAction()
     {
@@ -28,11 +28,20 @@ class MenusController extends Controller
         return new Response($content);
     }
     
-    public function ByeAction()
-    {
-        $content = $this->get('templating')->render('CAFCantineBundle:Menus:Bye.html.twig', array (
-             'nom' => 'jerome'
+    public function menuAction() {
+        // On fixe en dur une liste ici, bien entendu par la suite
+        // on la récupérera depuis la BDD !
+        $listMenu = array(
+            array('id' => 2, 'title' => 'Menus'),
+            array('id' => 5, 'title' => 'Repas'),
+            array('id' => 9, 'title' => 'Plats')
+        );
+
+        return $this->render('CAFCantineBundle:Cantine:menu.html.twig', array(
+                    // Tout l'intérêt est ici : le contrôleur passe
+                    // les variables nécessaires au template !
+                    'listMenu' => $listMenu
         ));
-        return new Response($content);
     }
+    
 }

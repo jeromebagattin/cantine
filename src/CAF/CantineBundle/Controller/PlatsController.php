@@ -84,19 +84,19 @@ class PlatsController extends Controller
         return new Response($content);
     }
     
-    public function viewAction($id, Request $request)
+    public function viewAction(Request $request)
     {
         $repository = $this->getDoctrine()
                 ->getManager()
                 ->getRepository('CAFCantineBundle:Plats')
         ;
-        $plat = $repository->find($id);
-        if (null === $plat) {
-            throw new NotFoundHttpException("Le plat d'id " . $id . " n'existe pas.");
+        $plats = $repository->myFindAll;
+        if (null === $plats) {
+            throw new NotFoundHttpException("Pas de plats.");
         }
 
         $content = $this->renderView('CAFCantineBundle:Plats:view.html.twig', array (
-             'plat' => $plat
+             'plats' => $plats
         ));
         $tag = $request->query->get('tag');
         return new Response($content);

@@ -1,0 +1,11 @@
+{# src/CAF/CantineBundle/Resources/views/Cantine/menu.html.twig #}
+
+<ul class="nav nav-pills nav-stacked">
+  {% for entree in listMenu %}
+    <li>
+      <a href="{{ path('caf_plats_view', {'id': entree.id}) }}">
+        {{ entree.title }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>

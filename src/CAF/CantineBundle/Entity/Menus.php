@@ -33,6 +33,7 @@ class Menus
      * @var \DateTime
      *
      * @ORM\Column(name="dateValidation", type="date")
+     * @Assert\Date()
      */
     private $dateValidation;
     

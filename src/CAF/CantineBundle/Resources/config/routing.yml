@@ -1,12 +1,10 @@
 caf_cantine_home:
     path:      /
-    defaults: { _controller: CAFCantineBundle:Menus:index }
+    defaults: { _controller: CAFCantineBundle:Cantine:index }
 
 caf_plats_view:
-    path:      /plats/{id}
+    path:      /plats/
     defaults: { _controller: CAFCantineBundle:Plats:view}
-    requirements:
-        id:   \d{1,4}
         
 caf_plats_edit:
     path:      /plats/edit/{id}

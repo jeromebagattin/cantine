@@ -6,13 +6,12 @@
         <title>Bienvenue sur plats !</title>
     </head>
     <body>
-       <h1>Plats : {{ plat.libelle }}  - type de plat : {{plat.typePlat.libelle}}</h1>
-
-        <p>
-            Plat suivant : 
-            <a href="{{ url('caf_plats_view', { 'id': plat.id + 1}) }}">
-                Lien vers le plat d'id {{ plat.id + 1 }}
-            </a>
-        </p>
+        <ul class="nav nav-pills nav-stacked">
+            {% for plat in plats %}
+                <li>
+                   {{ plat.libelle}}
+                </li>
+            {% endfor %}
+        </ul>
     </body>
 </html>
