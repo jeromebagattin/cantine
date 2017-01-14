@@ -10,7 +10,24 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TypePlatsController extends Controller {
 
-    public function viewAction($id, Request $request) {
+    public function viewAction(Request $request) {
+        $repository = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('CAFCantineBundle:TypePlat')
+        ;
+        $typeplats = $repository->findAll();
+        if (null === $typeplats) {
+            throw new NotFoundHttpException("Pas de type de plat.");
+        }
+
+        $content = $this->renderView('CAFCantineBundle:TypePlats:view.html.twig', array(
+            'typeplats' => $typeplats
+        ));
+        $tag = $request->query->get('tag');
+        return new Response($content);
+    }
+    
+    public function editAction($id, Request $request) {
         $repository = $this->getDoctrine()
                 ->getManager()
                 ->getRepository('CAFCantineBundle:TypePlat')

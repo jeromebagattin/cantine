@@ -1,17 +1,29 @@
 {# src/CAF/CantineBundle/Resources/views/TypePlats/index.html.twig #}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Bienvenue sur ma première page avec OpenClassrooms !</title>
-    </head>
-    <body>
+{#
         <h1>id plat : {{typeplat.id}} - Type de plats : {{ typeplat.libelle }}</h1>
         <ul>
             {% for plat in typeplat.plats %}
                 <li>{{ plat.id }} - {{ plat.libelle }}</li>
             {% endfor %}
-        </ul>
+        </ul>#}
         
-    </body>
-</html>
+    
+
+{% extends "CAFCantineBundle::cantine.html.twig" %}
+
+{% block title %}
+  Type de plats - {{ parent() }}
+{% endblock %}
+
+{% block cafcantine_body %}
+    <ul class="nav nav-pills nav-stacked">
+        {% for typeplat in typeplats %}
+            <li>
+                {{ typeplat.libelle}}
+            </li>
+        {% endfor %}
+    </ul>
+      <a href="{{ path('caf_typeplats_add') }}"> + </a>  
+    
+{% endblock %}

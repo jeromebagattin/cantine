@@ -3,7 +3,7 @@
 <ul class="nav nav-pills nav-stacked">
   {% for entree in listMenu %}
     <li>
-      <a href="{{ path('caf_plats_view', {'id': entree.id}) }}">
+      <a href="{{ path(entree.route) }}">
         {{ entree.title }}
       </a>
     </li>

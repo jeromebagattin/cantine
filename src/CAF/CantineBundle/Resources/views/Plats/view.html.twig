@@ -1,17 +1,18 @@
 {# src/CAF/CantineBundle/Resources/views/Menus/index.html.twig #}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Bienvenue sur plats !</title>
-    </head>
-    <body>
-        <ul class="nav nav-pills nav-stacked">
-            {% for plat in plats %}
-                <li>
-                   {{ plat.libelle}}
-                </li>
-            {% endfor %}
-        </ul>
-    </body>
-</html>
+{% extends "CAFCantineBundle::cantine.html.twig" %}
+
+{% block title %}
+  Plats - {{ parent() }}
+{% endblock %}
+
+{% block cafcantine_body %}
+    <ul class="nav nav-pills nav-stacked">
+        {% for plat in plats %}
+            <li>
+                {{ plat.libelle}}
+            </li>
+        {% endfor %}
+    </ul>
+        <a href="{{ path('caf_plats_addform') }}"> + </a> 
+{% endblock %}

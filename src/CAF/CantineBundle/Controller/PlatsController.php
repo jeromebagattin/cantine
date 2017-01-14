@@ -90,7 +90,7 @@ class PlatsController extends Controller
                 ->getManager()
                 ->getRepository('CAFCantineBundle:Plats')
         ;
-        $plats = $repository->myFindAll;
+        $plats = $repository->myFindAll();
         if (null === $plats) {
             throw new NotFoundHttpException("Pas de plats.");
         }

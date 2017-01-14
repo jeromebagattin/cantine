@@ -30,10 +30,8 @@ caf_plats_add:
         porc:   0|1
         
 caf_typeplats_view:
-    path:      /typeplat/{id}
+    path:      /typeplat/
     defaults: { _controller: CAFCantineBundle:TypePlats:view}
-    requirements:
-        id:   \d{1,4}
 
 caf_typeplats_add:
     path:      /typeplat/add/
@@ -44,14 +42,15 @@ caf_typeplats_add:
     defaults: { _controller: CAFCantineBundle:TypePlats:add} 
         
 caf_repas_view:
-    path:      /repas/{id}
+    path:      /repas/
     defaults: { _controller: CAFCantineBundle:Repas:view}
-    requirements:
-        id:   \d{1,4}
         
 caf_repas_add:
     path:      /repas/add
     defaults: { _controller: CAFCantineBundle:Repas:add }
 
-
+caf_menus_view:
+    path:      /menus/
+    defaults: { _controller: CAFCantineBundle:Menus:view}
+    
     
