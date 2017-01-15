@@ -1,0 +1,22 @@
+{# src/OC/PlatformBundle/Resources/views/Cantine/index.html.twig #}
+
+{% extends "CAFCantineBundle::cantine.html.twig" %}
+
+{% block title %}
+  Menus - {{ parent() }}
+{% endblock %}
+
+{% block cafcantine_body %}
+
+  <h2>Menu</h2>
+
+  <ul class="nav nav-pills nav-stacked">
+        {% for plat in plats %}
+            <li>
+                {{ plat.libelle}}
+            </li>
+        {% endfor %}
+    </ul>
+        <a href="{{ path('caf_menus_add') }}"> + </a>
+
+{% endblock %}

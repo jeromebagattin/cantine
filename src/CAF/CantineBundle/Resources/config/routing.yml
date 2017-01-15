@@ -46,11 +46,13 @@ caf_repas_view:
     defaults: { _controller: CAFCantineBundle:Repas:view}
         
 caf_repas_add:
-    path:      /repas/add
+    path:      /repas/add/
     defaults: { _controller: CAFCantineBundle:Repas:add }
 
 caf_menus_view:
     path:      /menus/
     defaults: { _controller: CAFCantineBundle:Menus:view}
     
-    
+caf_menus_add:
+    path:      /menus/add/
+    defaults: { _controller: CAFCantineBundle:Menus:add}
