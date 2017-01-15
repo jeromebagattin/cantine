@@ -5,6 +5,7 @@ namespace CAF\CantineBundle\Controller;
 use CAF\CantineBundle\Entity\Menus;
 use CAF\CantineBundle\Form\MenusType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -42,7 +43,7 @@ class MenusController extends Controller
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Menu bien enregistrée.');
-            return $this->redirect($this->generateUrl('caf_menu_view', array('id' => $menu->getId())));
+            return $this->redirect($this->generateUrl('caf_menus_view', array('id' => $menu->getId())));
         }
 
         return $this->render('CAFCantineBundle:Menus:add.html.twig', array(

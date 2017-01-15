@@ -14,7 +14,8 @@ class MenusType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('dateMenu', 'date')                
+        $builder->add('dateMenu', 'date')
+                ->add('dateValidation', 'date')
                 ->add('ok', 'submit')
         ;
     }
