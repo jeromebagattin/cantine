@@ -14,9 +14,8 @@ class MenusPlatsType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('menus', new MenusType())
                 ->add('lettre', 'text')
-                ->add('ok', 'submit')
+                
         ;
     }
 

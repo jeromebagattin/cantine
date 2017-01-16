@@ -27,7 +27,8 @@ class MenusType extends AbstractType
                         return $repo->mFindAll();
                     }
                 ))
-        ;
+                ->add('ok', 'submit')
+                ;
     }
 
     /**
