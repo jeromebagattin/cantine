@@ -44,7 +44,7 @@ class MenusController extends Controller {
                 // Se the message and user for current feedback
                 $choix->setMenus($menu);
                 $choix->setPlats($plat);
-                $choix->setLettre('A');
+                $choix->setLettre($form->get('letter')->getData());
                 // Persist the owning side
                 $em->persist($choix);
 

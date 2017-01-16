@@ -27,6 +27,10 @@ class MenusType extends AbstractType
                         return $repo->mFindAll();
                     }
                 ))
+                ->add('letter', 'text', array(
+                    'label'         => 'Lettre',
+                    'mapped' => false
+                ))
                 ->add('ok', 'submit')
                 ;
     }
