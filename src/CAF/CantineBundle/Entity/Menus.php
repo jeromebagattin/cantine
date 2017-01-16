@@ -22,6 +22,11 @@ class Menus
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="CAF\CantineBundle\Entity\MenusPlats", mappedBy="menus")
+     */
+    private $menus_r;
 
     /**
      * @var \DateTime
@@ -95,5 +100,46 @@ class Menus
     public function getDateValidation()
     {
         return $this->dateValidation;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->menus_r = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add menusR
+     *
+     * @param \CAF\CantineBundle\Entity\MenusPlats $menusR
+     *
+     * @return Menus
+     */
+    public function addMenusR(\CAF\CantineBundle\Entity\MenusPlats $menusR)
+    {
+        $this->menus_r[] = $menusR;
+
+        return $this;
+    }
+
+    /**
+     * Remove menusR
+     *
+     * @param \CAF\CantineBundle\Entity\MenusPlats $menusR
+     */
+    public function removeMenusR(\CAF\CantineBundle\Entity\MenusPlats $menusR)
+    {
+        $this->menus_r->removeElement($menusR);
+    }
+
+    /**
+     * Get menusR
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMenusR()
+    {
+        return $this->menus_r;
     }
 }

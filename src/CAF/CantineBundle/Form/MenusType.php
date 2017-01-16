@@ -5,7 +5,7 @@ namespace CAF\CantineBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use CAF\CantineBundle\Repository\MenusRepository;
+use CAF\CantineBundle\Repository\PlatsRepository;
 
 class MenusType extends AbstractType
 {
@@ -16,7 +16,17 @@ class MenusType extends AbstractType
     {
         $builder->add('dateMenu', 'date')
                 ->add('dateValidation', 'date')
-                ->add('ok', 'submit')
+                ->add('plats', 'entity', array(
+                    'class' => 'CAFCantineBundle:Plats',
+                    'label'         => 'Plats',
+                    'property' => 'libelle',
+                    'mapped' => false,
+                    'multiple' => true,
+                    'expanded'      => true,
+                    'query_builder' => function(PlatsRepository $repo) {
+                        return $repo->mFindAll();
+                    }
+                ))
         ;
     }
 

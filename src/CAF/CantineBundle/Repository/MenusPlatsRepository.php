@@ -10,4 +10,10 @@ namespace CAF\CantineBundle\Repository;
  */
 class MenusPlatsRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function myFindAll() {
+       return $this
+        ->createQueryBuilder('a')
+        ;
+    }
+    
 }

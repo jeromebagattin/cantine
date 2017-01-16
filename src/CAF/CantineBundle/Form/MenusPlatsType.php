@@ -5,17 +5,21 @@ namespace CAF\CantineBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use CAF\CantineBundle\Repository\PlatsRepository;
 
 class MenusPlatsType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('lettre')->add('menus')->add('plats')        ;
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder
+                ->add('menus', new MenusType())
+                ->add('lettre', 'text')
+                ->add('ok', 'submit')
+        ;
     }
-    
+
     /**
      * {@inheritdoc}
      */

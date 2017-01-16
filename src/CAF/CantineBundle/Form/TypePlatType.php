@@ -5,6 +5,7 @@ namespace CAF\CantineBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use CAF\CantineBundle\Repository\PlatsRepository;
 
 class TypePlatType extends AbstractType
 {
@@ -14,6 +15,14 @@ class TypePlatType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('libelle', 'text')
+                ->add('plats', 'entity', array(
+                    'class' => 'CAFCantineBundle:Plats',
+                    'property' => 'libelle',
+                    'multiple' => true,
+                    'query_builder' => function(PlatsRepository $repo) {
+                        return $repo->mFindAll();
+                    }
+                ))
                 ->add('ok', 'submit')
         ;
     }

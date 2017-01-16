@@ -12,6 +12,13 @@ use Doctrine\ORM\QueryBuilder;
  */
 class PlatsRepository extends \Doctrine\ORM\EntityRepository
 {
+    
+    public function mFindAll() {
+       return $this
+        ->createQueryBuilder('a')
+        ;
+    }
+    
     public function myFindAll() {
        return $this
         ->createQueryBuilder('a')

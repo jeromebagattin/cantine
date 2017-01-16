@@ -22,7 +22,7 @@ class MenusPlats
     private $id;
 
      /**
-     * @ORM\ManyToOne(targetEntity="CAF\CantineBundle\Entity\Menus", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="CAF\CantineBundle\Entity\Menus", inversedBy="menus_r", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $menus;

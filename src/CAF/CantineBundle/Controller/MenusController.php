@@ -5,7 +5,6 @@ namespace CAF\CantineBundle\Controller;
 use CAF\CantineBundle\Entity\Menus;
 use CAF\CantineBundle\Form\MenusType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -34,12 +33,28 @@ class MenusController extends Controller
     public function addAction(Request $request)
     {
         $menu = new Menus();
-
         $form = $this->createForm(new MenusType(), $menu);
+        
+        
 
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($menu);
+            
+            foreach ($form->get('plats')->getData() as $plat) {
+                $choix = new MenusPlats();
+
+                // Se the message and user for current feedback
+                $choix->setMenu($menu);
+                $choix->setPlat($plat);
+
+                // Persist the owning side
+                $em->persist($choix);
+
+                // Sync the inverse side
+                $menu->addManusPlats($choix);
+            }
+            
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Menu bien enregistrée.');
