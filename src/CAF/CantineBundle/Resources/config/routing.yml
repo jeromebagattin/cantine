@@ -1,6 +1,6 @@
 caf_cantine_home:
     path:      /
-    defaults: { _controller: CAFCantineBundle:Cantine:index }
+    defaults: { _controller: CAFCantineBundle:Cantine:menu }
 
 caf_plats_view:
     path:      /plats/
@@ -37,9 +37,11 @@ caf_typeplats_add:
     path:      /typeplat/add/
     defaults: { _controller: CAFCantineBundle:TypePlats:add}       
         
-caf_typeplats_add:
-    path:      /typeplat/add/{libelle}
-    defaults: { _controller: CAFCantineBundle:TypePlats:add} 
+caf_typeplats_delete:
+    path:      /typeplat/del/{libelle}
+    defaults: { _controller: CAFCantineBundle:TypePlats:delete} 
+    requirements:
+        id:   \d{1,4}   
         
 caf_repas_view:
     path:      /repas/
