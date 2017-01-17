@@ -18,7 +18,7 @@ class MenusType extends AbstractType
                 ->add('dateValidation', 'date')
                 ->add('plats', 'entity', array(
                     'class' => 'CAFCantineBundle:Plats',
-                    'label'         => 'Plats',
+                    'label'         => 'A',
                     'property' => 'libelle',
                     'mapped' => false,
                     'multiple' => true,
@@ -27,10 +27,7 @@ class MenusType extends AbstractType
                         return $repo->mFindAll();
                     }
                 ))
-                ->add('letter', 'text', array(
-                    'label'         => 'Lettre',
-                    'mapped' => false
-                ))
+                  
                 ->add('ok', 'submit')
                 ;
     }
