@@ -17,15 +17,15 @@ class MenusType extends AbstractType
         $builder->add('dateMenu', 'date')
                 ->add('dateValidation', 'date')
                 ->add('plats', 'entity', array(
-                    'class' => 'CAFCantineBundle:Plats',
+                    'class' => 'CAFCantineBundle:Menus',
                     'label'         => 'Plats du menu : ',
-                    'property' => 'libelle',
-                    'mapped' => false,
+                    'property' => 'plats',
+//                    'mapped' => false,
                     'multiple' => true,
                     'expanded'      => true,
-                    'query_builder' => function(PlatsRepository $repo) {
-                        return $repo->mFindAll();
-                    }
+//                    'query_builder' => function(PlatsRepository $repo) {
+//                        return $repo->mFindAll();
+//                    }
                 ))
                   
                 ->add('ok', 'submit')

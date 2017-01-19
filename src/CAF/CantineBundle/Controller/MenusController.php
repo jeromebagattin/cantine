@@ -33,20 +33,20 @@ class MenusController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($menu);
 
-            foreach ($form->get('plats')->getData() as $plat) {
-                $choix = new MenusPlats();
-
-                // Se the message and user for current feedback
-                $choix->setMenus($menu);
-                $choix->setPlats($plat);
-                //$choix->setLettre($form->get('letter')->getData());
-                $choix->setLettre('_');
-                // Persist the owning side
-                $em->persist($choix);
-
-                // Sync the inverse side
-                //$menu->addMenusPlats($choix);
-            }
+//            foreach ($form->get('plats')->getData() as $plat) {
+//                $choix = new MenusPlats();
+//
+//                // Se the message and user for current feedback
+//                $choix->setMenus($menu);
+//                $choix->setPlats($plat);
+//                //$choix->setLettre($form->get('letter')->getData());
+//                $choix->setLettre('_');
+//                // Persist the owning side
+//                $em->persist($choix);
+//
+//                // Sync the inverse side
+//                //$menu->addMenusPlats($choix);
+//            }
 
             $em->flush();
 

@@ -24,11 +24,6 @@ class Menus
     private $id;
     
     /**
-     * @ORM\OneToMany(targetEntity="CAF\CantineBundle\Entity\MenusPlats", mappedBy="menus")
-     */
-    private $menus_r;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateMenu", type="date")
@@ -45,6 +40,13 @@ class Menus
     private $dateValidation;
     
     /**
+     * @ORM\OneToMany(targetEntity="CAF\CantineBundle\Entity\MenusPlats", mappedBy="menus")
+     */
+    private $mp;
+    
+    private $plats;
+    
+    /**
      * Get id
      *
      * @return int
@@ -53,7 +55,7 @@ class Menus
     {
         return $this->id;
     }
-
+    
     /**
      * Set dateMenu
      *
@@ -106,40 +108,73 @@ class Menus
      */
     public function __construct()
     {
-        $this->menus_r = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->mp = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->plats = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    public function getPlats()
+    {
+        $plats = new \Doctrine\Common\Collections\ArrayCollection();
+        
+        foreach($this->mp as $p)
+        {
+            $plats[] = $p->getPlats();
+        }
+
+        return $plats;
+    }
+    
+    // Important
+    public function setPlats($plats)
+    {
+        foreach($plats as $p)
+        {
+            $mp = new MenuPlats();
+
+            $mp->setMenus($this);
+            $mp->setPlats($p);
+
+            $this->addMp($mp);
+        }
+
+    }
+
+    public function getMenus()
+    {
+        return $this;
+    }
+    
     /**
-     * Add menusR
+     * Add mp
      *
-     * @param \CAF\CantineBundle\Entity\MenusPlats $menusR
+     * @param \CAF\CantineBundle\Entity\MenusPlats $mp
      *
      * @return Menus
      */
-    public function addMenusR(\CAF\CantineBundle\Entity\MenusPlats $menusR)
+    public function addMp(\CAF\CantineBundle\Entity\MenusPlats $mp)
     {
-        $this->menus_r[] = $menusR;
+        $this->mp[] = $mp;
 
         return $this;
     }
 
     /**
-     * Remove menusR
+     * Remove mp
      *
-     * @param \CAF\CantineBundle\Entity\MenusPlats $menusR
+     * @param \CAF\CantineBundle\Entity\MenusPlats $mp
      */
-    public function removeMenusR(\CAF\CantineBundle\Entity\MenusPlats $menusR)
+    public function removeMp(\CAF\CantineBundle\Entity\MenusPlats $mp)
     {
-        $this->menus_r->removeElement($menusR);
+        $this->mp->removeElement($mp);
     }
 
     /**
-     * Get menusR
+     * Get mp
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getMenusR()
+    public function getMp()
     {
-        return $this->menus_r;
+        return $this->mp;
     }
 }

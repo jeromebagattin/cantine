@@ -1,6 +1,7 @@
 <?php
 
 namespace CAF\CantineBundle\Entity;
+
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,8 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="CAF\CantineBundle\Repository\PlatsRepository")
  * @UniqueEntity(fields="libelle", message="Ce plat existe déjà.")
  */
-class Plats
-{
+class Plats {
+
     /**
      * @var int
      *
@@ -45,16 +46,17 @@ class Plats
      */
     private $porc;
 
-
-    
+    /**
+     * @ORM\OneToMany(targetEntity="CAF\CantineBundle\Entity\MenusPlats", mappedBy="plats")
+     */
+    private $mp;
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -65,8 +67,7 @@ class Plats
      *
      * @return Plats
      */
-    public function setLibelle($libelle)
-    {
+    public function setLibelle($libelle) {
         $this->libelle = $libelle;
 
         return $this;
@@ -77,8 +78,7 @@ class Plats
      *
      * @return string
      */
-    public function getLibelle()
-    {
+    public function getLibelle() {
         return $this->libelle;
     }
 
@@ -89,8 +89,7 @@ class Plats
      *
      * @return Plats
      */
-    public function setPorc($porc)
-    {
+    public function setPorc($porc) {
         $this->porc = $porc;
 
         return $this;
@@ -101,8 +100,7 @@ class Plats
      *
      * @return boolean
      */
-    public function getPorc()
-    {
+    public function getPorc() {
         return $this->porc;
     }
 
@@ -113,8 +111,7 @@ class Plats
      *
      * @return Plats
      */
-    public function setTypePlat(\CAF\CantineBundle\Entity\TypePlat $typePlat)
-    {
+    public function setTypePlat(\CAF\CantineBundle\Entity\TypePlat $typePlat) {
         $this->typePlat = $typePlat;
 
         return $this;
@@ -125,8 +122,8 @@ class Plats
      *
      * @return \CAF\CantineBundle\Entity\TypePlat
      */
-    public function getTypePlat()
-    {
+    public function getTypePlat() {
         return $this->typePlat;
     }
+
 }

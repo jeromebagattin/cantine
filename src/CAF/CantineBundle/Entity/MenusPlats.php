@@ -22,13 +22,13 @@ class MenusPlats
     private $id;
 
      /**
-     * @ORM\ManyToOne(targetEntity="CAF\CantineBundle\Entity\Menus", inversedBy="menus_r", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="CAF\CantineBundle\Entity\Menus", inversedBy="mp", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $menus;
     
      /**
-     * @ORM\ManyToOne(targetEntity="CAF\CantineBundle\Entity\Plats", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="CAF\CantineBundle\Entity\Plats", inversedBy="mp", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $plats;
