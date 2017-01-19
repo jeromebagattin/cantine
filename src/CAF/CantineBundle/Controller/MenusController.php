@@ -12,20 +12,15 @@ use Symfony\Component\HttpFoundation\Request;
 class MenusController extends Controller {
 
     public function viewAction() {
-
-        $repository = $this
-                ->getDoctrine()
-                ->getManager()
-                ->getRepository('CAFCantineBundle:Plats')
-        ;
-
-        $plats = $repository->myFindAll();
-        if (null === $plats) {
-            throw new NotFoundHttpException("Pas de plats.");
+        $em = $this->getDoctrine()->getManager();
+        $menus = $em->getRepository('CAFCantineBundle:Menus')->findAll();
+        
+        if (null === $menus) {
+            throw new NotFoundHttpException("Pas de Menus.");
         }
 
         $content = $this->get('templating')->render('CAFCantineBundle:Menus:view.html.twig', array(
-            'plats' => $plats
+            'menus' => $menus
         ));
         return new Response($content);
     }
@@ -62,6 +57,36 @@ class MenusController extends Controller {
         return $this->render('CAFCantineBundle:Menus:add.html.twig', array(
                     'form' => $form->createView(),
         ));
+    }
+    
+    public function editAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $menu = $em->getRepository('CAFCantineBundle:Menus')->find($id);
+        
+        if (null === $menu) {
+            throw new NotFoundHttpException("Le menu d'id " . $id . " n'existe pas.");
+        }
+
+        $form = $this->createForm(new MenusType(), $menu);
+
+        if ($form->handleRequest($request)->isValid()) {
+            $em->persist($menu);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('caf_menus_view'));
+        }
+
+        return $this->render('CAFCantineBundle:Menus:edit.html.twig', array(
+                    'form' => $form->createView(),
+                    'id' => $menu->getId()
+        ));
+        
+        $content = $this->renderView('CAFCantineBundle:Menus:edit.html.twig', array (
+             'nom' => $id
+        ));
+        $tag = $request->query->get('tag');
+        return new Response($content);
     }
 
 }

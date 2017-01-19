@@ -64,3 +64,15 @@ caf_menus_view:
 caf_menus_add:
     path:      /menus/add/
     defaults: { _controller: CAFCantineBundle:Menus:add}
+    
+caf_menus_edit:
+    path:      /menus/edit/{id}
+    defaults: { _controller: CAFCantineBundle:Menus:edit}
+    requirements:
+        id:   \d{1,4}
+
+caf_menus_delete:
+    path:      /menus/del/{id}
+    defaults: { _controller: CAFCantineBundle:Menus:delete}
+    requirements:
+        id:   \d{1,4}

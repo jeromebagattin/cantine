@@ -1,4 +1,4 @@
-{# src/OC/PlatformBundle/Resources/views/Cantine/index.html.twig #}
+{# src/OC/PlatformBundle/Resources/views/Menus/view.html.twig #}
 
 {% extends "CAFCantineBundle::cantine.html.twig" %}
 
@@ -8,12 +8,14 @@
 
 {% block cafcantine_body %}
 
-  <h2>Menu</h2>
+  <h2>Menus</h2>
 
   <ul class="nav nav-pills nav-stacked">
-        {% for plat in plats %}
+        {% for menu in menus %}
             <li>
-                {{ plat.libelle}}
+                <a href="{{ path('caf_menus_edit', {id:menu.id}) }}">
+                    {{ menu.dateMenu | date('d/m/Y') }}
+                </a>
             </li>
         {% endfor %}
     </ul>

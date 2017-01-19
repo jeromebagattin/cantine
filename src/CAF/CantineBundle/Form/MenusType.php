@@ -18,7 +18,7 @@ class MenusType extends AbstractType
                 ->add('dateValidation', 'date')
                 ->add('plats', 'entity', array(
                     'class' => 'CAFCantineBundle:Plats',
-                    'label'         => 'A',
+                    'label'         => 'Plats du menu : ',
                     'property' => 'libelle',
                     'mapped' => false,
                     'multiple' => true,

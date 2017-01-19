@@ -53,12 +53,6 @@ class PlatsController extends Controller
         $em->persist($plat);
         $em->flush();
 
-        // Reste de la méthode qu'on avait déjà écrit
-//        if ($request->isMethod('POST')) {
-//            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
-//            return $this->redirect($this->generateUrl('caf_cantine_view', array('id' => $advert->getId())));
-//        }
-
         return $this->render('CAFCantineBundle:Plats:add.html.twig', array (
             'type'      => $type,
             'libelle'   => $libelle,
