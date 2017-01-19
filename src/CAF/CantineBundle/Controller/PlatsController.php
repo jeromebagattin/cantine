@@ -68,6 +68,30 @@ class PlatsController extends Controller
 
     public function editAction($id, Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $plat = $em->getRepository('CAFCantineBundle:Plats')->find($id);
+        
+        if (null === $plat) {
+            throw new NotFoundHttpException("Le plat d'id " . $id . " n'existe pas.");
+        }
+
+        $form = $this->createForm(new PlatsType(), $plat);
+
+        if ($form->handleRequest($request)->isValid()) {
+            $em->persist($plat);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('caf_plats_view'));
+        }
+
+        return $this->render('CAFCantineBundle:Plats:edit.html.twig', array(
+                    'form' => $form->createView(),
+                    'id' => $plat->getId()
+        ));
+        
+        
+        
+        
         $content = $this->renderView('CAFCantineBundle:Plats:edit.html.twig', array (
              'nom' => $id
         ));
@@ -77,11 +101,17 @@ class PlatsController extends Controller
     
     public function deleteAction($id, Request $request)
     {
-        $content = $this->renderView('CAFCantineBundle:Plats:delete.html.twig', array (
-             'nom' => $id
-        ));
-        $tag = $request->query->get('tag');
-        return new Response($content);
+        $em = $this->getDoctrine()->getManager();
+        $plat = $em->getRepository('CAFCantineBundle:Plats')->find($id);
+
+        if (null === $plat) {
+            throw new NotFoundHttpException("Le plat d'id " . $id . " n'existe pas.");
+        }
+
+        $em->remove($plat);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('caf_plats_view'));
     }
     
     public function viewAction(Request $request)

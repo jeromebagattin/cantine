@@ -8,5 +8,8 @@
 {% block cafcantine_body %}
 
   <h2>Editer un plat</h2>
-        {#{{ form(form) }}#}
+  {{ form(form) }}
+        <a href="{{ path('caf_plats_delete', {id:id}) }}">
+            Supprimer
+        </a>
 {% endblock %}
