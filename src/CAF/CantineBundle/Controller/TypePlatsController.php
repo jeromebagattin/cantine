@@ -26,7 +26,7 @@ class TypePlatsController extends Controller {
         $tag = $request->query->get('tag');
         return new Response($content);
     }
-    
+
     public function editAction($id, Request $request) {
         $repository = $this->getDoctrine()
                 ->getManager()
@@ -37,21 +37,42 @@ class TypePlatsController extends Controller {
             throw new NotFoundHttpException("Le typeplat d'id " . $id . " n'existe pas.");
         }
 
-        $content = $this->renderView('CAFCantineBundle:TypePlats:view.html.twig', array(
-            'typeplat' => $typeplat
+        $form = $this->createForm(new TypePlatType(), $typeplat);
+
+        if ($form->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($typeplat);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('caf_typeplats_view'));
+        }
+
+        return $this->render('CAFCantineBundle:TypePlats:edit.html.twig', array(
+                    'form' => $form->createView(),
+                    'id' => $typeplat->getId()
         ));
-        $tag = $request->query->get('tag');
-        return new Response($content);
+    }
+
+    public function deleteAction($id, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $typeplat = $em->getRepository('CAFCantineBundle:TypePlat')->find($id);
+
+        if (null === $typeplat) {
+            throw new NotFoundHttpException("Le typeplat d'id " . $id . " n'existe pas.");
+        }
+
+        $em->remove($typeplat);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('caf_typeplats_view'));
     }
 
     public function addAction($libelle = '', Request $request) {
         $typeplat = new TypePlat();
-  
+
         $form = $this->createForm(new TypePlatType(), $typeplat);
 
-        
-
-         if ($form->handleRequest($request)->isValid()) {
+        if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($typeplat);
             $em->flush();

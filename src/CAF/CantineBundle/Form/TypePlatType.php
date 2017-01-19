@@ -15,14 +15,6 @@ class TypePlatType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('libelle', 'text')
-                ->add('plats', 'entity', array(
-                    'class' => 'CAFCantineBundle:Plats',
-                    'property' => 'libelle',
-                    'multiple' => true,
-                    'query_builder' => function(PlatsRepository $repo) {
-                        return $repo->mFindAll();
-                    }
-                ))
                 ->add('ok', 'submit')
         ;
     }

@@ -36,9 +36,15 @@ caf_typeplats_view:
 caf_typeplats_add:
     path:      /typeplat/add/
     defaults: { _controller: CAFCantineBundle:TypePlats:add}       
+
+caf_typeplats_edit:
+    path:      /typeplat/edit/{id}
+    defaults: { _controller: CAFCantineBundle:TypePlats:edit} 
+    requirements:
+        id:   \d{1,4}   
         
 caf_typeplats_delete:
-    path:      /typeplat/del/{libelle}
+    path:      /typeplat/del/{id}
     defaults: { _controller: CAFCantineBundle:TypePlats:delete} 
     requirements:
         id:   \d{1,4}   

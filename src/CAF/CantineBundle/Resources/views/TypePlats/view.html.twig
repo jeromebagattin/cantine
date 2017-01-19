@@ -20,7 +20,9 @@
     <ul class="nav nav-pills nav-stacked">
         {% for typeplat in typeplats %}
             <li>
-                {{ typeplat.libelle}}
+                <a href="{{ path('caf_typeplats_edit', {id:typeplat.id}) }}">
+                    {{ typeplat.libelle}}
+                </a>  
             </li>
         {% endfor %}
     </ul>

@@ -1,13 +1,12 @@
-{# src/CAF/CantineBundle/Resources/views/Menus/index.html.twig #}
+{# src/CAF/CantineBundle/Resources/views/Plats/edit.html.twig #}
+{% extends "CAFCantineBundle::cantine.html.twig" %}
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Bienvenue sur plats !</title>
-    </head>
-    <body>
-        <h1>Edite Plats {{ nom }}</h1>
+{% block title %}
+  Edit Plats - {{ parent() }}
+{% endblock %}
 
-        
-    </body>
-</html>
+{% block cafcantine_body %}
+
+  <h2>Editer un plat</h2>
+        {#{{ form(form) }}#}
+{% endblock %}
