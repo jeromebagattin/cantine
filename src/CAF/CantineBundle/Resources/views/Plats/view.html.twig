@@ -3,9 +3,18 @@
 {% extends "CAFCantineBundle::cantine.html.twig" %}
 
 {% block title %}
-    Plats - {{ parent() }}
+  Plats - {{ parent() }}
 {% endblock %}
 
 {% block cafcantine_body %}
-    {{ plat.libelle }} - {{ plat.typeplat.libelle}}
+    <ul class="nav nav-pills nav-stacked">
+        {% for plat in plats %}
+            <li>
+                <a href="{{ path('caf_plats_edit', {id:plat.id}) }}">
+                    {{ plat.libelle}}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+        <a href="{{ path('caf_plats_add') }}"> + </a> 
 {% endblock %}

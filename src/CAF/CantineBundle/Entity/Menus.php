@@ -5,7 +5,6 @@ namespace CAF\CantineBundle\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
-use CAF\CantineBundle\Entity\MenusPlats;
 
 /**
  * Menus
@@ -41,7 +40,7 @@ class Menus
     private $dateValidation;
     
     /**
-     * @ORM\OneToMany(targetEntity="CAF\CantineBundle\Entity\MenusPlats", mappedBy="menus", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="CAF\CantineBundle\Entity\MenusPlats", mappedBy="menus")
      */
     private $mp;
     
@@ -130,12 +129,11 @@ class Menus
     {
         foreach($plats as $p)
         {
-            $mp = new MenusPlats();
+            $mp = new MenuPlats();
 
             $mp->setMenus($this);
             $mp->setPlats($p);
-            $mp->setLettre('_');
-            
+
             $this->addMp($mp);
         }
 

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TypePlatsController extends Controller {
 
-    public function indexAction(Request $request) {
+    public function viewAction(Request $request) {
         $repository = $this->getDoctrine()
                 ->getManager()
                 ->getRepository('CAFCantineBundle:TypePlat')
@@ -20,7 +20,7 @@ class TypePlatsController extends Controller {
             throw new NotFoundHttpException("Pas de type de plat.");
         }
 
-        $content = $this->renderView('CAFCantineBundle:TypePlats:index.html.twig', array(
+        $content = $this->renderView('CAFCantineBundle:TypePlats:view.html.twig', array(
             'typeplats' => $typeplats
         ));
         $tag = $request->query->get('tag');
@@ -44,7 +44,7 @@ class TypePlatsController extends Controller {
             $em->persist($typeplat);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('caf_typeplats_index'));
+            return $this->redirect($this->generateUrl('caf_typeplats_view'));
         }
 
         return $this->render('CAFCantineBundle:TypePlats:edit.html.twig', array(
@@ -64,7 +64,7 @@ class TypePlatsController extends Controller {
         $em->remove($typeplat);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('caf_typeplats_index'));
+        return $this->redirect($this->generateUrl('caf_typeplats_view'));
     }
 
     public function addAction($libelle = '', Request $request) {
@@ -78,7 +78,7 @@ class TypePlatsController extends Controller {
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Type bien enregistrée.');
-            return $this->redirect($this->generateUrl('caf_typeplats_index', array('id' => $typeplat->getId())));
+            return $this->redirect($this->generateUrl('caf_typeplats_view', array('id' => $typeplat->getId())));
         }
 
         return $this->render('CAFCantineBundle:TypePlats:add.html.twig', array(
