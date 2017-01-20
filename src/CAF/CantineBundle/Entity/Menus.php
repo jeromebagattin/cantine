@@ -79,7 +79,7 @@ class Menus
     {
         return $this->dateMenu;
     }
-
+    
     /**
      * Set dateValidation
      *
@@ -111,7 +111,7 @@ class Menus
         $this->mp = new \Doctrine\Common\Collections\ArrayCollection();
         $this->plats = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
+    
     public function getPlats()
     {
         $plats = new \Doctrine\Common\Collections\ArrayCollection();
