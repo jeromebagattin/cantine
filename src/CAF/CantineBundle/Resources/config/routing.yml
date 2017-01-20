@@ -2,62 +2,62 @@ caf_cantine_home:
     path:      /
     defaults: { _controller: CAFCantineBundle:Cantine:menu }
 
-caf_plat_index:
-    path:      /plat
-    defaults: { _controller: CAFCantineBundle:Plat:index}
+caf_plats_index:
+    path:      /plats
+    defaults: { _controller: CAFCantineBundle:Plats:index}
         
-caf_plat_view:
-    path:      /plat/view/{id}
-    defaults: { _controller: CAFCantineBundle:Plat:view}
+caf_plats_view:
+    path:      /plats/view/{id}
+    defaults: { _controller: CAFCantineBundle:Plats:view}
     requirements:
         id:   \d{1,4}
         
-caf_plat_edit:
-    path:      /plat/edit/{id}
-    defaults: { _controller: CAFCantineBundle:Plat:edit}
+caf_plats_edit:
+    path:      /plats/edit/{id}
+    defaults: { _controller: CAFCantineBundle:Plats:edit}
     requirements:
         id:   \d{1,4}
         
-caf_plat_delete:
-    path:      /plat/delete/{id}
-    defaults: { _controller: CAFCantineBundle:Plat:delete}
+caf_plats_delete:
+    path:      /plats/delete/{id}
+    defaults: { _controller: CAFCantineBundle:Plats:delete}
     requirements:
         id:   \d{1,4}
 
-caf_plat_add:
-    path:      /plat/add
-    defaults: { _controller: CAFCantineBundle:Plat:add}
+caf_plats_add:
+    path:      /plats/add
+    defaults: { _controller: CAFCantineBundle:Plats:add}
 
-caf_plat_ajout:
-    path:      /plat/ajout/{type}/{libelle}/{porc}
-    defaults: { _controller: CAFCantineBundle:Plat:ajout, porc: 1} 
+caf_plats_ajout:
+    path:      /plats/ajout/{type}/{libelle}/{porc}
+    defaults: { _controller: CAFCantineBundle:Plats:ajout, porc: 1} 
     requirements:
         type:   \d{1}
         porc:   0|1
         
-caf_typeplat_index:
+caf_typeplats_index:
     path:      /typeplat
-    defaults: { _controller: CAFCantineBundle:Typeplat:index}
+    defaults: { _controller: CAFCantineBundle:TypePlats:index}
 
-caf_typeplat_view:
+caf_typeplats_view:
     path:      /typeplat/{id}
-    defaults: { _controller: CAFCantineBundle:Typeplat:view}
+    defaults: { _controller: CAFCantineBundle:TypePlats:view}
     requirements:
         id:   \d{1,4}
         
-caf_typeplat_add:
+caf_typeplats_add:
     path:      /typeplat/add
-    defaults: { _controller: CAFCantineBundle:Typeplat:add}       
+    defaults: { _controller: CAFCantineBundle:TypePlats:add}       
 
-caf_typeplat_edit:
+caf_typeplats_edit:
     path:      /typeplat/edit/{id}
-    defaults: { _controller: CAFCantineBundle:Typeplat:edit} 
+    defaults: { _controller: CAFCantineBundle:TypePlats:edit} 
     requirements:
         id:   \d{1,4}   
         
-caf_typeplat_delete:
+caf_typeplats_delete:
     path:      /typeplat/del/{id}
-    defaults: { _controller: CAFCantineBundle:Typeplat:delete} 
+    defaults: { _controller: CAFCantineBundle:TypePlats:delete} 
     requirements:
         id:   \d{1,4}   
        

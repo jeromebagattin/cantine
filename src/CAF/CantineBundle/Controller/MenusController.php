@@ -3,7 +3,7 @@
 namespace CAF\CantineBundle\Controller;
 
 use CAF\CantineBundle\Entity\Menus;
-use CAF\CantineBundle\Entity\MenusPlat;
+use CAF\CantineBundle\Entity\MenusPlats;
 use CAF\CantineBundle\Form\MenusType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,19 +47,19 @@ class MenusController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($menu);
 
-//            foreach ($form->get('plat')->getData() as $plat) {
-//                $choix = new Menusplat();
+//            foreach ($form->get('plats')->getData() as $plat) {
+//                $choix = new MenusPlats();
 //
 //                // Se the message and user for current feedback
 //                $choix->setMenus($menu);
-//                $choix->setplat($plat);
+//                $choix->setPlats($plat);
 //                //$choix->setLettre($form->get('letter')->getData());
 //                $choix->setLettre('_');
 //                // Persist the owning side
 //                $em->persist($choix);
 //
 //                // Sync the inverse side
-//                //$menu->addMenusplat($choix);
+//                //$menu->addMenusPlats($choix);
 //            }
 
             $em->flush();

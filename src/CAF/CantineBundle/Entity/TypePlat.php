@@ -25,7 +25,7 @@ class TypePlat
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="CAF\CantineBundle\Entity\plat", mappedBy="typePlat")
+     * @ORM\OneToMany(targetEntity="CAF\CantineBundle\Entity\Plats", mappedBy="typePlat")
      */
     private $plats;
     
@@ -82,11 +82,11 @@ class TypePlat
     /**
      * Add plat
      *
-     * @param \CAF\CantineBundle\Entity\plat $plat
+     * @param \CAF\CantineBundle\Entity\Plats $plat
      *
      * @return TypePlat
      */
-    public function addPlat(\CAF\CantineBundle\Entity\plat $plat)
+    public function addPlat(\CAF\CantineBundle\Entity\Plats $plat)
     {
         $this->plats[] = $plat;
 
@@ -96,19 +96,19 @@ class TypePlat
     /**
      * Remove plat
      *
-     * @param \CAF\CantineBundle\Entity\plat $plat
+     * @param \CAF\CantineBundle\Entity\Plats $plat
      */
-    public function removePlats(\CAF\CantineBundle\Entity\plat $plat)
+    public function removePlat(\CAF\CantineBundle\Entity\Plats $plat)
     {
         $this->plats->removeElement($plat);
     }
 
     /**
-     * Get plat
+     * Get plats
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getplats()
+    public function getPlats()
     {
         return $this->plats;
     }

@@ -7,13 +7,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * plat
+ * Plats
  *
- * @ORM\Table(name="plat")
- * @ORM\Entity(repositoryClass="CAF\CantineBundle\Repository\platRepository")
+ * @ORM\Table(name="plats")
+ * @ORM\Entity(repositoryClass="CAF\CantineBundle\Repository\PlatsRepository")
  * @UniqueEntity(fields="libelle", message="Ce plat existe déjà.")
  */
-class plat {
+class Plats {
 
     /**
      * @var int
@@ -33,7 +33,7 @@ class plat {
     private $libelle;
 
     /**
-     * @ORM\ManyToOne(targetEntity="CAF\CantineBundle\Entity\TypePlat", inversedBy="plat", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="CAF\CantineBundle\Entity\TypePlat", inversedBy="plats", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $typePlat;
@@ -47,7 +47,7 @@ class plat {
     private $porc;
 
     /**
-     * @ORM\OneToMany(targetEntity="CAF\CantineBundle\Entity\Menusplat", mappedBy="plat")
+     * @ORM\OneToMany(targetEntity="CAF\CantineBundle\Entity\MenusPlats", mappedBy="plats")
      */
     private $mp;
 
@@ -65,7 +65,7 @@ class plat {
      *
      * @param string $libelle
      *
-     * @return plat
+     * @return Plats
      */
     public function setLibelle($libelle) {
         $this->libelle = $libelle;
@@ -87,7 +87,7 @@ class plat {
      *
      * @param boolean $porc
      *
-     * @return plat
+     * @return Plats
      */
     public function setPorc($porc) {
         $this->porc = $porc;
@@ -109,7 +109,7 @@ class plat {
      *
      * @param \CAF\CantineBundle\Entity\TypePlat $typePlat
      *
-     * @return plat
+     * @return Plats
      */
     public function setTypePlat(\CAF\CantineBundle\Entity\TypePlat $typePlat) {
         $this->typePlat = $typePlat;
