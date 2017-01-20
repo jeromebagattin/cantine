@@ -11,6 +11,20 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MenusController extends Controller {
 
+    public function indexAction() {
+        $em = $this->getDoctrine()->getManager();
+        $menus = $em->getRepository('CAFCantineBundle:Menus')->findAll();
+        
+        if (null === $menus) {
+            throw new NotFoundHttpException("Pas de Menus.");
+        }
+
+        $content = $this->get('templating')->render('CAFCantineBundle:Menus:index.html.twig', array(
+            'menus' => $menus
+        ));
+        return new Response($content);
+    }
+    
     public function viewAction() {
         $em = $this->getDoctrine()->getManager();
         $menus = $em->getRepository('CAFCantineBundle:Menus')->findAll();
@@ -51,7 +65,7 @@ class MenusController extends Controller {
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Menu bien enregistrée.');
-            return $this->redirect($this->generateUrl('caf_menus_view', array('id' => $menu->getId())));
+            return $this->redirect($this->generateUrl('caf_menus_index', array('id' => $menu->getId())));
         }
 
         return $this->render('CAFCantineBundle:Menus:add.html.twig', array(
@@ -74,7 +88,7 @@ class MenusController extends Controller {
             $em->persist($menu);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('caf_menus_view'));
+            return $this->redirect($this->generateUrl('caf_menus_index'));
         }
 
         return $this->render('CAFCantineBundle:Menus:edit.html.twig', array(

@@ -2,9 +2,15 @@ caf_cantine_home:
     path:      /
     defaults: { _controller: CAFCantineBundle:Cantine:menu }
 
+caf_plats_index:
+    path:      /plats
+    defaults: { _controller: CAFCantineBundle:Plats:index}
+        
 caf_plats_view:
-    path:      /plats/
+    path:      /plats/view/{id}
     defaults: { _controller: CAFCantineBundle:Plats:view}
+    requirements:
+        id:   \d{1,4}
         
 caf_plats_edit:
     path:      /plats/edit/{id}
@@ -19,7 +25,7 @@ caf_plats_delete:
         id:   \d{1,4}
 
 caf_plats_add:
-    path:      /plats/add/
+    path:      /plats/add
     defaults: { _controller: CAFCantineBundle:Plats:add}
 
 caf_plats_ajout:
@@ -29,12 +35,18 @@ caf_plats_ajout:
         type:   \d{1}
         porc:   0|1
         
-caf_typeplats_view:
-    path:      /typeplat/
-    defaults: { _controller: CAFCantineBundle:TypePlats:view}
+caf_typeplats_index:
+    path:      /typeplat
+    defaults: { _controller: CAFCantineBundle:TypePlats:index}
 
+caf_typeplats_view:
+    path:      /typeplat/{id}
+    defaults: { _controller: CAFCantineBundle:TypePlats:view}
+    requirements:
+        id:   \d{1,4}
+        
 caf_typeplats_add:
-    path:      /typeplat/add/
+    path:      /typeplat/add
     defaults: { _controller: CAFCantineBundle:TypePlats:add}       
 
 caf_typeplats_edit:
@@ -48,21 +60,33 @@ caf_typeplats_delete:
     defaults: { _controller: CAFCantineBundle:TypePlats:delete} 
     requirements:
         id:   \d{1,4}   
-        
+       
+caf_repas_index:
+    path:      /repas
+    defaults: { _controller: CAFCantineBundle:Repas:index}
+      
 caf_repas_view:
-    path:      /repas/
+    path:      /repas/view/{id}
     defaults: { _controller: CAFCantineBundle:Repas:view}
-        
+    requirements:
+       id:   \d{1,4}
+       
 caf_repas_add:
-    path:      /repas/add/
+    path:      /repas/add
     defaults: { _controller: CAFCantineBundle:Repas:add }
-
-caf_menus_view:
-    path:      /menus/
-    defaults: { _controller: CAFCantineBundle:Menus:view}
     
+caf_menus_index:
+    path:      /menus
+    defaults: { _controller: CAFCantineBundle:Menus:index}
+    
+caf_menus_view:
+    path:      /menus/{id}
+    defaults: { _controller: CAFCantineBundle:Menus:view}
+    requirements:
+        id:   \d{1,4}
+        
 caf_menus_add:
-    path:      /menus/add/
+    path:      /menus/add
     defaults: { _controller: CAFCantineBundle:Menus:add}
     
 caf_menus_edit:

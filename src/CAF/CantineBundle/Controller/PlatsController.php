@@ -22,7 +22,7 @@ class PlatsController extends Controller
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Plat bien enregistrée.');
-            return $this->redirect($this->generateUrl('caf_plats_view', array('id' => $plat->getId())));
+            return $this->redirect($this->generateUrl('caf_plats_index', array('id' => $plat->getId())));
         }
 
         return $this->render('CAFCantineBundle:Plats:add.html.twig', array(
@@ -75,7 +75,7 @@ class PlatsController extends Controller
             $em->persist($plat);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('caf_plats_view'));
+            return $this->redirect($this->generateUrl('caf_plats_index'));
         }
 
         return $this->render('CAFCantineBundle:Plats:edit.html.twig', array(
@@ -105,10 +105,26 @@ class PlatsController extends Controller
         $em->remove($plat);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('caf_plats_view'));
+        return $this->redirect($this->generateUrl('caf_plats_index'));
     }
     
-    public function viewAction(Request $request)
+    public function viewAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $plat = $em->getRepository('CAFCantineBundle:Plats')->find($id);
+        
+        if (null === $plat) {
+            throw new NotFoundHttpException("Le plat d'id " . $id . " n'existe pas.");
+        }
+        
+        $content = $this->renderView('CAFCantineBundle:Plats:view.html.twig', array (
+             'plat' => $plat
+        ));
+        $tag = $request->query->get('tag');
+        return new Response($content);
+    }
+    
+    public function indexAction(Request $request)
     {
         $repository = $this->getDoctrine()
                 ->getManager()
@@ -119,10 +135,9 @@ class PlatsController extends Controller
             throw new NotFoundHttpException("Pas de plats.");
         }
 
-        $content = $this->renderView('CAFCantineBundle:Plats:view.html.twig', array (
+        $content = $this->renderView('CAFCantineBundle:Plats:index.html.twig', array (
              'plats' => $plats
         ));
-        $tag = $request->query->get('tag');
         return new Response($content);
     }
 }
