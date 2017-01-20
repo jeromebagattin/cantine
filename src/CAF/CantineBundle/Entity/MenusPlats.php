@@ -28,7 +28,7 @@ class MenusPlats
     private $menus;
     
      /**
-     * @ORM\ManyToOne(targetEntity="CAF\CantineBundle\Entity\Plats", inversedBy="mp", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="CAF\CantineBundle\Entity\Plat", inversedBy="mp", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $plats;

@@ -13,7 +13,7 @@ class CantineController extends Controller
         $repository = $this
                 ->getDoctrine()
                 ->getManager()
-                ->getRepository('CAFCantineBundle:Plats')
+                ->getRepository('CAFCantineBundle:Plat')
         ;
 
         $listPlats = $repository->myFind();
@@ -34,8 +34,8 @@ class CantineController extends Controller
         $listMenu = array(
             array('route' => 'caf_menus_index', 'title' => 'Menus'),
             array('route' => 'caf_repas_index', 'title' => 'Repas'),
-            array('route' => 'caf_plats_index', 'title' => 'Plats'),
-            array('route' => 'caf_typeplats_index', 'title' => 'Type de plats'),
+            array('route' => 'caf_plat_index', 'title' => 'Plats'),
+            array('route' => 'caf_typeplat_index', 'title' => 'Type de plat'),
         );
 
         return $this->render('CAFCantineBundle:Cantine:menu.html.twig', array(
