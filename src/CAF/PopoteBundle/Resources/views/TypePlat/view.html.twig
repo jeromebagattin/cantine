@@ -1,0 +1,12 @@
+{# src/CAF/Popote_Bundle/Resources/views/TypePlats/view.html.twig #}
+{% extends "CAFPopoteBundle::popote.html.twig" %}
+
+{% block title %}
+  Vue Type Plat - {{ parent() }}
+{% endblock %}
+
+{% block cafpopote_body %}
+
+  <h2>Type de plat</h2>
+       {{ typeplat.id }} - {{ typeplat.libelle }}
+{% endblock %}

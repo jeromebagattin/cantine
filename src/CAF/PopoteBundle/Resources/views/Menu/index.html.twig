@@ -1,0 +1,24 @@
+{# src/OC/PlatformBundle/Resources/views/Menu/index.html.twig #}
+
+{% extends "CAFPopoteBundle::popote.html.twig" %}
+
+{% block title %}
+  Menus - {{ parent() }}
+{% endblock %}
+
+{% block cafpopote_body %}
+
+  <h2>Menus</h2>
+
+  <ul class="nav nav-pills nav-stacked">
+        {% for menu in menus %}
+            <li>
+                <a href="{{ path('popote_menu_edit', {id:menu.id}) }}">
+                    {{ menu.dateMenu | date('d/m/Y') }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+        <a href="{{ path('popote_menu_add') }}"> + </a>
+
+{% endblock %}

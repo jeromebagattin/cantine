@@ -1,20 +1,20 @@
 <?php
 
-namespace CAF\CantineBundle\Controller;
+namespace CAF\PopoteBundle\Controller;
 
-use CAF\CantineBundle\Entity\Plats;
-use CAF\CantineBundle\Form\PlatsType;
+use CAF\PopoteBundle\Entity\Plat;
+use CAF\PopoteBundle\Form\PlatType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class PlatsController extends Controller
+class PlatController extends Controller
 {
     public function addAction(Request $request) {
-        $plat = new Plats();
+        $plat = new Plat();
   
-        $form = $this->createForm(new PlatsType(), $plat);
+        $form = $this->createForm(new PlatType(), $plat);
 
          if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -22,10 +22,10 @@ class PlatsController extends Controller
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Plat bien enregistrée.');
-            return $this->redirect($this->generateUrl('caf_plats_index', array('id' => $plat->getId())));
+            return $this->redirect($this->generateUrl('popote_plat_index', array('id' => $plat->getId())));
         }
 
-        return $this->render('CAFCantineBundle:Plats:add.html.twig', array(
+        return $this->render('CAFPopoteBundle:Plat:add.html.twig', array(
                     'form' => $form->createView(),
         ));
     }
@@ -33,14 +33,14 @@ class PlatsController extends Controller
     public function ajoutAction($type, $libelle, $porc, Request $request) {
 
         // Création de l'entité
-        $plat = new Plats();
+        $plat = new Plat();
         $plat->setLibelle($libelle);
         $plat->setPorc($porc);
        
         
         $repository = $this->getDoctrine()
                 ->getManager()
-                ->getRepository('CAFCantineBundle:TypePlat')
+                ->getRepository('CAFPopoteBundle:TypePlat')
         ;
         $typePlat = $repository->find($type);
         if (null === $typePlat) {
@@ -53,7 +53,7 @@ class PlatsController extends Controller
         $em->persist($plat);
         $em->flush();
 
-        return $this->render('CAFCantineBundle:Plats:add.html.twig', array (
+        return $this->render('CAFPopoteBundle:Plat:add.html.twig', array (
             'type'      => $type,
             'libelle'   => $libelle,
             'porc'      => $porc
@@ -63,22 +63,22 @@ class PlatsController extends Controller
     public function editAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $plat = $em->getRepository('CAFCantineBundle:Plats')->find($id);
+        $plat = $em->getRepository('CAFPopoteBundle:Plat')->find($id);
         
         if (null === $plat) {
             throw new NotFoundHttpException("Le plat d'id " . $id . " n'existe pas.");
         }
 
-        $form = $this->createForm(new PlatsType(), $plat);
+        $form = $this->createForm(new PlatType(), $plat);
 
         if ($form->handleRequest($request)->isValid()) {
             $em->persist($plat);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('caf_plats_index'));
+            return $this->redirect($this->generateUrl('popote_plat_index'));
         }
 
-        return $this->render('CAFCantineBundle:Plats:edit.html.twig', array(
+        return $this->render('CAFPopoteBundle:Plat:edit.html.twig', array(
                     'form' => $form->createView(),
                     'id' => $plat->getId()
         ));
@@ -86,7 +86,7 @@ class PlatsController extends Controller
         
         
         
-        $content = $this->renderView('CAFCantineBundle:Plats:edit.html.twig', array (
+        $content = $this->renderView('CAFPopoteBundle:Plat:edit.html.twig', array (
              'nom' => $id
         ));
         $tag = $request->query->get('tag');
@@ -96,7 +96,7 @@ class PlatsController extends Controller
     public function deleteAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $plat = $em->getRepository('CAFCantineBundle:Plats')->find($id);
+        $plat = $em->getRepository('CAFPopoteBundle:Plat')->find($id);
 
         if (null === $plat) {
             throw new NotFoundHttpException("Le plat d'id " . $id . " n'existe pas.");
@@ -105,19 +105,19 @@ class PlatsController extends Controller
         $em->remove($plat);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('caf_plats_index'));
+        return $this->redirect($this->generateUrl('popote_plat_index'));
     }
     
     public function viewAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $plat = $em->getRepository('CAFCantineBundle:Plats')->find($id);
+        $plat = $em->getRepository('CAFPopoteBundle:Plat')->find($id);
         
         if (null === $plat) {
             throw new NotFoundHttpException("Le plat d'id " . $id . " n'existe pas.");
         }
         
-        $content = $this->renderView('CAFCantineBundle:Plats:view.html.twig', array (
+        $content = $this->renderView('CAFPopoteBundle:Plat:view.html.twig', array (
              'plat' => $plat
         ));
         $tag = $request->query->get('tag');
@@ -128,14 +128,14 @@ class PlatsController extends Controller
     {
         $repository = $this->getDoctrine()
                 ->getManager()
-                ->getRepository('CAFCantineBundle:Plats')
+                ->getRepository('CAFPopoteBundle:Plat')
         ;
         $plats = $repository->myFindAll();
         if (null === $plats) {
-            throw new NotFoundHttpException("Pas de plats.");
+            throw new NotFoundHttpException("Pas de plat.");
         }
 
-        $content = $this->renderView('CAFCantineBundle:Plats:index.html.twig', array (
+        $content = $this->renderView('CAFPopoteBundle:Plat:index.html.twig', array (
              'plats' => $plats
         ));
         $tag = $request->query->get('tag');

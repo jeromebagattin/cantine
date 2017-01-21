@@ -1,0 +1,15 @@
+{# src/CAF/Popote_Bundle/Resources/views/TypePlats/edit.html.twig #}
+{% extends "CAFPopoteBundle::popote.html.twig" %}
+
+{% block title %}
+  Edit Type Plat - {{ parent() }}
+{% endblock %}
+
+{% block cafpopote_body %}
+
+  <h2>Editer un type de plat</h2>
+        {{ form(form) }}
+        <a href="{{ path('popote_typeplat_delete', {id:id}) }}">
+            Supprimer
+        </a>
+{% endblock %}

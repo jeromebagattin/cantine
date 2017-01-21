@@ -1,7 +1,7 @@
-{# src/CAF/PopoteBundle/Resources/views/Popote/menu.html.twig #}
+{# src/CAF/PopoteBundle/Resources/views/Popote_/menu.html.twig #}
 
 <ul class="nav nav-pills nav-stacked">
-  {% for entree in listMenu %}
+  {% for entree in listMenus %}
     <li>
       <a href="{{ path(entree.route) }}">
         {{ entree.title }}

@@ -1,0 +1,23 @@
+{# src/CAF/Popote_Bundle/Resources/views/Menu/edit.html.twig #}
+{% extends "CAFPopoteBundle::popote.html.twig" %}
+
+{% block title %}
+    Edit Menus - {{ parent() }}
+{% endblock %}
+
+{% block cafpopote_body %}
+    <h2>Editer un menus</h2>
+    {{ form(form) }}
+
+    {#{% for mp in menus %}
+        <li>
+            <a href="{{ path('caf_menus_edit', {id:menu.id}) }}">
+                {{ menu.dateMenu | date('d/m/Y') }}
+            </a>
+        </li>
+    {% endfor %}#}
+{{ id }}
+    <a href="{{ path('popote_menu_delete', {id:id}) }}">
+        Supprimer
+    </a>
+{% endblock %}

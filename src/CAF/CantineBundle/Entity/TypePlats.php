@@ -9,11 +9,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * TypePlat
  *
- * @ORM\Table(name="type_plat")
+ * @ORM\Table(name="type_plats")
  * @ORM\Entity(repositoryClass="CAF\CantineBundle\Repository\TypePlatRepository")
  * @UniqueEntity(fields="libelle", message="Ce type de plat existe déjà.")
  */
-class TypePlat
+class TypePlats
 {
     /**
      * @var int

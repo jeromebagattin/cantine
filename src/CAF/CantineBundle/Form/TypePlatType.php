@@ -1,6 +1,6 @@
 <?php
 
-namespace CAF\CantineBundle\Form;
+namespace CAF\Cantine_Bundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

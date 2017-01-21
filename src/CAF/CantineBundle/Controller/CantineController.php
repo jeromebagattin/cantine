@@ -32,10 +32,10 @@ class CantineController extends Controller
         // On fixe en dur une liste ici, bien entendu par la suite
         // on la récupérera depuis la BDD !
         $listMenu = array(
-            array('route' => 'caf_menus_view', 'title' => 'Menus'),
-            array('route' => 'caf_repas_view', 'title' => 'Repas'),
-            array('route' => 'caf_plats_view', 'title' => 'Plats'),
-            array('route' => 'caf_typeplats_view', 'title' => 'Type de plats'),
+            array('route' => 'caf_menus_index', 'title' => 'Menus'),
+            array('route' => 'caf_repas_index', 'title' => 'Repas'),
+            array('route' => 'caf_plats_index', 'title' => 'Plats'),
+            array('route' => 'caf_typeplats_index', 'title' => 'Type de plats'),
         );
 
         return $this->render('CAFCantineBundle:Cantine:menu.html.twig', array(

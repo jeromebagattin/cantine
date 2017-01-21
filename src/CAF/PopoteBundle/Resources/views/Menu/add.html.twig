@@ -1,0 +1,12 @@
+{# src/CAf/PopoteBundle/Resources/views/Menu/add.html.twig #}
+
+{% extends "CAFPopoteBundle::popote.html.twig" %}
+
+{% block title %}
+  Menus - {{ parent() }}
+{% endblock %}
+
+{% block cafpopote_body %}
+<h2>Ajouter un menu</h2>
+        {{ form(form) }}
+{% endblock %}
