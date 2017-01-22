@@ -9,4 +9,9 @@
 
   <h2>Type de plat</h2>
        {{ typeplat.id }} - {{ typeplat.libelle }}
+       <ul>
+            {% for plat in typeplat.plat %}
+                <li>{{ plat.id }} - {{ plat.libelle }}</li>
+            {% endfor %}
+        </ul>
 {% endblock %}

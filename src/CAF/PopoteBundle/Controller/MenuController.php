@@ -14,7 +14,7 @@ class MenuController extends Controller {
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
         $menus = $em->getRepository('CAFPopoteBundle:Menu')->findAll();
-        
+
         if (null === $menus) {
             throw new NotFoundHttpException("Pas de Menu.");
         }
@@ -23,6 +23,21 @@ class MenuController extends Controller {
             'menus' => $menus
         ));
         return new Response($content);
+    }
+    
+    public function viewAction($id, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $menu = $em->getRepository('CAFPopoteBundle:Menu')->find($id);
+
+        if (null === $menu) {
+            throw new NotFoundHttpException("Le menu d'id " . $id . " n'existe pas.");
+        }
+
+        $content = $this->get('templating')->render('CAFPopoteBundle:Menu:view.html.twig', array(
+            'menu' => $menu
+        ));
+        return new Response($content);
+        
     }
 
     public function addAction(Request $request) {
@@ -58,35 +73,57 @@ class MenuController extends Controller {
                     'form' => $form->createView(),
         ));
     }
-    
-    public function editAction($id, Request $request)
-    {
+
+    public function editAction($id, Request $request) {
         $em = $this->getDoctrine()->getManager();
         $menu = $em->getRepository('CAFPopoteBundle:Menu')->find($id);
-        
+
         if (null === $menu) {
             throw new NotFoundHttpException("Le menu d'id " . $id . " n'existe pas.");
         }
-
+        
         $form = $this->createForm(new MenuType(), $menu);
 
+        foreach($menu->getMp() as $mp)
+        {
+            $menu->removeMp($mp);
+            $em->remove($mp);
+        }
+        $em->persist($menu);
+        
         if ($form->handleRequest($request)->isValid()) {
+            
             $em->persist($menu);
             $em->flush();
-
             return $this->redirect($this->generateUrl('popote_menu_index'));
         }
-
-        return $this->render('CAFPopoteBundle:Menu:edit.html.twig', array(
-                    'form' => $form->createView(),
-                    'id' => $menu->getId()
-        ));
         
-        $content = $this->renderView('CAFPopoteBundle:Menu:edit.html.twig', array (
-             'nom' => $id
+         return $this->render('CAFPopoteBundle:Menu:edit.html.twig', array(
+                    'form' => $form->createView(),
+                    'id'   => $menu->getId()
         ));
-        $tag = $request->query->get('tag');
-        return new Response($content);
     }
+    
+    public function deleteAction($id, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $menu = $em->getRepository('CAFPopoteBundle:Menu')->find($id);
 
+        if (null === $menu) {
+            throw new NotFoundHttpException("Le menu d'id " . $id . " n'existe pas.");
+        }
+        
+        
+        foreach($menu->getMp() as $mp)
+        {
+            $menu->removeMp($mp);
+            $em->remove($mp);
+        }
+        
+        $em->persist($menu);
+        $em->remove($menu);
+        $em->flush();
+        return $this->redirect($this->generateUrl('popote_menu_index'));
+    }
+    
+    
 }

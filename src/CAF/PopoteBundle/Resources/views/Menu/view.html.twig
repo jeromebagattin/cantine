@@ -1,0 +1,18 @@
+{# src/CAF/Popote_Bundle/Resources/views/Menu/view.html.twig #}
+{% extends "CAFPopoteBundle::popote.html.twig" %}
+
+{% block title %}
+  Vue Menu - {{ parent() }}
+{% endblock %}
+
+{% block cafpopote_body %}
+
+  <h2>Menu</h2>
+       {{ menu.id }} - {{ menu.dateMenu | date('d/m/Y') }}
+       
+       <ul>
+            {% for mp in menu.plats %}
+                <li>{{ mp.id }} - </li>
+            {% endfor %}
+        </ul>
+{% endblock %}
