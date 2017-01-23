@@ -1,0 +1,4 @@
+services:
+#    caf_popote.example:
+#        class: CAF\PopoteBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
