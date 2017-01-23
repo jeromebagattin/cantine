@@ -38,6 +38,13 @@ class Menu
      * @Assert\Date() 
      */
     private $dateValidation;
+    
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="etat", type="integer", options={"default":0})
+     */
+    private $etat;
 
     private $plats; 
     
@@ -105,6 +112,31 @@ class Menu
     {
         return $this->dateValidation;
     }
+    
+     /**
+     * Set etat
+     *
+     * @param integer $etat
+     *
+     * @return Menu
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return integer
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+    
     /**
      * Constructor
      */

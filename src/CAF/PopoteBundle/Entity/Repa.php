@@ -3,6 +3,8 @@
 namespace CAF\PopoteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;                                                                                                                                                            
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Repa
@@ -24,14 +26,16 @@ class Repa
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateRepa", type="datetime", unique=true)
+     * @ORM\Column(name="dateRepa", type="date", unique=true)
+     * @Assert\Date()
      */
     private $dateRepa;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateValidation", type="datetime")
+     * @ORM\Column(name="dateValidation", type="date")
+     * @Assert\Date()
      */
     private $dateValidation;
 
@@ -45,11 +49,23 @@ class Repa
     /**
      * @var int
      *
-     * @ORM\Column(name="etat", type="integer")
+     * @ORM\Column(name="etat", type="integer", options={"default":0})
      */
     private $etat;
 
-
+     /**
+     * @ORM\ManyToOne(targetEntity="CAF\PopoteBundle\Entity\Menu")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $menu;
+    
+     /**                                                                                                                                                                                                          
+     * @ORM\OneToMany(targetEntity="CAF\PopoteBundle\Entity\RepaPlat", cascade={"persist"}, mappedBy="repa")                                                                                                                      
+     */                                                                                                                                                                                                          
+    private $rp; 
+    
+    private $plats;
+    
     /**
      * Get id
      *
@@ -154,6 +170,75 @@ class Repa
     public function getEtat()
     {
         return $this->etat;
+    }
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->rp = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->plats = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    public function getPlats()                                                                                                                                                                                   
+    {                                                                                                                                                                                                            
+        $plats = new \Doctrine\Common\Collections\ArrayCollection();                                                                                                                                             
+                                                                                                                                                                                                                 
+        foreach($this->rp as $p)                                                                                                                                                                                 
+        {                                                                                                                                                                                                        
+            $plats[] = $p->getPlat();                                                                                                                                                                           
+        }                                                                                                                                                                                                        
+                                                                                                                                                                                                                 
+        return $plats;                                                                                                                                                                                           
+    }                                                                                                                                                                                                            
+                                                                                                                                                                                                                 
+    public function setPlats($plats)                                                                                                                                                                             
+    {                                                                                                                                                                                                            
+        foreach($plats as $p)                                                                                                                                                                                    
+        {                                                                                                                                                                                                        
+            $rp = new RepaPlat();                                                                                                                                                                               
+                                                                                                                                                                                                                 
+            $rp->setRepa($this);                                                                                                                                                                                
+            $rp->setPlat($p); 
+            $rp->setLettre('_'); 
+                                                                                                                                                                                                                 
+            $this->addRp($rp);                                                                                                                                                                                   
+        }          
+    }
+    
+    /**
+     * Add rp
+     *
+     * @param \CAF\PopoteBundle\Entity\RepaPlat $rp
+     *
+     * @return Repa
+     */
+    public function addRp(\CAF\PopoteBundle\Entity\RepaPlat $rp)
+    {
+        $this->rp[] = $rp;
+
+        return $this;
+    }
+
+    /**
+     * Remove rp
+     *
+     * @param \CAF\PopoteBundle\Entity\RepaPlat $rp
+     */
+    public function removeRp(\CAF\PopoteBundle\Entity\RepaPlat $rp)
+    {
+        $this->rp->removeElement($rp);
+    }
+
+    /**
+     * Get rp
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRp()
+    {
+        return $this->rp;
     }
 }
 
