@@ -64,10 +64,28 @@ popote_typeplat_delete:
 popote_repa_index:
     path:      /repa
     defaults: { _controller: CAFPopoteBundle:Repa:index}
+    
+popote_repa_view:
+    path:      /repa/{id}
+    defaults: { _controller: CAFPopoteBundle:Repa:view}
+    requirements:
+        id:   \d{1,4}
         
 popote_repa_add:
     path:      /repa/add
     defaults: { _controller: CAFPopoteBundle:Repa:add }
+
+popote_repa_edit:
+    path:      /repa/edit/{id}
+    defaults: { _controller: CAFPopoteBundle:Repa:edit}
+    requirements:
+        id:   \d{1,4}
+
+popote_repa_delete:
+    path:      /repa/del/{id}
+    defaults: { _controller: CAFPopoteBundle:Repa:delete}
+    requirements:
+        id:   \d{1,4}
 
 popote_menu_index:
     path:      /menu

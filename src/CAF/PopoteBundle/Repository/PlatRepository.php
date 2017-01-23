@@ -17,13 +17,13 @@ class PlatRepository extends \Doctrine\ORM\EntityRepository
     }
     
     public function myFindAll() {
-       return $this
-        ->createQueryBuilder('a')
-        ->getQuery()
-        ->getResult()
+        return $this
+                        ->createQueryBuilder('a')
+                        ->getQuery()
+                        ->getResult()
         ;
     }
-    
+
     public function tout(QueryBuilder $qb) {
         $qb
             ->andwhere('a.id > :par')
@@ -48,6 +48,16 @@ class PlatRepository extends \Doctrine\ORM\EntityRepository
         ;
     }
 
+    public function myFindId($id) {
+        return $this
+                        ->createQueryBuilder('a')
+                        ->where('a.id = :id')
+                        ->setParameter('id', $id)
+                        ->getQuery()
+                        ->getOneOrNullResult()
+        ;
+    }
+    
     public function myFindOne($id, $par) {
         $qb = $this->createQueryBuilder('a');
 

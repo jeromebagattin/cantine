@@ -29,7 +29,7 @@ class RepaPlat
     private $lettre;
 
      /**
-     * @ORM\ManyToOne(targetEntity="CAF\PopoteBundle\Entity\Menu", inversedBy="rp", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="CAF\PopoteBundle\Entity\Repa", inversedBy="rp", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $repa;
@@ -78,11 +78,11 @@ class RepaPlat
     /**
      * Set repa
      *
-     * @param \CAF\PopoteBundle\Entity\Menu $repa
+     * @param \CAF\PopoteBundle\Entity\Repa $repa
      *
      * @return RepaPlat
      */
-    public function setRepa(\CAF\PopoteBundle\Entity\Menu $repa)
+    public function setRepa(\CAF\PopoteBundle\Entity\Repa $repa)
     {
         $this->repa = $repa;
 
@@ -92,7 +92,7 @@ class RepaPlat
     /**
      * Get repa
      *
-     * @return \CAF\PopoteBundle\Entity\Menu
+     * @return \CAF\PopoteBundle\Entity\Repa
      */
     public function getRepa()
     {

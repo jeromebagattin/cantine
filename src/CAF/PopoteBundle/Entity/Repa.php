@@ -51,7 +51,7 @@ class Repa
      *
      * @ORM\Column(name="etat", type="integer", options={"default":0})
      */
-    private $etat;
+    private $etat = 0;
 
      /**
      * @ORM\ManyToOne(targetEntity="CAF\PopoteBundle\Entity\Menu")
@@ -240,5 +240,28 @@ class Repa
     {
         return $this->rp;
     }
-}
 
+    /**
+     * Set menu
+     *
+     * @param \CAF\PopoteBundle\Entity\Menu $menu
+     *
+     * @return Repa
+     */
+    public function setMenu(\CAF\PopoteBundle\Entity\Menu $menu)
+    {
+        $this->menu = $menu;
+
+        return $this;
+    }
+
+    /**
+     * Get menu
+     *
+     * @return \CAF\PopoteBundle\Entity\Menu
+     */
+    public function getMenu()
+    {
+        return $this->menu;
+    }
+}

@@ -1,0 +1,24 @@
+{# src/OC/PlatformBundle/Resources/views/Repa/index.html.twig #}
+
+{% extends "CAFPopoteBundle::popote.html.twig" %}
+
+{% block title %}
+  Repas - {{ parent() }}
+{% endblock %}
+
+{% block cafpopote_body %}
+
+  <h2>Repas</h2>
+
+  <ul class="nav nav-pills nav-stacked">
+        {% for repa in repas %}
+            <li>
+                <a href="{{ path('popote_repa_edit', {id:repa.id}) }}">
+                    {{ repa.dateRepa | date('d/m/Y') }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+        <a href="{{ path('popote_repa_add') }}"> + </a>
+
+{% endblock %}

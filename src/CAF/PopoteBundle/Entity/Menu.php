@@ -44,7 +44,7 @@ class Menu
      *
      * @ORM\Column(name="etat", type="integer", options={"default":0})
      */
-    private $etat;
+    private $etat = 0;
 
     private $plats; 
     

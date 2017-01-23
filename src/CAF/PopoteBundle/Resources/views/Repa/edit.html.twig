@@ -1,0 +1,23 @@
+{# src/CAF/Popote_Bundle/Resources/views/Repa/edit.html.twig #}
+{% extends "CAFPopoteBundle::popote.html.twig" %}
+
+{% block title %}
+    Edit Repas - {{ parent() }}
+{% endblock %}
+
+{% block cafpopote_body %}
+    <h2>Editer un repas</h2>
+    {{ form(form) }}
+
+    {#{% for mp in repas %}
+        <li>
+            <a href="{{ path('caf_repas_edit', {id:repa.id}) }}">
+                {{ repa.dateRepa | date('d/m/Y') }}
+            </a>
+        </li>
+    {% endfor %}#}
+{{ id }}
+    <a href="{{ path('popote_repa_delete', {id:id}) }}">
+        Supprimer
+    </a>
+{% endblock %}

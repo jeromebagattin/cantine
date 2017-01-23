@@ -5,6 +5,7 @@ namespace CAF\PopoteBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use CAF\PopoteBundle\Repository\PlatRepository;
 
 class RepaType extends AbstractType
 {
@@ -13,10 +14,20 @@ class RepaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('dateRepa')
-                ->add('dateValidation')
-                ->add('prixRepa')
-                ->add('etat')        
+        $builder->add('dateRepa', 'date')
+                ->add('dateValidation', 'date')
+                ->add('prixRepa', 'money')
+                ->add('etat', 'integer')  
+                ->add('menu', 'entity', array(
+                    'class'    => 'CAFPopoteBundle:Menu',
+                    'label'    => 'Menu : ',
+                    'property' => 'id',
+                    'multiple' => false,
+                   
+//                    'query_builder' => function(PlatRepository $repo) {
+//                        return $repo->mFindAll();
+//                    }
+                ))
                 ->add('plats', 'entity', array(
                     'class'    => 'CAFPopoteBundle:Plat',
                     'label'    => 'Plats du repa : ',

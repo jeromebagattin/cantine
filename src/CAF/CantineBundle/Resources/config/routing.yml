@@ -62,7 +62,7 @@ caf_typeplats_delete:
         id:   \d{1,4}   
         
 caf_repas_view:
-    path:      /repas/
+    path:      /repas
     defaults: { _controller: CAFCantineBundle:Repas:view}
         
 caf_repas_add:
@@ -70,11 +70,11 @@ caf_repas_add:
     defaults: { _controller: CAFCantineBundle:Repas:add }
 
 caf_menus_view:
-    path:      /menus/
+    path:      /menus
     defaults: { _controller: CAFCantineBundle:Menus:view}
     
 caf_menus_add:
-    path:      /menus/add/
+    path:      /menus/add
     defaults: { _controller: CAFCantineBundle:Menus:add}
     
 caf_menus_edit:

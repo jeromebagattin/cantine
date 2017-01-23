@@ -1,0 +1,18 @@
+{# src/CAF/Popote_Bundle/Resources/views/Repa/view.html.twig #}
+{% extends "CAFPopoteBundle::popote.html.twig" %}
+
+{% block title %}
+  Vue Repa - {{ parent() }}
+{% endblock %}
+
+{% block cafpopote_body %}
+
+  <h2>Repa</h2>
+       {{ repa.id }} - {{ repa.dateRepa | date('d/m/Y') }}
+       
+       <ul>
+            {% for rp in repa.rp %}
+                <li>{{ rp.id }} - {{rp.plat.libelle}} </li>
+            {% endfor %}
+        </ul>
+{% endblock %}
