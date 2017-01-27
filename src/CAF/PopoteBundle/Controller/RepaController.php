@@ -47,22 +47,6 @@ class RepaController extends Controller {
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($repa);
-
-//            foreach ($form->get('plats')->getData() as $plat) {
-//                $choix = new RepaPlats();
-//
-//                // Se the message and user for current feedback
-//                $choix->setRepa($repa);
-//                $choix->setPlats($plat);
-//                //$choix->setLettre($form->get('letter')->getData());
-//                $choix->setLettre('_');
-//                // Persist the owning side
-//                $em->persist($choix);
-//
-//                // Sync the inverse side
-//                //$repa->addRepaPlats($choix);
-//            }
-
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Repa bien enregistrée.');
@@ -91,8 +75,8 @@ class RepaController extends Controller {
         }
         $em->persist($repa);
         
-        if ($form->handleRequest($request)->isValid()) {
-            
+        if ($form->handleRequest($request)->isValid()) 
+        {
             $em->persist($repa);
             $em->flush();
             return $this->redirect($this->generateUrl('popote_repa_index'));

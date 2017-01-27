@@ -10,4 +10,21 @@ namespace CAF\PopoteBundle\Repository;
  */
 class MenuRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function mFindAll() {
+       return $this
+        ->createQueryBuilder('a')
+        ;
+    }
+    
+    public function findPlats($id) {
+        return $this
+                        ->createQueryBuilder('a')
+                        ->leftJoin('a.mp', 'mp')
+                        ->addSelect('mp')
+                        ->where('a.id = :id')
+                        ->setParameter('id', $id)
+                        ->getQuery()
+                        ->getOneOrNullResult()
+        ;
+    }
 }

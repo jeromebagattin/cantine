@@ -14,10 +14,7 @@ class RepaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('dateRepa', 'date')
-                ->add('dateValidation', 'date')
-                ->add('prixRepa', 'money')
-                ->add('etat', 'integer')  
+        $builder->add('prixRepa', 'money')
                 ->add('menu', 'entity', array(
                     'class'    => 'CAFPopoteBundle:Menu',
                     'label'    => 'Menu : ',
@@ -35,7 +32,7 @@ class RepaType extends AbstractType
                     'multiple' => true,
                     'expanded' => true,
                     'query_builder' => function(PlatRepository $repo) {
-                        return $repo->mFindAll();
+                        return $repo->findByPlats(1);
                     }
                 ))
                 ->add('ok', 'submit')
