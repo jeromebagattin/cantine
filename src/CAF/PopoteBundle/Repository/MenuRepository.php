@@ -27,4 +27,15 @@ class MenuRepository extends \Doctrine\ORM\EntityRepository
                         ->getOneOrNullResult()
         ;
     }
+    
+     public function findMenuPlats($id) {
+        return $this
+                        ->createQueryBuilder('a')
+                        ->leftJoin('a.mp', 'mp')
+                        ->addSelect('mp.plat')
+                        ->where('a.id = :id')
+                        ->setParameter('id', $id)
+                        
+        ;
+    }
 }

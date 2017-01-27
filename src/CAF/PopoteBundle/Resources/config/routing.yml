@@ -72,9 +72,11 @@ popote_repa_view:
         id:   \d{1,4}
         
 popote_repa_add:
-    path:      /repa/add
+    path:      /repa/add/{menu}
     defaults: { _controller: CAFPopoteBundle:Repa:add }
-
+    requirements:
+        menu:   \d{1,4}
+        
 popote_repa_edit:
     path:      /repa/edit/{id}
     defaults: { _controller: CAFPopoteBundle:Repa:edit}

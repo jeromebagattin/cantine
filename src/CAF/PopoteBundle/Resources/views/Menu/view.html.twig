@@ -8,11 +8,13 @@
 {% block cafpopote_body %}
 
   <h2>Menu</h2>
+  <a href="{{ path('popote_menu_edit', {id:menu.id}) }}">
        {{ menu.id }} - {{ menu.dateMenu | date('d/m/Y') }}
+  </a>
        
-       <ul>
+       {#<ul>
             {% for mp in menu.plats %}
                 <li>{{ mp.id }} - </li>
             {% endfor %}
-        </ul>
+        </ul>#}
 {% endblock %}

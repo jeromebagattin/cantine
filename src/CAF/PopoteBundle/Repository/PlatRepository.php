@@ -23,15 +23,15 @@ class PlatRepository extends \Doctrine\ORM\EntityRepository {
                         ->getResult()
         ;
     }
-
-    public function findByPlats($id) {
+    
+    public function findByMenu($id) {
         return $this
-                        ->createQueryBuilder('a')
-                        ->leftJoin('a.mp', 'mp')
-                        ->addSelect('mp')
-                        ->where('a.id = :id')
+                        ->createQueryBuilder('p')
+                        ->leftJoin('p.mp', 'mp')
+                        ->leftJoin('mp.menu', 'menu')
+                        ->addSelect('p')
+                        ->where('menu.id = :id')
                         ->setParameter('id', $id)
-                        
         ;
     }
 

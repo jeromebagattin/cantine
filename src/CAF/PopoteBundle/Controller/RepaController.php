@@ -40,7 +40,7 @@ class RepaController extends Controller {
         
     }
 
-    public function addAction(Request $request) {
+    public function addAction($menu, Request $request) {
         $repa = new Repa();
         $form = $this->createForm(new RepaType(), $repa);
 

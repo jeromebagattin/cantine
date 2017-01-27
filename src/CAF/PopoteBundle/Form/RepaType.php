@@ -32,7 +32,7 @@ class RepaType extends AbstractType
                     'multiple' => true,
                     'expanded' => true,
                     'query_builder' => function(PlatRepository $repo) {
-                        return $repo->findByPlats(1);
+                        return $repo->findByMenu(1);
                     }
                 ))
                 ->add('ok', 'submit')
