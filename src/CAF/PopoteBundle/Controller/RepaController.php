@@ -40,12 +40,14 @@ class RepaController extends Controller {
         
     }
 
-    public function addAction($menu, Request $request) {
-        $repa = new Repa();
+    public function addAction($idMenu, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $menu = $em->getRepository('CAFPopoteBundle:Menu')->find($idMenu);
+        
+        $repa = new Repa($menu);
         $form = $this->createForm(new RepaType(), $repa);
 
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($repa);
             $em->flush();
 

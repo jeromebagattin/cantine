@@ -175,10 +175,22 @@ class Repa
     /**
      * Constructor
      */
-    public function __construct()
+//    public function __construct()
+//    {
+//        $this->rp = new \Doctrine\Common\Collections\ArrayCollection();
+//        $this->plats = new \Doctrine\Common\Collections\ArrayCollection();
+//    }
+    
+    public function __construct(\CAF\PopoteBundle\Entity\Menu $menu) 
     {
         $this->rp = new \Doctrine\Common\Collections\ArrayCollection();
         $this->plats = new \Doctrine\Common\Collections\ArrayCollection();
+        
+        if (is_a($menu, '\CAF\PopoteBundle\Entity\Menu')) {
+            $this->dateRepa = $menu->getDateMenu();
+            $this->dateValidation = $menu->getDateValidation();
+            $this->menu = $menu;
+        }
     }
     
     public function getPlats()                                                                                                                                                                                   

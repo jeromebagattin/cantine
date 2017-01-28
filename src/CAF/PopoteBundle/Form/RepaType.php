@@ -14,6 +14,8 @@ class RepaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $idMenu = $options['data']->getMenu()->getId();
+        
         $builder->add('prixRepa', 'money')
                 ->add('menu', 'entity', array(
                     'class'    => 'CAFPopoteBundle:Menu',
@@ -31,8 +33,8 @@ class RepaType extends AbstractType
                     'property' => 'libelle',
                     'multiple' => true,
                     'expanded' => true,
-                    'query_builder' => function(PlatRepository $repo) {
-                        return $repo->findByMenu(1);
+                    'query_builder' => function(PlatRepository $repo) use ($idMenu){
+                        return $repo->findByMenu($idMenu);
                     }
                 ))
                 ->add('ok', 'submit')
