@@ -1,6 +1,10 @@
+c_af_test:
+    resource: "@CAFTestBundle/Resources/config/routing.yml"
+    prefix:   /test
+
 caf_popote:
     resource: "@CAFPopoteBundle/Resources/config/routing.yml"
-#    prefix:   /popote
+    prefix:   /popote
 
 #caf_cantine:
 #    resource: "@CAFCantineBundle/Resources/config/routing.yml"

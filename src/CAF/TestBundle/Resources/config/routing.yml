@@ -1,0 +1,16 @@
+c_af_test_homepage:
+    path:     /
+    defaults: { _controller: CAFTestBundle:Default:index }
+
+index:
+    path:     /plat
+    defaults: { _controller: CAFTestBundle:Plat:index }
+    
+blog_home:
+    path:     /menu
+    defaults: { _controller: CAFTestBundle:Menu:index }
+    
+
+add:
+    path:     /add
+    defaults: { _controller: CAFTestBundle:Repa:add }
