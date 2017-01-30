@@ -31,7 +31,13 @@ class Menu
      */
     private $dateMenu;
 
-
+    private $plats; 
+    
+    /**                                                                                                                                                                                                          
+     * @ORM\OneToMany(targetEntity="CAF\TestBundle\Entity\MenuPlat", cascade={"persist"}, mappedBy="menu")                                                                                                                      
+     */                                                                                                                                                                                                          
+    private $mp; 
+    
     /**
      * Get id
      *
@@ -64,5 +70,73 @@ class Menu
     public function getDateMenu()
     {
         return $this->dateMenu;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->mp = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getPlats()                                                                                                                                                                                   
+    {                                                                                                                                                                                                            
+        $plats = new \Doctrine\Common\Collections\ArrayCollection();                                                                                                                                             
+                                                                                                                                                                                                                 
+        foreach($this->mp as $p)                                                                                                                                                                                 
+        {                                                                                                                                                                                                        
+            $plats[] = $p->getPlat();                                                                                                                                                                           
+        }                                                                                                                                                                                                        
+                                                                                                                                                                                                                 
+        return $plats;                                                                                                                                                                                           
+    }                                                                                                                                                                                                            
+                                                                                                                                                                                                                 
+    public function setPlats($plats)                                                                                                                                                                             
+    {                                                                                                                                                                                                            
+        foreach($plats as $p)                                                                                                                                                                                    
+        {                                                                                                                                                                                                        
+            $mp = new MenuPlat();                                                                                                                                                                               
+                                                                                                                                                                                                                 
+            $mp->setMenu($this);                                                                                                                                                                                
+            $mp->setPlat($p); 
+            $mp->setLettre('_'); 
+            $mp->setSelectionne(false);
+                                                                                                                                                                                                                 
+            $this->addMp($mp);                                                                                                                                                                                   
+        }          
+    }
+    
+    /**
+     * Add mp
+     *
+     * @param \CAF\TestBundle\Entity\MenuPlat $mp
+     *
+     * @return Menu
+     */
+    public function addMp(\CAF\TestBundle\Entity\MenuPlat $mp)
+    {
+        $this->mp[] = $mp;
+
+        return $this;
+    }
+
+    /**
+     * Remove mp
+     *
+     * @param \CAF\TestBundle\Entity\MenuPlat $mp
+     */
+    public function removeMp(\CAF\TestBundle\Entity\MenuPlat $mp)
+    {
+        $this->mp->removeElement($mp);
+    }
+
+    /**
+     * Get mp
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMp()
+    {
+        return $this->mp;
     }
 }

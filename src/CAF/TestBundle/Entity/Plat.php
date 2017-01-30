@@ -5,14 +5,13 @@ namespace CAF\TestBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * plat
+ * Plat
  *
  * @ORM\Table(name="test_plat")
  * @ORM\Entity(repositoryClass="CAF\TestBundle\Repository\PlatRepository")
- * @ORM\InheritanceType("SINGLE_TABLE")
  */
 
-class plat
+class Plat
 {
     /**
      * @var int
@@ -29,7 +28,11 @@ class plat
      * @ORM\Column(name="libelle", type="string", length=255, unique=true)
      */
     private $libelle;
-
+    
+    /**
+     * @ORM\OneToMany(targetEntity="CAF\TestBundle\Entity\MenuPlat", mappedBy="plat")
+     */
+    private $mp;
 
     /**
      * Get id
@@ -46,7 +49,7 @@ class plat
      *
      * @param string $libelle
      *
-     * @return plat
+     * @return Plat
      */
     public function setLibelle($libelle)
     {
@@ -63,5 +66,46 @@ class plat
     public function getLibelle()
     {
         return $this->libelle;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->mp = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add mp
+     *
+     * @param \CAF\TestBundle\Entity\MenuPlat $mp
+     *
+     * @return Plat
+     */
+    public function addMp(\CAF\TestBundle\Entity\MenuPlat $mp)
+    {
+        $this->mp[] = $mp;
+
+        return $this;
+    }
+
+    /**
+     * Remove mp
+     *
+     * @param \CAF\TestBundle\Entity\MenuPlat $mp
+     */
+    public function removeMp(\CAF\TestBundle\Entity\MenuPlat $mp)
+    {
+        $this->mp->removeElement($mp);
+    }
+
+    /**
+     * Get mp
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMp()
+    {
+        return $this->mp;
     }
 }

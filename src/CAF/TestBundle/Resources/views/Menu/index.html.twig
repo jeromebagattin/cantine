@@ -3,5 +3,12 @@
 {% block title %}CAFTestBundle:Menu:index{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Menu:index page</h1>
+    <h1>Welcome to the Menu:index page</h1>
+    <ul class="nav nav-pills nav-stacked">
+        {% for menu in menus %}
+            <li>
+                {{ menu.dateMenu | date('d/m/Y') }}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

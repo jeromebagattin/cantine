@@ -5,6 +5,7 @@ namespace CAF\TestBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use CAF\TestBundle\Repository\PlatRepository;
 
 class MenuType extends AbstractType
 {
@@ -13,7 +14,19 @@ class MenuType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('dateMenu')        ;
+        $builder->add('dateMenu')        
+                ->add('plats', 'entity', array(
+                    'class'    => 'CAFTestBundle:Plat',
+                    'label'    => 'Plats du menu : ',
+                    'property' => 'libelle',
+                    'multiple' => true,
+                    'expanded' => true,
+                    'query_builder' => function(PlatRepository $repo) {
+                        return $repo->myFindAll();
+                    }
+                ))
+                ->add('ok', 'submit')
+                ;
     }
     
     /**

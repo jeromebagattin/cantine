@@ -10,4 +10,9 @@ namespace CAF\TestBundle\Repository;
  */
 class PlatRepository extends \Doctrine\ORM\EntityRepository
 {
+     public function myFindAll() {
+        return $this
+                        ->createQueryBuilder('a')
+        ;
+    }
 }

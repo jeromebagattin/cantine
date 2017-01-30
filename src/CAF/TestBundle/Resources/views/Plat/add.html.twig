@@ -4,11 +4,5 @@
 
 {% block body %}
 <h1>Welcome to the Plat:index page</h1>
-<ul class="nav nav-pills nav-stacked">
-    {% for plat in plats %}
-        <li>
-            {{ plat.libelle}}
-        </li>
-    {% endfor %}
-</ul>
+{{ form(form) }}
 {% endblock %}
