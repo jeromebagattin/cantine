@@ -52,11 +52,6 @@ class Plat
      */
     private $mp;
     
-     /**
-     * @ORM\OneToMany(targetEntity="CAF\PopoteBundle\Entity\RepaPlat", mappedBy="plat")
-     */
-    private $rp;
-    
     /**
      * Get id
      *

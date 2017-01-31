@@ -14,29 +14,29 @@ class RepaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $idMenu = $options['data']->getMenu()->getId();
+       // $idMenu = $options['data']->getId();
         
         $builder->add('prixRepa', 'money')
-                ->add('menu', 'entity', array(
-                    'class'    => 'CAFPopoteBundle:Menu',
-                    'label'    => 'Menu : ',
-                    'property' => 'id',
-                    'multiple' => false,
+//                ->add('menu', 'entity', array(
+//                    'class'    => 'CAFPopoteBundle:Menu',
+//                    'label'    => 'Menu : ',
+//                    'property' => 'id',
+//                    'multiple' => false,
                    
 //                    'query_builder' => function(PlatRepository $repo) {
 //                        return $repo->mFindAll();
 //                    }
-                ))
-                ->add('plats', 'entity', array(
-                    'class'    => 'CAFPopoteBundle:Plat',
-                    'label'    => 'Plats du repa : ',
-                    'property' => 'libelle',
-                    'multiple' => true,
-                    'expanded' => true,
-                    'query_builder' => function(PlatRepository $repo) use ($idMenu){
-                        return $repo->findByMenu($idMenu);
-                    }
-                ))
+//                ))
+//                ->add('plats', 'entity', array(
+//                    'class'    => 'CAFPopoteBundle:Plat',
+//                    'label'    => 'Plats du repa : ',
+//                    'property' => 'libelle',
+//                    'multiple' => true,
+//                    'expanded' => true,
+//                    'query_builder' => function(PlatRepository $repo) use ($idMenu){
+//                        return $repo->findByMenu($idMenu);
+//                    }
+//                ))
                 ->add('ok', 'submit')
                 ;
     }

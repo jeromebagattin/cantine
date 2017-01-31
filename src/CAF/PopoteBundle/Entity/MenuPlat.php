@@ -32,6 +32,18 @@ class MenuPlat
      * @ORM\ManyToOne(targetEntity="CAF\PopoteBundle\Entity\Menu", inversedBy="mp", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
+    
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="selectionne", type="boolean")
+     */
+    private $selectionne;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="CAF\PopoteBundle\Entity\Menu", inversedBy="mp", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
     private $menu;
     
      /**
@@ -120,5 +132,29 @@ class MenuPlat
     public function getPlat()
     {
         return $this->plat;
+    }
+
+    /**
+     * Set selectionne
+     *
+     * @param boolean $selectionne
+     *
+     * @return MenuPlat
+     */
+    public function setSelectionne($selectionne)
+    {
+        $this->selectionne = $selectionne;
+
+        return $this;
+    }
+
+    /**
+     * Get selectionne
+     *
+     * @return boolean
+     */
+    public function getSelectionne()
+    {
+        return $this->selectionne;
     }
 }

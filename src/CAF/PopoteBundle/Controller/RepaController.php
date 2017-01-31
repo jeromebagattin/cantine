@@ -45,6 +45,7 @@ class RepaController extends Controller {
         $menu = $em->getRepository('CAFPopoteBundle:Menu')->find($idMenu);
         
         $repa = new Repa($menu);
+        
         $form = $this->createForm(new RepaType(), $repa);
 
         if ($form->handleRequest($request)->isValid()) {

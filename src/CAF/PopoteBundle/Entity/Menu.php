@@ -11,6 +11,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="menu")
  * @ORM\Entity(repositoryClass="CAF\PopoteBundle\Repository\MenuRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"menu" = "Menu", "repa" = "Repa"})
+ * 
  */
 class Menu
 {
@@ -54,12 +58,19 @@ class Menu
     private $mp; 
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->mp = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->plats = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
      * Get id
      *
      * @return int
      */
-                                        
-    
     public function getId()
     {
         return $this->id;
@@ -136,15 +147,6 @@ class Menu
     {
         return $this->etat;
     }
-    
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->mp = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->plats = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     public function getPlats()                                                                                                                                                                                   
     {                                                                                                                                                                                                            
@@ -167,7 +169,8 @@ class Menu
             $mp->setMenu($this);                                                                                                                                                                                
             $mp->setPlat($p); 
             $mp->setLettre('_'); 
-                                                                                                                                                                                                                 
+            $mp->setSelectionne(false);                                                                                                                                                                                                
+            
             $this->addMp($mp);                                                                                                                                                                                   
         }          
     }
