@@ -38,9 +38,11 @@ class Repa extends Menu
         
         
         if (is_a($menu, '\CAF\PopoteBundle\Entity\Menu')) {
-            $this->dateRepa = $menu->getDateMenu();
+            $this->dateMenu = $menu->getDateMenu();
             $this->dateValidation = $menu->getDateValidation();
-            $this->mp = $menu->getMp();
+            foreach ($menu->getMp() as $mp) {
+                $this->mp[] = $mp;
+            }
         }
     }
     

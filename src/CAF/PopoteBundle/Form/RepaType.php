@@ -33,8 +33,8 @@ class RepaType extends AbstractType
 //                    'property' => 'libelle',
 //                    'multiple' => true,
 //                    'expanded' => true,
-//                    'query_builder' => function(PlatRepository $repo) use ($idMenu){
-//                        return $repo->findByMenu($idMenu);
+//                    'query_builder' => function(PlatRepository $repo) {
+//                        return $repo->findByMenu(1);
 //                    }
 //                ))
                 ->add('ok', 'submit')
