@@ -1,10 +1,11 @@
 <?php
 
 namespace CAF\TestBundle\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class RepaController extends MenuController {
 
-    public function addRepaAction() {
+    public function addRepaAction(Request $request) {
 //        $repa = new Repa();
 //        $form = $this->createForm(new RepaType(), $repa);
 //
@@ -18,11 +19,13 @@ class RepaController extends MenuController {
 //            return $this->redirect($this->generateUrl('test_repa_index', array('id' => $repa->getId())));
 //        }
 
-        $response = parent::addAction();
-
-        return $this->render('CAFTestBundle:Repa:add.html.twig', array(
-                    'form' => $form->createView(),
-        ));
+//        //        return $this->render('CAFTestBundle:Repa:add.html.twig', array(
+//                    'form' => $form->createView(),
+//        ));
+        
+         $response = parent::addAction($request);
+        return($response);
+        
     }
 
 }
