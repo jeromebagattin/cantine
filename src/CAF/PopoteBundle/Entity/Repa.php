@@ -25,25 +25,25 @@ class Repa extends Menu
      * @ORM\Column(name="prixRepa", type="float")
      */
     private $prixRepa;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="etat", type="integer", options={"default":0})
-     */
-    private $etat = 0;
+    
+    private $idMenu;
 
     public function __construct(\CAF\PopoteBundle\Entity\Menu $menu) 
     {
-        
-        
         if (is_a($menu, '\CAF\PopoteBundle\Entity\Menu')) {
-            $this->dateMenu = $menu->getDateMenu();
-            $this->dateValidation = $menu->getDateValidation();
+            $this->idMenu = $menu->getId();
+            $this->setDateMenu($menu->getDateMenu());
+            $this->setDateValidation($menu->getDateValidation());
+            $this->setEtat($menu->getEtat());
+            
             foreach ($menu->getMp() as $mp) {
-                $this->mp[] = $mp;
+                $this->addMp($mp);
             }
         }
+    }
+    
+    public function getIdMenu() {
+        return $this->idMenu;
     }
     
     /**
@@ -68,30 +68,6 @@ class Repa extends Menu
     public function getPrixRepa()
     {
         return $this->prixRepa;
-    }
-
-    /**
-     * Set etat
-     *
-     * @param integer $etat
-     *
-     * @return Repa
-     */
-    public function setEtat($etat)
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
-
-    /**
-     * Get etat
-     *
-     * @return int
-     */
-    public function getEtat()
-    {
-        return $this->etat;
     }
 
     /**

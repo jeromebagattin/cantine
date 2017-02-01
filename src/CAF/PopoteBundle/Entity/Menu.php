@@ -3,7 +3,7 @@
 namespace CAF\PopoteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;                                                                                                                                                            
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -11,13 +11,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="menu")
  * @ORM\Entity(repositoryClass="CAF\PopoteBundle\Repository\MenuRepository")
- * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"menu" = "Menu", "repa" = "Repa"})
  * 
  */
-class Menu
-{
+class Menu {
+
     /**
      * @var int
      *
@@ -25,7 +25,7 @@ class Menu
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var \DateTime
@@ -33,7 +33,7 @@ class Menu
      * @ORM\Column(name="dateMenu", type="date", unique=true)
      * @Assert\Date() 
      */
-    private $dateMenu;
+    protected $dateMenu;
 
     /**
      * @var \DateTime
@@ -41,38 +41,36 @@ class Menu
      * @ORM\Column(name="dateValidation", type="date")
      * @Assert\Date() 
      */
-    private $dateValidation;
-    
+    protected $dateValidation;
+
     /**
      * @var int
      *
      * @ORM\Column(name="etat", type="integer", options={"default":0})
      */
-    private $etat = 0;
-
-    private $plats; 
+    protected $etat = 0;
     
-    /**                                                                                                                                                                                                          
+    protected $plats;
+
+    /**
      * @ORM\OneToMany(targetEntity="CAF\PopoteBundle\Entity\MenuPlat", cascade={"persist"}, mappedBy="menu")                                                                                                                      
-     */                                                                                                                                                                                                          
-    private $mp; 
+     */
+    protected $mp;
 
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->mp = new \Doctrine\Common\Collections\ArrayCollection();
         $this->plats = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -83,8 +81,7 @@ class Menu
      *
      * @return Menu
      */
-    public function setDateMenu($dateMenu)
-    {
+    public function setDateMenu($dateMenu) {
         $this->dateMenu = $dateMenu;
 
         return $this;
@@ -95,8 +92,7 @@ class Menu
      *
      * @return \DateTime
      */
-    public function getDateMenu()
-    {
+    public function getDateMenu() {
         return $this->dateMenu;
     }
 
@@ -107,8 +103,7 @@ class Menu
      *
      * @return Menu
      */
-    public function setDateValidation($dateValidation)
-    {
+    public function setDateValidation($dateValidation) {
         $this->dateValidation = $dateValidation;
 
         return $this;
@@ -119,20 +114,18 @@ class Menu
      *
      * @return \DateTime
      */
-    public function getDateValidation()
-    {
+    public function getDateValidation() {
         return $this->dateValidation;
     }
-    
-     /**
+
+    /**
      * Set etat
      *
      * @param integer $etat
      *
      * @return Menu
      */
-    public function setEtat($etat)
-    {
+    public function setEtat($etat) {
         $this->etat = $etat;
 
         return $this;
@@ -143,38 +136,33 @@ class Menu
      *
      * @return integer
      */
-    public function getEtat()
-    {
+    public function getEtat() {
         return $this->etat;
     }
 
-    public function getPlats()                                                                                                                                                                                   
-    {                                                                                                                                                                                                            
-        $plats = new \Doctrine\Common\Collections\ArrayCollection();                                                                                                                                             
-                                                                                                                                                                                                                 
-        foreach($this->mp as $p)                                                                                                                                                                                 
-        {                                                                                                                                                                                                        
-            $plats[] = $p->getPlat();                                                                                                                                                                           
-        }                                                                                                                                                                                                        
-                                                                                                                                                                                                                 
-        return $plats;                                                                                                                                                                                           
-    }                                                                                                                                                                                                            
-                                                                                                                                                                                                                 
-    public function setPlats($plats)                                                                                                                                                                             
-    {                                                                                                                                                                                                            
-        foreach($plats as $p)                                                                                                                                                                                    
-        {                                                                                                                                                                                                        
-            $mp = new MenuPlat();                                                                                                                                                                               
-                                                                                                                                                                                                                 
-            $mp->setMenu($this);                                                                                                                                                                                
-            $mp->setPlat($p); 
-            $mp->setLettre('_'); 
-            $mp->setSelectionne(false);                                                                                                                                                                                                
-            
-            $this->addMp($mp);                                                                                                                                                                                   
-        }          
+    public function getPlats() {
+        $plats = new \Doctrine\Common\Collections\ArrayCollection();
+
+        foreach ($this->mp as $p) {
+            $plats[] = $p->getPlat();
+        }
+
+        return $plats;
     }
-    
+
+    public function setPlats($plats) {
+        foreach ($plats as $p) {
+            $mp = new MenuPlat();
+
+            $mp->setMenu($this);
+            $mp->setPlat($p);
+            $mp->setLettre('_');
+            $mp->setSelectionne(false);
+
+            $this->addMp($mp);
+        }
+    }
+
     /**
      * Add mp
      *
@@ -182,8 +170,7 @@ class Menu
      *
      * @return Menu
      */
-    public function addMp(\CAF\PopoteBundle\Entity\MenuPlat $mp)
-    {
+    public function addMp(\CAF\PopoteBundle\Entity\MenuPlat $mp) {
         $this->mp[] = $mp;
 
         return $this;
@@ -194,8 +181,7 @@ class Menu
      *
      * @param \CAF\PopoteBundle\Entity\MenuPlat $mp
      */
-    public function removeMp(\CAF\PopoteBundle\Entity\MenuPlat $mp)
-    {
+    public function removeMp(\CAF\PopoteBundle\Entity\MenuPlat $mp) {
         $this->mp->removeElement($mp);
     }
 
@@ -204,8 +190,8 @@ class Menu
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getMp()
-    {
+    public function getMp() {
         return $this->mp;
     }
+
 }

@@ -13,8 +13,8 @@ class RepaRepository extends \Doctrine\ORM\EntityRepository {
     public function myFindId($id) {
         return $this
                         ->createQueryBuilder('a')
-                        ->leftJoin('a.rp', 'rp')
-                        ->addSelect('rp')
+                        ->leftJoin('a.mp', 'mp')
+                        ->addSelect('mp')
                         ->where('a.id = :id')
                         ->setParameter('id', $id)
                         ->getQuery()

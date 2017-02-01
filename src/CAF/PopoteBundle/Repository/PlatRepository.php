@@ -35,6 +35,17 @@ class PlatRepository extends \Doctrine\ORM\EntityRepository {
         ;
     }
 
+    public function findByRepaId($id) {
+        return $this
+                        ->createQueryBuilder('p')
+                        ->leftJoin('p.mp', 'mp')
+                        ->leftJoin('mp.menu', 'menu')
+                        ->addSelect('p')
+                        ->where('menu.id = :id')
+                        ->setParameter('id', $id)
+        ;
+    }
+    
     public function tout(QueryBuilder $qb) {
         $qb
                 ->andwhere('a.id > :par')

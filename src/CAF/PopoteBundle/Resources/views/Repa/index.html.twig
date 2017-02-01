@@ -14,7 +14,7 @@
         {% for repa in repas %}
             <li>
                 <a href="{{ path('popote_repa_edit', {id:repa.id}) }}">
-                    {{ repa.dateRepa | date('d/m/Y') }}
+                    {{ repa.dateMenu | date('d/m/Y') }}
                 </a>
             </li>
         {% endfor %}

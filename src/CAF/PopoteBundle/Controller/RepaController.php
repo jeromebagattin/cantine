@@ -3,7 +3,6 @@
 namespace CAF\PopoteBundle\Controller;
 
 use CAF\PopoteBundle\Entity\Repa;
-use CAF\PopoteBundle\Entity\Plat;
 use CAF\PopoteBundle\Form\RepaType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,16 +42,9 @@ class RepaController extends Controller {
     public function addAction($idMenu, Request $request) {
         $em = $this->getDoctrine()->getManager();
         $menu = $em->getRepository('CAFPopoteBundle:Menu')->find($idMenu);
-        $mm = $menu->getMp();
-        
-        echo 'ici'.$mm[1]->getId();
         
         $repa = new Repa($menu);
-        
-        $mm = $repa->getMp();
-        
-        echo 'la'.$mm[1]->getId().'rr';
-        
+       
         $form = $this->createForm(new RepaType(), $repa);
 
         if ($form->handleRequest($request)->isValid()) {
