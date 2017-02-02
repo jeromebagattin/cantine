@@ -49,7 +49,6 @@ class Menu {
      * @ORM\Column(name="etat", type="integer", options={"default":0})
      */
     protected $etat = 0;
-    
     protected $plats;
 
     /**
@@ -143,8 +142,10 @@ class Menu {
     public function getPlats() {
         $plats = new \Doctrine\Common\Collections\ArrayCollection();
 
-        foreach ($this->mp as $p) {
-            $plats[] = $p->getPlat();
+        if (!empty($this->mp)) {
+            foreach ($this->mp as $p) {
+                $plats[] = $p->getPlat();
+            }
         }
 
         return $plats;

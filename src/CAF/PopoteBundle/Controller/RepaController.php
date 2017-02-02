@@ -26,7 +26,7 @@ class RepaController extends Controller {
     
     public function viewAction($id, Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $repa = $em->getRepository('CAFPopoteBundle:Repa')->myfindId($id);
+        $repa = $em->getRepository('CAFPopoteBundle:Menu')->myfindId($id);
         
         if (null === $repa) {
             throw new NotFoundHttpException("Le repa d'id " . $id . " n'existe pas.");
@@ -70,10 +70,10 @@ class RepaController extends Controller {
         
         $form = $this->createForm(new RepaType(), $repa);
 
-        foreach($repa->getRp() as $rp)
+        foreach($repa->getMp() as $mp)
         {
-            $repa->removeRp($rp);
-            $em->remove($rp);
+            $repa->removeMp($mp);
+            $em->remove($mp);
         }
         $em->persist($repa);
         
@@ -99,9 +99,9 @@ class RepaController extends Controller {
         }
         
         
-        foreach($repa->getRp() as $mp)
+        foreach($repa->getMp() as $mp)
         {
-            $repa->removeRp($mp);
+            $repa->removeMp($mp);
             $em->remove($mp);
         }
         

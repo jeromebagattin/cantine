@@ -36,9 +36,9 @@ class Repa extends Menu
             $this->setDateValidation($menu->getDateValidation());
             $this->setEtat($menu->getEtat());
             
-            foreach ($menu->getMp() as $mp) {
-                $this->addMp($mp);
-            }
+//            foreach ($menu->getMp() as $mp) {
+//                 $this->addMp($mp);
+//            }
         }
     }
     
