@@ -13,7 +13,7 @@ class MenuController extends Controller {
 
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-        $menus = $em->getRepository('CAFPopoteBundle:Menu')->findAll();
+        $menus = $em->getRepository('CAFPopoteBundle:Menu')->findByMenu($em);
 
         if (null === $menus) {
             throw new NotFoundHttpException("Pas de Menu.");

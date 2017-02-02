@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="menu")
  * @ORM\Entity(repositoryClass="CAF\PopoteBundle\Repository\MenuRepository")
- * @ORM\InheritanceType("JOINED")
+ * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"menu" = "Menu", "repa" = "Repa"})
  * 
@@ -30,7 +30,7 @@ class Menu {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateMenu", type="date", unique=true)
+     * @ORM\Column(name="dateMenu", type="date")
      * @Assert\Date() 
      */
     protected $dateMenu;
