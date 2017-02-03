@@ -111,6 +111,4 @@ class RepaController extends Controller {
         $em->flush();
         return $this->redirect($this->generateUrl('popote_repa_index'));
     }
-    
-    
 }
