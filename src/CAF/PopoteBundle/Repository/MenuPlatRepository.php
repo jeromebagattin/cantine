@@ -10,4 +10,9 @@ namespace CAF\PopoteBundle\Repository;
  */
 class MenuPlatRepository extends \Doctrine\ORM\EntityRepository
 {
+     public function mFindAll() {
+        return $this
+                        ->createQueryBuilder('mp')
+        ;
+    }
 }

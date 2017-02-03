@@ -6,19 +6,19 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use CAF\PopoteBundle\Repository\PlatRepository;
+use CAF\PopoteBundle\Repository\MenuPlatRepository;
 
-class MenuType extends AbstractType
-{
+class MenuType extends AbstractType {
+
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('dateMenu', 'date')
                 ->add('dateValidation', 'date')
                 ->add('plats', 'entity', array(
-                    'class'    => 'CAFPopoteBundle:Plat',
-                    'label'    => 'Plats du menu : ',
+                    'class' => 'CAFPopoteBundle:Plat',
+                    'label' => 'Plats du menu : ',
                     'property' => 'libelle',
                     'multiple' => true,
                     'expanded' => true,
@@ -26,15 +26,15 @@ class MenuType extends AbstractType
                         return $repo->mFindAll();
                     }
                 ))
+                
                 ->add('ok', 'submit')
-                ;
+        ;
     }
-    
+
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'CAF\PopoteBundle\Entity\Menu'
         ));
@@ -43,10 +43,8 @@ class MenuType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
-    {
+    public function getBlockPrefix() {
         return 'caf_popotebundle_menu';
     }
-
 
 }
