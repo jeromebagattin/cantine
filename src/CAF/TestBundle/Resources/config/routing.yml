@@ -1,6 +1,6 @@
 caf_test_homepage:
     path:     /
-    defaults: { _controller: CAFTestBundle:Default:index }
+    defaults: { _controller: CAFPopoteBundle:Menu:index }
 
 test_plat_index:
     path:     /plat

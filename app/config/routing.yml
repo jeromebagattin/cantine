@@ -1,11 +1,18 @@
-c_af_test:
-    resource: "@CAFTestBundle/Resources/config/routing.yml"
-    prefix:   /test
-
+caf_home:
+    path:     /
+    defaults: { _controller: CAFPopoteBundle:Menu:index }
+    
 caf_popote:
     resource: "@CAFPopoteBundle/Resources/config/routing.yml"
     prefix:   /popote
 
-#caf_cantine:
-#    resource: "@CAFCantineBundle/Resources/config/routing.yml"
-#    prefix:   /cantine
+login:
+    pattern:   /login
+    defaults:  { _controller: CAFUserBundle:Security:login }
+
+login_check:
+    pattern:   /login_check
+
+logout:
+    pattern:   /logout
+

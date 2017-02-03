@@ -16,6 +16,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new CAF\PopoteBundle\CAFPopoteBundle(),
             new CAF\TestBundle\CAFTestBundle(),
+            new CAF\UserBundle\CAFUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

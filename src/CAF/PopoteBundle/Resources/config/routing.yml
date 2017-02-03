@@ -1,6 +1,6 @@
 caf_popote_homepage:
     path:     /
-    defaults: { _controller: CAFPopoteBundle:Popote:menu }
+    defaults: { _controller: CAFPopoteBundle:menu:index }
 
 popote_plat_index:
     path:      /plat
