@@ -14,17 +14,9 @@ class RepaType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $idMenu = $builder->getData()->getIdMenu();
-        
-        $mm = $builder->getData()->getMp();
-        
-        foreach ($mm as $m) {
-        echo 'ici'.$m->getPlat()->getLibelle();
-        }
-        
+
         $builder
-                ->add('prixRepa', 'money', array(
-                    'data' => 6,
-                ))
+                ->add('prixRepa', 'money')
                 ->add('plats', 'entity', array(
                     'class' => 'CAFPopoteBundle:Plat',
                     'label' => 'Plats du repa : ',

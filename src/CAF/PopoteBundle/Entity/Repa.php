@@ -26,6 +26,11 @@ class Repa extends Menu
      */
     private $prixRepa;
     
+     /**
+     * @var int
+     *
+     * @ORM\Column(name="idMenu", type="integer")
+     */
     private $idMenu;
 
     public function __construct(\CAF\PopoteBundle\Entity\Menu $menu) 
@@ -42,10 +47,30 @@ class Repa extends Menu
         }
     }
     
-    public function getIdMenu() {
+    /**
+     * Get idMenu
+     *
+     * @return integer
+     */
+    public function getIdMenu()
+    {
         return $this->idMenu;
     }
     
+   /**
+     * Set idMenu
+     *
+     * @param integer $idMenu
+     *
+     * @return Repa
+     */
+    public function setIdMenu($idMenu)
+    {
+        $this->idMenu = $idMenu;
+
+        return $this;
+    }
+
     /**
      * Set prixRepa
      *
