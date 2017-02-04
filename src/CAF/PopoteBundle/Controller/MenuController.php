@@ -8,10 +8,18 @@ use CAF\PopoteBundle\Form\MenuType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class MenuController extends Controller {
 
+   /**
+   * @Security("has_role('ROLE_AUTEUR')")
+   */
     public function indexAction() {
+        
+        $user = $this->getUser();
+        echo '->'.$user;
+        
         $em = $this->getDoctrine()->getManager();
         $menus = $em->getRepository('CAFPopoteBundle:Menu')->findByMenu($em);
 
