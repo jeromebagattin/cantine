@@ -10,7 +10,7 @@
 
   <h2>Menus</h2>
 
-  <ul>
+  <ul class="nav nav-pills nav-stacked">
         {% for menu in menus %}
             <li>
                 <a href="{{ path('popote_menu_edit', {id:menu.id}) }}">
