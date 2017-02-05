@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new CAF\PopoteBundle\CAFPopoteBundle(),
             new CAF\UserBundle\CAFUserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
