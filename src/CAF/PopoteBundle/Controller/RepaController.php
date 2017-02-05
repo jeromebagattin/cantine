@@ -3,10 +3,12 @@
 namespace CAF\PopoteBundle\Controller;
 
 use CAF\PopoteBundle\Entity\Repa;
+use CAF\PopoteBundle\Entity\Menu;
 use CAF\PopoteBundle\Form\RepaType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class RepaController extends Controller {
 
@@ -23,21 +25,22 @@ class RepaController extends Controller {
         ));
         return new Response($content);
     }
-    
+
     public function viewAction(Repa $repa) {
         $content = $this->get('templating')->render('CAFPopoteBundle:Repa:view.html.twig', array(
             'repa' => $repa,
         ));
         return new Response($content);
-        
     }
 
-    public function addAction($idMenu, Request $request) {
+    /**
+     * @ParamConverter("menu", options={"mapping": {"idMenu": "id"}})
+     */
+    public function addAction(Menu $menu, Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $menu = $em->getRepository('CAFPopoteBundle:Menu')->find($idMenu);
-        
+
         $repa = new Repa($menu);
-       
+
         $form = $this->createForm(new RepaType(), $repa);
 
         if ($form->handleRequest($request)->isValid()) {
@@ -54,43 +57,41 @@ class RepaController extends Controller {
     }
 
     public function editAction(Repa $repa, Request $request) {
-        
+
         $em = $this->getDoctrine()->getManager();
-        
+
         $form = $this->createForm(new RepaType(), $repa);
 
-        foreach($repa->getMp() as $mp)
-        {
+        foreach ($repa->getMp() as $mp) {
             $repa->removeMp($mp);
             $em->remove($mp);
         }
         $em->persist($repa);
-        
-        if ($form->handleRequest($request)->isValid()) 
-        {
+
+        if ($form->handleRequest($request)->isValid()) {
             $em->persist($repa);
             $em->flush();
             return $this->redirect($this->generateUrl('popote_repa_index'));
         }
-        
-         return $this->render('CAFPopoteBundle:Repa:edit.html.twig', array(
+
+        return $this->render('CAFPopoteBundle:Repa:edit.html.twig', array(
                     'form' => $form->createView(),
-                    'id'   => $repa->getId()
+                    'id' => $repa->getId()
         ));
     }
-    
+
     public function deleteAction(Repa $repa) {
         $em = $this->getDoctrine()->getManager();
-        
-        foreach($repa->getMp() as $mp)
-        {
+
+        foreach ($repa->getMp() as $mp) {
             $repa->removeMp($mp);
             $em->remove($mp);
         }
-        
+
         $em->persist($repa);
         $em->remove($repa);
         $em->flush();
         return $this->redirect($this->generateUrl('popote_repa_index'));
     }
+
 }

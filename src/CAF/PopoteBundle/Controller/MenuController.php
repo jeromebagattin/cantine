@@ -11,9 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MenuController extends Controller {
 
-   /**
-   * @Security("has_role('ROLE_AUTEUR')")
-   */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
         $menus = $em->getRepository('CAFPopoteBundle:Menu')->findByMenu($em);
