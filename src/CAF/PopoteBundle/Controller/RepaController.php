@@ -24,14 +24,7 @@ class RepaController extends Controller {
         return new Response($content);
     }
     
-    public function viewAction($id, Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $repa = $em->getRepository('CAFPopoteBundle:Menu')->myfindId($id);
-        
-        if (null === $repa) {
-            throw new NotFoundHttpException("Le repa d'id " . $id . " n'existe pas.");
-        }
-
+    public function viewAction(Repa $repa) {
         $content = $this->get('templating')->render('CAFPopoteBundle:Repa:view.html.twig', array(
             'repa' => $repa,
         ));
@@ -60,14 +53,9 @@ class RepaController extends Controller {
         ));
     }
 
-    public function editAction($id, Request $request) {
+    public function editAction(Repa $repa, Request $request) {
         
         $em = $this->getDoctrine()->getManager();
-        $repa = $em->getRepository('CAFPopoteBundle:Repa')->find($id);
-
-        if (null === $repa) {
-            throw new NotFoundHttpException("Le repa d'id " . $id . " n'existe pas.");
-        }
         
         $form = $this->createForm(new RepaType(), $repa);
 
@@ -91,14 +79,8 @@ class RepaController extends Controller {
         ));
     }
     
-    public function deleteAction($id, Request $request) {
+    public function deleteAction(Repa $repa) {
         $em = $this->getDoctrine()->getManager();
-        $repa = $em->getRepository('CAFPopoteBundle:Repa')->find($id);
-
-        if (null === $repa) {
-            throw new NotFoundHttpException("Le repa d'id " . $id . " n'existe pas.");
-        }
-        
         
         foreach($repa->getMp() as $mp)
         {

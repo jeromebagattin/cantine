@@ -27,33 +27,13 @@ class TypePlatController extends Controller {
         return new Response($content);
     }
 
-    public function viewAction($id, Request $request) {
-        $repository = $this->getDoctrine()
-                ->getManager()
-                ->getRepository('CAFPopoteBundle:TypePlat')
-        ;
-        $typeplat = $repository->find($id);
-        if (null === $typeplat) {
-            throw new NotFoundHttpException("Le typeplat d'id " . $id . " n'existe pas.");
-        }
-
-        $form = $this->createForm(new TypePlatType(), $typeplat);
-
+    public function viewAction(TypePlat $typeplat) {
         return $this->render('CAFPopoteBundle:TypePlat:view.html.twig', array(
                     'typeplat' => $typeplat
         ));
     }
     
-    public function editAction($id, Request $request) {
-        $repository = $this->getDoctrine()
-                ->getManager()
-                ->getRepository('CAFPopoteBundle:TypePlat')
-        ;
-        $typeplat = $repository->find($id);
-        if (null === $typeplat) {
-            throw new NotFoundHttpException("Le typeplat d'id " . $id . " n'existe pas.");
-        }
-
+    public function editAction(TypePlat $typeplat, Request $request) {
         $form = $this->createForm(new TypePlatType(), $typeplat);
 
         if ($form->handleRequest($request)->isValid()) {
@@ -70,14 +50,8 @@ class TypePlatController extends Controller {
         ));
     }
 
-    public function deleteAction($id, Request $request) {
+    public function deleteAction(TypePlat $typeplat) {
         $em = $this->getDoctrine()->getManager();
-        $typeplat = $em->getRepository('CAFPopoteBundle:TypePlat')->find($id);
-
-        if (null === $typeplat) {
-            throw new NotFoundHttpException("Le typeplat d'id " . $id . " n'existe pas.");
-        }
-
         $em->remove($typeplat);
         $em->flush();
 
