@@ -75,3 +75,24 @@ assetic:
     use_controller: '%kernel.debug%'
     filters:
         cssrewrite: ~
+        
+    assets:
+        bootstrap_css:
+            inputs:
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/less/bootstrap.less
+#                - %kernel.root_dir%/../vendor/twbs/bootstrap/less/responsive.less
+            filters:
+#                - less
+                - cssrewrite
+             
+            output: css/bootstrap.css
+        bootstrap_js:
+            inputs:
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/transition.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/alert.js
+               
+            output: js/bootstrap.js
+        jquery:
+            inputs:
+                - %kernel.root_dir%/../vendor/components/jquery/jquery.js
+            output: js/jquery.js
