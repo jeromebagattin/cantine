@@ -26,7 +26,8 @@
         "components/jquery": "^3.1",
         "symfony/assetic-bundle": "^2.8",
         "twig/twig": "~1.0",
-        "oyejorge/less.php": "dev-master"
+        "oyejorge/less.php": "dev-master",
+        "symfony/ldap": "^3.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
