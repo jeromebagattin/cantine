@@ -7,3 +7,6 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    ldap:
+        class: Symfony\Component\Ldap\LdapClient
+        arguments: [ "SDC1A641.cafbayonne.cnaf" ]

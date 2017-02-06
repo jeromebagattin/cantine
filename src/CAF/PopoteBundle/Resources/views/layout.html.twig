@@ -26,9 +26,9 @@
     {% endblock %}
 
     {% block javascripts %}
-    {% javascripts '@CAFPopoteBundle/Resources/public/js/*' '@jquery' '@bootstrap_js' %}
+        {% javascripts '@CAFPopoteBundle/Resources/public/js/*' '@jquery' '@bootstrap_js' %}
         <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock %}
-    
+        {% endjavascripts %}
+    {% endblock %}
+
 {% endblock %}
