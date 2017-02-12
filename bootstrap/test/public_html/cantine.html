@@ -122,11 +122,11 @@ habitats du fait du développement non durable d’infrastructures</td>
         
                </div>
                <div class="col-xs-2">
-                  <div class="btn-group-vertical" data-toggle="buttons">
-  <label class="btn btn-primary btn-xs">
+                  <div data-toggle="buttons">
+  <label class="btn btn-block btn-primary btn-xs mybut">
     <input type="checkbox">Un
   </label>
-  <label class="btn btn-primary btn-xs">
+  <label class="btn btn-block btn-primary btn-xs">
     <input type="checkbox">Deux
   </label>
   <label class="btn btn-primary btn-xs">
@@ -135,23 +135,119 @@ habitats du fait du développement non durable d’infrastructures</td>
 </div>
                </div>
                <div class="col-xs-2">
-                 <div class="btn-group-vertical" data-toggle="buttons">
-  <label class="btn btn-primary btn-xs">
-    <input type="checkbox">Un
-  </label>
-  <label class="btn btn-primary btn-xs">
-    <input type="checkbox">Deux
-  </label>
-  <label class="btn btn-primary btn-xs">
-    <input type="checkbox">Trois
-  </label>
+                   <div data-toggle="buttons">
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="oil" checked="checked" autocomplete="off"> Oil
+            </label>
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="coolant" checked="checked" autocomplete="off"> Coolant
+            </label>
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="breakfluid" checked="checked" autocomplete="off"> Break Fluid
+            </label>
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="screenwash" checked="checked" autocomplete="off"> Screen Wash
+            </label>
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="noleaks" checked="checked" autocomplete="off"> No Leaks
+            </label>
+        </div>
+               
 </div>
                </div>
 </div>
            </form>
            
    </div>        
-       
+        
+        <div class="row">
+    <div class="col-sm-4 col-xs-12">
+        <p class="font-weight-bold">Bonnet</p>
+        <div data-toggle="buttons">
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="oil" checked="checked" autocomplete="off"> Oil
+            </label>
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="coolant" checked="checked" autocomplete="off"> Coolant
+            </label>
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="breakfluid" checked="checked" autocomplete="off"> Break Fluid
+            </label>
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="screenwash" checked="checked" autocomplete="off"> Screen Wash
+            </label>
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="noleaks" checked="checked" autocomplete="off"> No Leaks
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-4 col-xs-12">
+        <p class="font-weight-bold">Outside</p>
+        <div data-toggle="buttons">
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="tyres" checked="checked" autocomplete="off">
+                Tyres
+            </label>
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="wiperblades" checked="checked" autocomplete="off">
+                Wiper Blades
+            </label>
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="lights" checked="checked" autocomplete="off">
+                Lights
+            </label>
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="indicators" checked="checked" autocomplete="off">
+                Indicators
+            </label>
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="outcleanliness" checked="checked" autocomplete="off">
+                Cleanliness
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-4 col-xs-12">
+        <p class="font-weight-bold">Inside</p>
+        <div data-toggle="buttons">
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="horn" checked="checked" autocomplete="off">
+                Horn
+            </label>
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="breaks" checked="checked" autocomplete="off">
+                Breaks/Handbrake
+            </label>
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="seatbelt" checked="checked" autocomplete="off">
+                Seatbelt
+            </label>
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="windscreen" checked="checked" autocomplete="off">
+                Windscreen
+            </label>
+            <label class="btn btn-block btn-success">
+                <input type="checkbox" name="incleanliness" checked="checked" autocomplete="off">
+                Cleanliness
+            </label>
+        </div>
+    </div>
+</div>
+        <script>
+            $('label.btn').on('click', function() {
+    //Find the child check box.
+    var $input = $(this).find('input');
+
+    $(this).toggleClass('btn-danger btn-success');
+    //Remove the attribute if the button is "disabled"
+    if ($(this).hasClass('btn-danger')) {
+        $input.removeAttr('checked');
+    } else {
+        $input.attr('checked', '');
+    }
+
+    return false; //Click event is triggered twice and this prevents re-toggling of classes
+});
+        </script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
