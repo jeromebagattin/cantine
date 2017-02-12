@@ -18,7 +18,7 @@ security:
 #                class:    CAF\UserBundle\Entity\User
 #                property: username
     
-        app_users:
+        ldap_provider:
             ldap:
                 service: ldap
                 base_dn: dc=cafbayonne,dc=cnaf
@@ -60,21 +60,41 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-            
-        ldap:
-            pattern:   ^/
-            anonymous: true
-            provider:  app_users
-            form_login_ldap:
-                login_path: login
-                check_path: login_check
-                default_target_path:            /menu
+        api:
+            provider:  ldap_provider
+            stateless: true
+            pattern:   ^/api
+            http_basic_ldap:
                 service: ldap
-                dn_string: 'sAMAccountName={userPrincipalName},dc=cafbayonne,dc=cnaf'
-            
+                dn_string: "{username}@example"
+        backend:
+            provider: ldap_provider
+            pattern:  ^/
+            logout:
+                path:   logout
+                target: /login
+            form_login_ldap:
+                service: ldap
+                dn_string: 'sAMAccountName={username}'
+                check_path: login_check
+                login_path: /login  
+#        ldap:
+#            pattern:   ^/
+#            anonymous: true
+#            provider:  ldap_provider
+#            form_login_ldap:
+#                login_path: login
+#                check_path: login_check
+#                default_target_path:            /menu
+#                service: ldap
+#                dn_string: 'sAMAccountName={username}'
+#            logout:
+#                path:   logout
+#                target: login
             
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         #- { path: ^/admin, ip: 127.0.0.1, requires_channel: https }
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/, roles: ROLE_CAF }
+        #- { path: ^/admin, roles: ROLE_ADMIN }
+        #- { path: ^/, roles: ROLE_CAF }
