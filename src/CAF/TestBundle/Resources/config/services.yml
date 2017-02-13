@@ -1,4 +1,0 @@
-services:
-#    c_af_test.example:
-#        class: CAF\TestBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]

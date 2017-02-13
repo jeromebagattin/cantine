@@ -12,8 +12,13 @@ security:
         
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        main:
-            id: fos_user.user_provider.username
+        
+        chain_provider:
+            chain:
+                providers: [in_memory, ldap_provider]
+        
+#        fos:
+#            id: fos_user.user_provider.username
 #            entity:
 #                class:    CAF\UserBundle\Entity\User
 #                property: username
@@ -24,7 +29,8 @@ security:
                 base_dn: dc=cafbayonne,dc=cnaf
                 search_dn: administrateur@CAFBAYONNE.CNAF
                 search_password: TURBOD
-                filter: (sAMAccountName={username})
+                uid_key: userPrincipalName
+                filter: (userPrincipalName={username})
                 default_roles: ROLE_CAF
            
         in_memory:
@@ -53,48 +59,28 @@ security:
 #            remember_me:
 #                key:        %secret% 
                 
-            # activate different ways to authenticate
-
-            # http_basic: ~
-            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-        api:
-            provider:  ldap_provider
-            stateless: true
-            pattern:   ^/api
-            http_basic_ldap:
-                service: ldap
-                dn_string: "{username}@example"
-        backend:
-            provider: ldap_provider
-            pattern:  ^/
+        secured_area:
+            anonymous: ~
             logout:
-                path:   logout
-                target: /login
-            form_login_ldap:
-                service: ldap
-                dn_string: 'sAMAccountName={username}'
-                check_path: login_check
-                login_path: /login  
-#        ldap:
-#            pattern:   ^/
-#            anonymous: true
-#            provider:  ldap_provider
-#            form_login_ldap:
-#                login_path: login
-#                check_path: login_check
-#                default_target_path:            /menu
-#                service: ldap
-#                dn_string: 'sAMAccountName={username}'
-#            logout:
-#                path:   logout
-#                target: login
+                path:   /logout
+                target: /
+            guard:
+                authenticators:
+                    - form_authenticator
+                    
+        guard:
+            anonymous: ~
+            provider: ldap_provider
+            pattern: ^/
+            logout: ~
+            guard:
+                authenticators:
+                    - form_authenticator
+        
             
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         #- { path: ^/admin, ip: 127.0.0.1, requires_channel: https }
         #- { path: ^/admin, roles: ROLE_ADMIN }
-        #- { path: ^/, roles: ROLE_CAF }
+        - { path: ^/, roles: ROLE_CAF }

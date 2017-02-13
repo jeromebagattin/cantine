@@ -7,7 +7,11 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-
+    
+    form_authenticator:
+          class: CAF\PopoteBundle\Security\FormAuthenticator
+          arguments: ["@router"]
+    
     ldap:
         class: Symfony\Component\Ldap\LdapClient
         arguments: [ "SDC1A641.cafbayonne.cnaf" ]
