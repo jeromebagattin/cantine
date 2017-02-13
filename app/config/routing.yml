@@ -1,11 +1,42 @@
-c_af_test:
-    resource: "@CAFTestBundle/Resources/config/routing.yml"
-    prefix:   /test
+caf_popote_homepage:
+    pattern: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /menu
+        permanent: true
 
 caf_popote:
     resource: "@CAFPopoteBundle/Resources/config/routing.yml"
-    prefix:   /popote
+    prefix:   /
 
-#caf_cantine:
-#    resource: "@CAFCantineBundle/Resources/config/routing.yml"
-#    prefix:   /cantine
+#fos_user_security:
+#    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+#
+#fos_user_profile:
+#    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+#    prefix: /profile
+#
+#fos_user_register:
+#    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+#    prefix: /register
+#
+#fos_user_resetting:
+#    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+#    prefix: /resetting
+#
+#fos_user_change_password:
+#    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+#    prefix: /profile
+
+login:
+    path:      /login
+    defaults: { _controller: CAFPopoteBundle:Default:login}
+    
+    
+login_check:
+    path:      /login_check
+    defaults: { _controller: CAFPopoteBundle:Default:login_check}
+
+logout:
+    path:      /logout
+    defaults: { _controller: CAFPopoteBundle:Default:logout}

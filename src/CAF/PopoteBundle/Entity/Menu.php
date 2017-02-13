@@ -158,7 +158,6 @@ class Menu {
             $mp->setMenu($this);
             $mp->setPlat($p);
             $mp->setLettre('_');
-            $mp->setSelectionne(false);
 
             $this->addMp($mp);
         }

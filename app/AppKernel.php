@@ -15,7 +15,9 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new CAF\PopoteBundle\CAFPopoteBundle(),
-            new CAF\TestBundle\CAFTestBundle(),
+            new CAF\UserBundle\CAFUserBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

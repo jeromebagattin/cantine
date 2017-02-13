@@ -1,0 +1,34 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+    {% stylesheets '@CAFPopoteBundle/Resources/public/css/main.css' '@bootstrap_css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block title %}
+
+    Popote - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
+    <h1>Popote</h1>
+
+    <hr>
+    <div id="menu">
+        {{ render(controller("CAFPopoteBundle:Popote:menu")) }}
+    </div>
+
+    {# On définit un nouveau bloc, que les vues du bundle pourront remplir #}
+    {% block cafpopote_body %}
+    {% endblock %}
+
+    {% block javascripts %}
+        {% javascripts '@CAFPopoteBundle/Resources/public/js/*' '@jquery' '@bootstrap_js' %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+
+{% endblock %}

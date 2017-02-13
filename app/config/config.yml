@@ -6,11 +6,11 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: fr
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -44,6 +44,7 @@ doctrine:
         dbname:   "%database_name%"
         user:     "%database_user%"
         password: "%database_password%"
+        server_version: "10.0"
         charset:  UTF8
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
@@ -64,3 +65,42 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+fos_user:
+    db_driver:     orm                       # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
+    firewall_name: main                      # Le nom du firewall derrière lequel on utilisera ces utilisateurs
+    user_class:    CAF\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
+    
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~
+        lessphp:
+            apply_to: "\.less$"
+            # Formatter options: compressed, lessjs, classic
+            formatter: "compressed"
+            preserve_comments: false
+            presets:
+                my_variable: "#000"
+        
+    assets:
+        bootstrap_css:
+            inputs:
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/less/bootstrap.less
+#                - %kernel.root_dir%/../vendor/twbs/bootstrap/less/responsive.less
+            filters:
+                - lessphp
+                - cssrewrite
+             
+            output: css/bootstrap.css
+        bootstrap_js:
+            inputs:
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/transition.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/alert.js
+               
+            output: js/bootstrap.js
+        jquery:
+            inputs:
+                - %kernel.root_dir%/../vendor/components/jquery/jquery.js
+            output: js/jquery.js

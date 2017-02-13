@@ -30,7 +30,7 @@ class PlatController extends Controller
         ));
     }
     
-    public function ajoutAction($type, $libelle, $porc, Request $request) {
+    public function ajoutAction($type, $libelle, $porc) {
 
         // Création de l'entité
         $plat = new Plat();
@@ -60,14 +60,9 @@ class PlatController extends Controller
         ));
     }
 
-    public function editAction($id, Request $request)
+    public function editAction(Plat $plat, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $plat = $em->getRepository('CAFPopoteBundle:Plat')->find($id);
-        
-        if (null === $plat) {
-            throw new NotFoundHttpException("Le plat d'id " . $id . " n'existe pas.");
-        }
 
         $form = $this->createForm(new PlatType(), $plat);
 
@@ -82,41 +77,19 @@ class PlatController extends Controller
                     'form' => $form->createView(),
                     'id' => $plat->getId()
         ));
-        
-        
-        
-        
-        $content = $this->renderView('CAFPopoteBundle:Plat:edit.html.twig', array (
-             'nom' => $id
-        ));
-        $tag = $request->query->get('tag');
-        return new Response($content);
     }
     
-    public function deleteAction($id, Request $request)
+    public function deleteAction(Plat $plat)
     {
         $em = $this->getDoctrine()->getManager();
-        $plat = $em->getRepository('CAFPopoteBundle:Plat')->find($id);
-
-        if (null === $plat) {
-            throw new NotFoundHttpException("Le plat d'id " . $id . " n'existe pas.");
-        }
-
         $em->remove($plat);
         $em->flush();
 
         return $this->redirect($this->generateUrl('popote_plat_index'));
     }
     
-    public function viewAction($id, Request $request)
+    public function viewAction(Plat $plat, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $plat = $em->getRepository('CAFPopoteBundle:Plat')->find($id);
-        
-        if (null === $plat) {
-            throw new NotFoundHttpException("Le plat d'id " . $id . " n'existe pas.");
-        }
-        
         $content = $this->renderView('CAFPopoteBundle:Plat:view.html.twig', array (
              'plat' => $plat
         ));

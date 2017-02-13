@@ -1,62 +1,58 @@
-caf_popote_homepage:
-    path:     /
-    defaults: { _controller: CAFPopoteBundle:Popote:menu }
-
 popote_plat_index:
-    path:      /plat
+    path:      /admin/plat
     defaults: { _controller: CAFPopoteBundle:Plat:index}
         
 popote_plat_view:
-    path:      /plat/{id}
+    path:      /admin/plat/{id}
     defaults: { _controller: CAFPopoteBundle:Plat:view}
     requirements:
         id:   \d{1,4}
         
 popote_plat_edit:
-    path:      /plat/edit/{id}
+    path:      /admin/plat/edit/{id}
     defaults: { _controller: CAFPopoteBundle:Plat:edit}
     requirements:
         id:   \d{1,4}
         
 popote_plat_delete:
-    path:      /plat/delete/{id}
+    path:      /admin/plat/delete/{id}
     defaults: { _controller: CAFPopoteBundle:Plat:delete}
     requirements:
         id:   \d{1,4}
 
 popote_plat_add:
-    path:      /plat/add
+    path:      /admin/plat/add
     defaults: { _controller: CAFPopoteBundle:Plat:add}
 
 popote_plat_ajout:
-    path:      /plat/ajout/{type}/{libelle}/{porc}
+    path:      /admin/plat/ajout/{type}/{libelle}/{porc}
     defaults: { _controller: CAFPopoteBundle:Plat:ajout, porc: 1} 
     requirements:
         type:   \d{1}
         porc:   0|1
         
 popote_typeplat_index:
-    path:      /typeplat
+    path:      /admin/typeplat
     defaults: { _controller: CAFPopoteBundle:TypePlat:index}
 
 popote_typeplat_view:
-    path:      /typeplat/{id}
+    path:      /admin/typeplat/{id}
     defaults: { _controller: CAFPopoteBundle:TypePlat:view}
     requirements:
         id:   \d{1,4}
         
 popote_typeplat_add:
-    path:      /typeplat/add
+    path:      /admin/typeplat/add
     defaults: { _controller: CAFPopoteBundle:TypePlat:add}       
 
 popote_typeplat_edit:
-    path:      /typeplat/edit/{id}
+    path:      /admin/typeplat/edit/{id}
     defaults: { _controller: CAFPopoteBundle:TypePlat:edit} 
     requirements:
         id:   \d{1,4}   
         
 popote_typeplat_delete:
-    path:      /typeplat/del/{id}
+    path:      /admin/typeplat/del/{id}
     defaults: { _controller: CAFPopoteBundle:TypePlat:delete} 
     requirements:
         id:   \d{1,4}   
@@ -100,17 +96,17 @@ popote_menu_view:
         id:   \d{1,4}
     
 popote_menu_add:
-    path:      /menu/add
+    path:      /admin/menu/add
     defaults: { _controller: CAFPopoteBundle:Menu:add}
     
 popote_menu_edit:
-    path:      /menu/edit/{id}
+    path:      /admin/menu/edit/{id}
     defaults: { _controller: CAFPopoteBundle:Menu:edit}
     requirements:
         id:   \d{1,4}
 
 popote_menu_delete:
-    path:      /menu/del/{id}
+    path:      /admin/menu/del/{id}
     defaults: { _controller: CAFPopoteBundle:Menu:delete}
     requirements:
         id:   \d{1,4}

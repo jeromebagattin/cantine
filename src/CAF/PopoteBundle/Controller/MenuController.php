@@ -25,13 +25,8 @@ class MenuController extends Controller {
         return new Response($content);
     }
     
-    public function viewAction($id, Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $menu = $em->getRepository('CAFPopoteBundle:Menu')->find($id);
-
-        if (null === $menu) {
-            throw new NotFoundHttpException("Le menu d'id " . $id . " n'existe pas.");
-        }
+    public function viewAction(Menu $menu) {
+        
 
         $content = $this->get('templating')->render('CAFPopoteBundle:Menu:view.html.twig', array(
             'menu' => $menu
@@ -47,22 +42,6 @@ class MenuController extends Controller {
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($menu);
-
-//            foreach ($form->get('plats')->getData() as $plat) {
-//                $choix = new MenuPlats();
-//
-//                // Se the message and user for current feedback
-//                $choix->setMenu($menu);
-//                $choix->setPlats($plat);
-//                //$choix->setLettre($form->get('letter')->getData());
-//                $choix->setLettre('_');
-//                // Persist the owning side
-//                $em->persist($choix);
-//
-//                // Sync the inverse side
-//                //$menu->addMenuPlats($choix);
-//            }
-
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Menu bien enregistrée.');
@@ -74,13 +53,8 @@ class MenuController extends Controller {
         ));
     }
 
-    public function editAction($id, Request $request) {
+    public function editAction(Menu $menu, Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $menu = $em->getRepository('CAFPopoteBundle:Menu')->find($id);
-
-        if (null === $menu) {
-            throw new NotFoundHttpException("Le menu d'id " . $id . " n'existe pas.");
-        }
         
         $form = $this->createForm(new MenuType(), $menu);
 
@@ -104,15 +78,9 @@ class MenuController extends Controller {
         ));
     }
     
-    public function deleteAction($id, Request $request) {
+    public function deleteAction(Menu $menu) {
         $em = $this->getDoctrine()->getManager();
-        $menu = $em->getRepository('CAFPopoteBundle:Menu')->find($id);
-
-        if (null === $menu) {
-            throw new NotFoundHttpException("Le menu d'id " . $id . " n'existe pas.");
-        }
-        
-        
+       
         foreach($menu->getMp() as $mp)
         {
             $menu->removeMp($mp);
