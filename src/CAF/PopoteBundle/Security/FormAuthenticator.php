@@ -37,9 +37,6 @@ class FormAuthenticator extends AbstractGuardAuthenticator {
         $this->router = $router;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCredentials(Request $request) {
         if ($request->getPathInfo() != '/login' || !$request->isMethod('POST')) {
             return;
@@ -59,33 +56,10 @@ class FormAuthenticator extends AbstractGuardAuthenticator {
 //        if ($userProvider->getProviders()[0] instanceof InMemoryUserProvider) {
 //            return $userProvider->loadUserByUsername($credentials['username']);
 //        }
-//
-//        $baseDN = "dc=cafbayonne,dc=cnaf";
-//        $ldapServer = "SDC1A641.cafbayonne.cnaf";
-//        $ldapServerPort = 389;
-//        $password = $credentials['password'];
-//        $dn = $credentials['username'];
-//
-//        if (!($conn = @ldap_connect($ldapServer, $ldapServerPort))) {
-//            throw new AuthenticationException('Can\'t reach LDAP');
-//        }
-//
-//        if (!@ldap_set_option($conn, LDAP_OPT_PROTOCOL_VERSION, 3)) {
-//            throw new AuthenticationException('Can\'t use LDAP V3');
-//        }
-//
-//        if (!@ldap_bind($conn, $dn, $password)) {
-//            throw new AuthenticationException('LDAP bind error:' . ldap_error($conn));
-//        }
-//
-//        @ldap_close($conn);
         
         return $userProvider->loadUserByUsername($credentials['username']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function checkCredentials($credentials, UserInterface $user) {
         $baseDN = "dc=cafbayonne,dc=cnaf";
         $ldapServer = "SDC1A641.cafbayonne.cnaf";
@@ -110,34 +84,22 @@ class FormAuthenticator extends AbstractGuardAuthenticator {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey) {
         $url = $this->router->generate('caf_popote_homepage');
         return new RedirectResponse($url);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception) {
         $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
         $url = $this->router->generate('login');
         return new RedirectResponse($url);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function start(Request $request, AuthenticationException $authException = null) {
         $url = $this->router->generate('login');
         return new RedirectResponse($url);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsRememberMe() {
         return false;
     }
