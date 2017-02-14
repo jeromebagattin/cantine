@@ -13,25 +13,25 @@ security:
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         
-        chain_provider:
-            chain:
-                providers: [in_memory, ldap_provider]
+#        chain_provider:
+#            chain:
+#                providers: [in_memory, ldap_provider, fosuser]
         
-#        fos:
-#            id: fos_user.user_provider.username
+        fosuser:
+            id: fos_user.user_provider.username
 #            entity:
 #                class:    CAF\UserBundle\Entity\User
 #                property: username
     
-        ldap_provider:
-            ldap:
-                service: ldap
-                base_dn: dc=cafbayonne,dc=cnaf
-                search_dn: administrateur@CAFBAYONNE.CNAF
-                search_password: TURBOD
-                uid_key: userPrincipalName
-                filter: (userPrincipalName={username})
-                default_roles: ROLE_CAF
+#        ldap_provider:
+#            ldap:
+#                service: ldap
+#                base_dn: dc=cafbayonne,dc=cnaf
+#                search_dn: administrateur@CAFBAYONNE.CNAF
+#                search_password: TURBOD
+#                uid_key: userPrincipalName
+#                filter: (userPrincipalName={username})
+#                default_roles: ROLE_CAF
            
         in_memory:
             memory:
@@ -48,7 +48,7 @@ security:
 #        main:
 #            pattern:   ^/
 #            anonymous: true
-#            provider:  main
+#            provider:  fosuser
 #            form_login:
 #                login_path: fos_user_security_login
 #                check_path: fos_user_security_check
@@ -68,15 +68,6 @@ security:
                 authenticators:
                     - form_authenticator
                     
-        guard:
-            anonymous: ~
-            provider: ldap_provider
-            pattern: ^/
-            logout: ~
-            guard:
-                authenticators:
-                    - form_authenticator
-        
             
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
