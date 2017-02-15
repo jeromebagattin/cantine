@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form name="caf_popotebundle_menu" method="post" action="aff.php">
+            <div id="caf_popotebundle_menu">
+                <div>
+                    <label class="required">Date menu</label>
+                    <div id="caf_popotebundle_menu_dateMenu">
+                        <select id="caf_popotebundle_menu_dateMenu_day" name="caf_popotebundle_menu[dateMenu][day]">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
+                        </select><select id="caf_popotebundle_menu_dateMenu_month" name="caf_popotebundle_menu[dateMenu][month]">
+                            <option value="1">janv.</option><option value="2">févr.</option><option value="3">mars</option><option value="4">avr.</option><option value="5">mai</option><option value="6">juin</option><option value="7">juil.</option><option value="8">août</option><option value="9">sept.</option><option value="10">oct.</option><option value="11">nov.</option><option value="12">déc.</option>
+                        </select><select id="caf_popotebundle_menu_dateMenu_year" name="caf_popotebundle_menu[dateMenu][year]"><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option><option value="2019">2019</option><option value="2020">2020</option><option value="2021">2021</option><option value="2022">2022</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="required">Date validation</label>
+                    <div id="caf_popotebundle_menu_dateValidation">
+                        <select id="caf_popotebundle_menu_dateValidation_day" name="caf_popotebundle_menu[dateValidation][day]">
+                            <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select>
+                        <select id="caf_popotebundle_menu_dateValidation_month" name="caf_popotebundle_menu[dateValidation][month]"><option value="1">janv.</option><option value="2">févr.</option><option value="3">mars</option><option value="4">avr.</option><option value="5">mai</option><option value="6">juin</option><option value="7">juil.</option><option value="8">août</option><option value="9">sept.</option><option value="10">oct.</option><option value="11">nov.</option><option value="12">déc.</option></select>
+                        <select id="caf_popotebundle_menu_dateValidation_year" name="caf_popotebundle_menu[dateValidation][year]"><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option><option value="2019">2019</option><option value="2020">2020</option><option value="2021">2021</option><option value="2022">2022</option></select>
+                    </div>
+                </div>
+                <div>
+                    <label for="caf_popotebundle_menu_plats" class="required">Entrées du menu : </label>
+                    <select id="caf_popotebundle_menu_plats" name="caf_popotebundle_menu[A][]" required="required" multiple="multiple">
+                        <option value="1">carottes rapées</option>                  
+                        <option value="3">frites</option>
+                        <option value="4">paté</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="caf_popotebundle_menu_plats" class="required">Plats du menu : </label>
+                    <select id="caf_popotebundle_menu_plats" name="caf_popotebundle_menu[B][]" required="required" multiple="multiple">
+                        <option value="3">frites</option>
+                        <option value="5">steak</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="caf_popotebundle_menu_plats" class="required">Desserts du menu : </label>
+                    <select id="caf_popotebundle_menu_plats" name="caf_popotebundle_menu[C][]" required="required" multiple="multiple">
+                        <option value="2">clémentine</option>
+                        <option value="6">yaourt</option>
+                    </select>
+                </div>
+                <div>
+                    <button type="submit" id="caf_popotebundle_menu_ok" name="caf_popotebundle_menu[ok]">Ok</button>
+                </div>
+                <input type="hidden" id="caf_popotebundle_menu__token" name="caf_popotebundle_menu[_token]" value="Q9WfwLJZq9Yt-u4OlU4H4wTIozJVhloT7Ar1_qTDtyE" />
+            </div>
+        </form>
+
+    </body>
+</html>

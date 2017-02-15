@@ -61,6 +61,7 @@ class FormAuthenticator extends AbstractGuardAuthenticator {
     }
 
     public function checkCredentials($credentials, UserInterface $user) {
+       
         $baseDN = "dc=cafbayonne,dc=cnaf";
         $ldapServer = "SDC1A641.cafbayonne.cnaf";
         $ldapServerPort = 389;

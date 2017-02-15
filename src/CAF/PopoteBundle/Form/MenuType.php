@@ -21,7 +21,7 @@ class MenuType extends AbstractType {
                     'label' => 'Plats du menu : ',
                     'property' => 'libelle',
                     'multiple' => true,
-                    'expanded' => true,
+                    'expanded' => false,
                     'query_builder' => function(PlatRepository $repo) {
                         return $repo->mFindAll();
                     }
