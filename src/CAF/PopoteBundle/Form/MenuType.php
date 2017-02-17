@@ -9,6 +9,7 @@ use CAF\PopoteBundle\Repository\PlatRepository;
 use CAF\PopoteBundle\Entity\Plat;
 use CAF\PopoteBundle\Repository\MenuPlatRepository;
 
+
 class MenuType extends AbstractType {
 
     /**
@@ -40,8 +41,6 @@ class MenuType extends AbstractType {
 //                        return $repo->findEntree();
 //                    }
 //                ))
-               
-                    
 //                    
 //                ->add($p->getTypePlat(), 'choice', array(
 //                    'choices' => array(
@@ -51,7 +50,6 @@ class MenuType extends AbstractType {
 //                    ),
 //                    'multiple' => true,
 //                ))
-                
 //                ->add('id', 'choice', array(
 //                    'choices' => array(
 //                        '1' => '1',

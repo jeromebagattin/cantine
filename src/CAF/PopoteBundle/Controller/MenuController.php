@@ -67,6 +67,8 @@ class MenuController extends Controller {
                 ->add('query', 'text')
                 ->add('A', 'choice', array('choices' => $this->fillSemaine()
                     ))
+                ->add('B', 'choice', array('choices' => $this->fillSemaine()
+                    ))
                 ->add('ok', 'submit')
                 ->getForm();
 
@@ -95,6 +97,7 @@ class MenuController extends Controller {
         ));
     }
 
+   
     public function addTmpAction(Request $request) {
         $menu = new Menu();
         $form = $this->createForm(new MenuType(), $menu);
