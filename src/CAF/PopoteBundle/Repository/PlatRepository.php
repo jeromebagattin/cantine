@@ -16,6 +16,15 @@ class PlatRepository extends \Doctrine\ORM\EntityRepository {
         ;
     }
 
+    public function findEntree() {
+        return $this
+                        ->createQueryBuilder('a')
+                        ->where('a.typePlat = :id')
+                        ->setParameter('id', 2)
+                        
+        ;
+    }
+    
     public function myFindAll() {
         return $this
                         ->createQueryBuilder('a')
