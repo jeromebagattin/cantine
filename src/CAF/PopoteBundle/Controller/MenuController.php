@@ -44,7 +44,7 @@ class MenuController extends Controller {
 
         $results = $repository->createQueryBuilder('a')
                 ->where('a.typePlat = :id')
-                ->setParameter('id', 2)
+                ->setParameter('id', 1)
                 ->getQuery()
                ->getResult()
         ;
@@ -57,7 +57,7 @@ class MenuController extends Controller {
         return $businessUnit;
     }
 
-    public function addAction(Request $request) {
+    public function add2Action(Request $request) {
         $menu = new Menu();
 
         $semaine = array();
@@ -98,7 +98,7 @@ class MenuController extends Controller {
     }
 
    
-    public function addTmpAction(Request $request) {
+    public function addAction(Request $request) {
         $menu = new Menu();
         $form = $this->createForm(new MenuType(), $menu);
 
