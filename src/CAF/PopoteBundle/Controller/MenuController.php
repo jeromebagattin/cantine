@@ -34,19 +34,19 @@ class MenuController extends Controller {
         return new Response($content);
     }
 
-    private function fillSemaine() {
+    private function fillSemaine($type) {
         $repository = $this
                 ->getDoctrine()
                 ->getManager()
                 ->getRepository('CAFPopoteBundle:Plat')
         ;
-        
+
 
         $results = $repository->createQueryBuilder('a')
                 ->where('a.typePlat = :id')
-                ->setParameter('id', 1)
+                ->setParameter('id', $type)
                 ->getQuery()
-               ->getResult()
+                ->getResult()
         ;
 //print_r($results);
         $businessUnit = array();
@@ -57,48 +57,66 @@ class MenuController extends Controller {
         return $businessUnit;
     }
 
-    public function add2Action(Request $request) {
-        $menu = new Menu();
-
+    private function generateForm(Request $request) {
         $semaine = array();
-        $form = $this->createFormBuilder($semaine)
+        $formBuilder = $this->createFormBuilder($semaine)
                 ->add('dateMenu', 'date')
                 ->add('dateValidation', 'date')
-                ->add('query', 'text')
-                ->add('A', 'choice', array('choices' => $this->fillSemaine()
-                    ))
-                ->add('B', 'choice', array('choices' => $this->fillSemaine()
-                    ))
-                ->add('ok', 'submit')
-                ->getForm();
+                ->add('query', 'text');
+
+        foreach (['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'] as $jour) {
+            foreach (['A', 'B', 'C', 'D'] as $lettre) {
+                $formBuilder->add($jour . $lettre, 'choice', array('choices' => $this->fillSemaine(2),
+                            'label' => $lettre
+                ));
+            }
+
+            foreach (['U', 'G', 'E'] as $lettre) {
+                $formBuilder->add($jour . $lettre, 'choice', array('choices' => $this->fillSemaine(3),
+                    'label' => $lettre
+                ));
+            }
+            foreach (['H', 'O', 'S', 'I'] as $lettre) {
+                $formBuilder->add($jour . $lettre, 'choice', array('choices' => $this->fillSemaine(4),
+                    'label' => $lettre
+                ));
+            }
+
+            foreach (['R', 'M', 'T'] as $lettre) {
+                $formBuilder->add($jour . $lettre, 'choice', array('choices' => $this->fillSemaine(5),
+                    'label' => $lettre
+                ));
+            }
+
+            foreach (['F', 'L', 'X'] as $lettre) {
+                $formBuilder->add($jour . $lettre, 'choice', array('choices' => $this->fillSemaine(1),
+                    'label' => $lettre
+                ));
+            }
+        }
+        $formBuilder->add('ok', 'submit');
+
+
+
+        $form = $formBuilder->getForm();
 
         if ($form->handleRequest($request)->isValid()) {
             $data = $form->getData();
             print_r($data);
         }
 
-        return $this->render('CAFPopoteBundle:Menu:add.html.twig', array(
-                    'form' => $form->createView(),
-        ));
+        return $form->createView();
+    }
 
-        $form = $this->createForm(new MenuType(), $menu);
-
-        if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($menu);
-            $em->flush();
-
-            $request->getSession()->getFlashBag()->add('notice', 'Menu bien enregistrée.');
-            return $this->redirect($this->generateUrl('popote_menu_index', array('id' => $menu->getId())));
-        }
+    public function addAction(Request $request) {
+        $menu = new Menu();
 
         return $this->render('CAFPopoteBundle:Menu:add.html.twig', array(
-                    'form' => $form->createView(),
+                    'form' => $this->generateForm($request),
         ));
     }
 
-   
-    public function addAction(Request $request) {
+    public function add2Action(Request $request) {
         $menu = new Menu();
         $form = $this->createForm(new MenuType(), $menu);
 
