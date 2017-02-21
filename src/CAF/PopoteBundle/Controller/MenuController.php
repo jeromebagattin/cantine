@@ -42,13 +42,15 @@ class MenuController extends Controller {
         ;
 
 
-        $results = $repository->createQueryBuilder('a')
-                ->where('a.typePlat = :id')
-                ->setParameter('id', $type)
+        $results = $repository->createQueryBuilder('p')
+                ->leftJoin('p.typePlat', 'typePlat')
+//                ->addSelect('t')
+                ->where('typePlat.libelle = :libelle')
+                ->setParameter('libelle', $type)
                 ->getQuery()
                 ->getResult()
         ;
-//print_r($results);
+
         $businessUnit = array();
         foreach ($results as $bu) {
             $businessUnit[$bu->getLibelle()] = $bu->getLibelle();
@@ -59,41 +61,31 @@ class MenuController extends Controller {
 
     private function generateForm(Request $request) {
         $semaine = array();
+        $cases = Array(
+            'Entree' => ['A', 'B', 'C', 'D'],
+            'Plat' => ['U', 'G', 'E'],
+            'Legume' => ['H', 'O', 'S', 'I'],
+            'Laitage' => ['R', 'M', 'T'],
+            'Dessert' => ['F', 'L', 'X']
+        );
+
         $formBuilder = $this->createFormBuilder($semaine)
                 ->add('dateMenu', 'date')
-                ->add('dateValidation', 'date')
-                ->add('query', 'text');
+                ->add('dateValidation', 'date');
+
+        
 
         foreach (['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'] as $jour) {
-            foreach (['A', 'B', 'C', 'D'] as $lettre) {
-                $formBuilder->add($jour . $lettre, 'choice', array('choices' => $this->fillSemaine(2),
-                            'label' => $lettre
-                ));
-            }
-
-            foreach (['U', 'G', 'E'] as $lettre) {
-                $formBuilder->add($jour . $lettre, 'choice', array('choices' => $this->fillSemaine(3),
-                    'label' => $lettre
-                ));
-            }
-            foreach (['H', 'O', 'S', 'I'] as $lettre) {
-                $formBuilder->add($jour . $lettre, 'choice', array('choices' => $this->fillSemaine(4),
-                    'label' => $lettre
-                ));
-            }
-
-            foreach (['R', 'M', 'T'] as $lettre) {
-                $formBuilder->add($jour . $lettre, 'choice', array('choices' => $this->fillSemaine(5),
-                    'label' => $lettre
-                ));
-            }
-
-            foreach (['F', 'L', 'X'] as $lettre) {
-                $formBuilder->add($jour . $lettre, 'choice', array('choices' => $this->fillSemaine(1),
-                    'label' => $lettre
-                ));
+            foreach ($cases as $typePlat => $lettres) {
+                foreach ($lettres as $key => $lettre) {
+                    $formBuilder->add($jour.$typePlat . $key, 'choice', array(
+                        'choices' => $this->fillSemaine($typePlat),
+                        'label' => $jour . ' - ' . $typePlat . ' - ' . $lettre
+                    ));
+                }
             }
         }
+
         $formBuilder->add('ok', 'submit');
 
 
