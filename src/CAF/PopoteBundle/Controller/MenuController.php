@@ -69,18 +69,18 @@ class MenuController extends Controller {
             'Dessert' => ['F', 'L', 'X']
         );
 
-        $formBuilder = $this->createFormBuilder($semaine)
-                ->add('dateMenu', 'date')
+        $formBuilder = $this->createFormBuilder($semaine);
+//$formBuilder = $this->get('form.factory')->createNamedBuilder(null, 'form', $semaine);
+        $formBuilder->add('dateMenu', 'date')
                 ->add('dateValidation', 'date');
-
-        
 
         foreach (['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'] as $jour) {
             foreach ($cases as $typePlat => $lettres) {
                 foreach ($lettres as $key => $lettre) {
-                    $formBuilder->add($jour.$typePlat . $key, 'choice', array(
+                    $formBuilder->add($jour . $typePlat . $lettre, 'choice', array(
                         'choices' => $this->fillSemaine($typePlat),
-                        'label' => $jour . ' - ' . $typePlat . ' - ' . $lettre
+                        'property_path' => '[' . $jour . '][' . $typePlat . '][' . $lettre . ']',
+                        'label' => $lettre
                     ));
                 }
             }
@@ -94,7 +94,8 @@ class MenuController extends Controller {
 
         if ($form->handleRequest($request)->isValid()) {
             $data = $form->getData();
-            print_r($data);
+//            print_r($data);
+//            print_r($data['Lundi']['Entree'][0]);
         }
 
         return $form->createView();

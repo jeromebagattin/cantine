@@ -3,10 +3,47 @@
 {% extends "CAFPopoteBundle::layout.html.twig" %}
 
 {% block title %}
-  Menus - {{ parent() }}
+    Menus - {{ parent() }}
 {% endblock %}
 
 {% block cafpopote_body %}
-<h2>Ajouter un menu</h2>
-        {{ form(form) }}
+    <h2>Ajouter un menu</h2>
+
+    {#    {{ dump(form) }} #}
+
+    {{ form_start(form) }}
+    
+    {#   {{ form(form.dateMenu) }}
+       {{ form(form.dateValidation) }}#}
+
+
+    {#    {{ form(form) }}#}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-2">
+                <div data-toggle="buttons">
+                    {% for key,valeur in form.children[2:85]  %}
+
+                        <label class="btn btn-block btn-success">
+                            <input type="checkbox" name="screenwash" checked="checked" autocomplete="off"> {{ form_label(valeur) }} {{ form_widget(valeur) }}
+                        </label>
+                        {% if key matches '{^.*DessertX$}' %}
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div data-toggle="buttons">
+                        {% endif %}
+
+                    {% endfor %}    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ form_label(form.ok) }}
+{{ form_widget(form.ok) }}
+    
+ {{ form_end(form) }}
+
+
 {% endblock %}
