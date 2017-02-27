@@ -28,11 +28,6 @@ class MenuPlat
      */
     private $lettre;
 
-     /**
-     * @ORM\ManyToOne(targetEntity="CAF\PopoteBundle\Entity\Menu", inversedBy="mp", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    
     /**
      * @ORM\ManyToOne(targetEntity="CAF\PopoteBundle\Entity\Menu", inversedBy="mp", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)

@@ -81,89 +81,89 @@ class MenuController extends Controller {
                         'choices' => $this->fillSemaine($typePlat),
                         'property_path' => '[' . $jour . '][' . $typePlat . '][' . $lettre . ']',
                         'label' => $lettre
-                            ));
-                        }
-                    }
+                    ));
                 }
-
-                $formBuilder->add('ok', 'submit');
-
-
-
-                $form = $formBuilder->getForm();
-
-                if ($form->handleRequest($request)->isValid()) {
-                    $data = $form->getData();
-//            print_r($data);
-//            print_r($data['Lundi']['Entree'][0]);
-                }
-
-                return $form->createView();
             }
-
-            public function addAction(Request $request) {
-                $menu = new Menu();
-
-                return $this->render('CAFPopoteBundle:Menu:add.html.twig', array(
-                            'form' => $this->generateForm($request),
-                ));
-            }
-
-            public function add2Action(Request $request) {
-                $menu = new Menu();
-                $form = $this->createForm(new MenuType(), $menu);
-
-                if ($form->handleRequest($request)->isValid()) {
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($menu);
-                    $em->flush();
-
-                    $request->getSession()->getFlashBag()->add('notice', 'Menu bien enregistrée.');
-                    return $this->redirect($this->generateUrl('popote_menu_index', array('id' => $menu->getId())));
-                }
-
-                return $this->render('CAFPopoteBundle:Menu:add.html.twig', array(
-                            'form' => $form->createView(),
-                ));
-            }
-
-            public function editAction(Menu $menu, Request $request) {
-                $em = $this->getDoctrine()->getManager();
-
-                $form = $this->createForm(new MenuType(), $menu);
-
-                foreach ($menu->getMp() as $mp) {
-                    $menu->removeMp($mp);
-                    $em->remove($mp);
-                }
-                $em->persist($menu);
-
-                if ($form->handleRequest($request)->isValid()) {
-
-                    $em->persist($menu);
-                    $em->flush();
-                    return $this->redirect($this->generateUrl('popote_menu_index'));
-                }
-
-                return $this->render('CAFPopoteBundle:Menu:edit.html.twig', array(
-                            'form' => $form->createView(),
-                            'id' => $menu->getId()
-                ));
-            }
-
-            public function deleteAction(Menu $menu) {
-                $em = $this->getDoctrine()->getManager();
-
-                foreach ($menu->getMp() as $mp) {
-                    $menu->removeMp($mp);
-                    $em->remove($mp);
-                }
-
-                $em->persist($menu);
-                $em->remove($menu);
-                $em->flush();
-                return $this->redirect($this->generateUrl('popote_menu_index'));
-            }
-
         }
-        
+
+        $formBuilder->add('ok', 'submit');
+
+        $form = $formBuilder->getForm();
+        return $form;
+    }
+
+    public function addAction(Request $request) {
+        $menu = new Menu();
+        $form = $this->generateForm($request);
+
+        if ($form->handleRequest($request)->isValid()) {
+            $data = $form->getData();
+            //print_r($data);
+//            print_r($data['Lundi']['Entree'][0]);
+
+            $request->getSession()->getFlashBag()->add('notice', 'Menu bien enregistrée.');
+            return $this->redirect($this->generateUrl('popote_menu_index', array('id' => $menu->getId())));
+        }
+
+        return $this->render('CAFPopoteBundle:Menu:add.html.twig', array(
+                    'form' => $form->createView(),
+        ));
+    }
+
+    public function add2Action(Request $request) {
+        $menu = new Menu();
+        $form = $this->createForm(new MenuType(), $menu);
+
+        if ($form->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($menu);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Menu bien enregistrée.');
+            return $this->redirect($this->generateUrl('popote_menu_index', array('id' => $menu->getId())));
+        }
+
+        return $this->render('CAFPopoteBundle:Menu:add.html.twig', array(
+                    'form' => $form->createView(),
+        ));
+    }
+
+    public function editAction(Menu $menu, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(new MenuType(), $menu);
+
+        foreach ($menu->getMp() as $mp) {
+            $menu->removeMp($mp);
+            $em->remove($mp);
+        }
+        $em->persist($menu);
+
+        if ($form->handleRequest($request)->isValid()) {
+
+            $em->persist($menu);
+            $em->flush();
+            return $this->redirect($this->generateUrl('popote_menu_index'));
+        }
+
+        return $this->render('CAFPopoteBundle:Menu:edit.html.twig', array(
+                    'form' => $form->createView(),
+                    'id' => $menu->getId()
+        ));
+    }
+
+    public function deleteAction(Menu $menu) {
+        $em = $this->getDoctrine()->getManager();
+
+        foreach ($menu->getMp() as $mp) {
+            $menu->removeMp($mp);
+            $em->remove($mp);
+        }
+
+        $em->persist($menu);
+        $em->remove($menu);
+        $em->flush();
+        return $this->redirect($this->generateUrl('popote_menu_index'));
+    }
+
+}
