@@ -8,7 +8,10 @@ and open the template in the editor.
     Author     : jerome
 */
 
-
+/*[class*="col-"], footer {
+  background-color: lightgreen;
+  border: 1px solid black;
+}*/
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.

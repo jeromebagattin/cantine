@@ -8,3 +8,7 @@ and open the template in the editor.
     Author     : jerome
 */
 
+/*[class*="col-"], footer {
+  background-color: lightgreen;
+  border: 1px solid black;
+}*/
