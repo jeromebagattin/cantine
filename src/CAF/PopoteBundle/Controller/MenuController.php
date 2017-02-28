@@ -8,6 +8,7 @@ use CAF\PopoteBundle\Form\MenuType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use CAF\PopoteBundle\Entity\Plat;
 
 class MenuController extends Controller {
 
@@ -41,22 +42,20 @@ class MenuController extends Controller {
                 ->getRepository('CAFPopoteBundle:Plat')
         ;
 
-
         $results = $repository->createQueryBuilder('p')
                 ->leftJoin('p.typePlat', 'typePlat')
-//                ->addSelect('t')
                 ->where('typePlat.libelle = :libelle')
                 ->setParameter('libelle', $type)
                 ->getQuery()
                 ->getResult()
         ;
 
-        $businessUnit = array();
-        foreach ($results as $bu) {
-            $businessUnit[$bu->getLibelle()] = $bu->getLibelle();
+        $menu = array();
+        foreach ($results as $plat) {
+            $menu[$plat->getId()] = $plat->getLibelle();
         }
 
-        return $businessUnit;
+        return $menu;
     }
 
     private function generateForm(Request $request) {
@@ -70,7 +69,6 @@ class MenuController extends Controller {
         );
 
         $formBuilder = $this->createFormBuilder($semaine);
-//$formBuilder = $this->get('form.factory')->createNamedBuilder(null, 'form', $semaine);
         $formBuilder->add('dateMenu', 'date')
                 ->add('dateValidation', 'date');
 
@@ -93,15 +91,36 @@ class MenuController extends Controller {
     }
 
     public function addAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('CAFPopoteBundle:Plat');
+
         $menu = new Menu();
         $form = $this->generateForm($request);
 
         if ($form->handleRequest($request)->isValid()) {
             $data = $form->getData();
-            //print_r($data);
-//            print_r($data['Lundi']['Entree'][0]);
+
+            $menu->setDateMenu($data['dateMenu']);
+            $menu->setDateValidation($data['dateValidation']);
+
+            foreach ($data as $jour => $dataJour) {
+                if (is_array($dataJour)) {
+                    foreach ($dataJour as $typePlat => $dataType) {
+                        foreach ($dataType as $lettre => $idPlat) {
+                            $plat = $repository->findById($idPlat);
+                            $menu->setPlats($plat, $lettre, $data['dateMenu']);
+                        }
+                    }
+                }
+            }
+
+            $em->persist($menu);
+            $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Menu bien enregistrée.');
+            return $this->render('CAFPopoteBundle:Menu:add.html.twig', array(
+                        'form' => $form->createView(),
+            ));
             return $this->redirect($this->generateUrl('popote_menu_index', array('id' => $menu->getId())));
         }
 

@@ -3,6 +3,7 @@
 namespace CAF\PopoteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * MenuPlat
@@ -27,6 +28,14 @@ class MenuPlat
      * @ORM\Column(name="lettre", type="string", length=1)
      */
     private $lettre;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="jourMenu", type="date")
+     * @Assert\Date() 
+     */
+    private $jourMenu;
 
     /**
      * @ORM\ManyToOne(targetEntity="CAF\PopoteBundle\Entity\Menu", inversedBy="mp", cascade={"persist"})
@@ -74,6 +83,30 @@ class MenuPlat
         return $this->lettre;
     }
 
+    /**
+     * Set jourMenu
+     *
+     * @param \DateTime $jourMenu
+     *
+     * @return MenuPlat
+     */
+    public function setJourMenu($jourMenu)
+    {
+        $this->jourMenu = $jourMenu;
+
+        return $this;
+    }
+
+    /**
+     * Get jourMenu
+     *
+     * @return \DateTime
+     */
+    public function getJourMenu()
+    {
+        return $this->jourMenu;
+    }
+    
     /**
      * Set menu
      *

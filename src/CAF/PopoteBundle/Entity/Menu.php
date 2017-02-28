@@ -151,14 +151,15 @@ class Menu {
         return $plats;
     }
 
-    public function setPlats($plats) {
+    public function setPlats($plats, $lettre, $jour) {
         foreach ($plats as $p) {
             $mp = new MenuPlat();
 
             $mp->setMenu($this);
             $mp->setPlat($p);
-            $mp->setLettre('_');
-
+            $mp->setLettre($lettre);
+            $mp->setJourMenu($jour);
+            
             $this->addMp($mp);
         }
     }
