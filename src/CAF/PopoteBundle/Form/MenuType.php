@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use CAF\PopoteBundle\Repository\PlatRepository;
 use CAF\PopoteBundle\Entity\Plat;
+use CAF\PopoteBundle\Entity\MenuPlat;
 use CAF\PopoteBundle\Repository\MenuPlatRepository;
 
 
@@ -19,6 +20,13 @@ class MenuType extends AbstractType {
         $builder
                 ->add('dateMenu', 'date')
                 ->add('dateValidation', 'date')
+                
+                
+              
+      
+        
+                
+                
 //                ->add('plats', 'entity', array(
 //                    'class' => 'CAFPopoteBundle:Plat',
 //                    'label' => 'Plats du menu : ',
