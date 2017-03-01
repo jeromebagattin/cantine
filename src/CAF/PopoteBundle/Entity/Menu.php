@@ -62,6 +62,8 @@ class Menu {
     public function __construct() {
         $this->mp = new \Doctrine\Common\Collections\ArrayCollection();
         $this->plats = new \Doctrine\Common\Collections\ArrayCollection();
+//        $this->dateMenu = new \DateTime('now');
+//        $this->dateValidation = new \DateTime();
     }
 
     /**

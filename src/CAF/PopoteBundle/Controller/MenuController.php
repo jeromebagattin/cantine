@@ -69,10 +69,14 @@ class MenuController extends Controller {
         );
 
         $formBuilder = $this->createFormBuilder($semaine);
-        $formBuilder->add('dateMenu', 'date')
-                ->add('dateValidation', 'date');
+        $formBuilder->add('dateMenu', 'date', array('data' => new \DateTime('now'),
+                    'format' => 'yyyy-MM-dd'
+                ))
+                ->add('dateValidation', 'date', array('data' => new \DateTime('now'),
+                    'format' => 'yyyy-MM-dd'
+        ));
 
-        foreach (['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'] as $jour) {
+        foreach ([0, 1, 2, 3, 4] as $jour) {  // Lundi ... Vendredi
             foreach ($cases as $typePlat => $lettres) {
                 foreach ($lettres as $key => $lettre) {
                     $formBuilder->add($jour . $typePlat . $lettre, 'choice', array(
@@ -99,16 +103,18 @@ class MenuController extends Controller {
 
         if ($form->handleRequest($request)->isValid()) {
             $data = $form->getData();
-
             $menu->setDateMenu($data['dateMenu']);
             $menu->setDateValidation($data['dateValidation']);
 
+            $date = new \DateTime($data['dateMenu']->format('Y-m-d H:i:s'));
             foreach ($data as $jour => $dataJour) {
                 if (is_array($dataJour)) {
                     foreach ($dataJour as $typePlat => $dataType) {
                         foreach ($dataType as $lettre => $idPlat) {
                             $plat = $repository->findById($idPlat);
-                            $menu->setPlats($plat, $lettre, $data['dateMenu']);
+                            $date = new \DateTime($data['dateMenu']->format('Y-m-d H:i:s'));
+                            $date->add(new \DateInterval('P' . $jour . 'D'));
+                            $menu->setPlats($plat, $lettre, $date);
                         }
                     }
                 }
