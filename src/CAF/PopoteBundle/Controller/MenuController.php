@@ -148,7 +148,7 @@ class MenuController extends Controller {
             return $this->redirect($this->generateUrl('popote_menu_index', array('id' => $menu->getId())));
         }
 
-        return $this->render('CAFPopoteBundle:Menu:add.html.twig', array(
+        return $this->render('CAFPopoteBundle:Menu:add1.html.twig', array(
                     'form' => $form->createView(),
         ));
     }

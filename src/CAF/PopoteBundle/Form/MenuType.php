@@ -22,11 +22,6 @@ class MenuType extends AbstractType {
                 ->add('dateValidation', 'date')
                 
                 
-              
-      
-        
-                
-                
 //                ->add('plats', 'entity', array(
 //                    'class' => 'CAFPopoteBundle:Plat',
 //                    'label' => 'Plats du menu : ',
