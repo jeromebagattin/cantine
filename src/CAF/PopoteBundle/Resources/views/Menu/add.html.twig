@@ -9,6 +9,7 @@
 {% block cafpopote_body %}
     <h3>Ajouter un menu</h3>
 
+   {# {{dump(menu.mp[0]) }}#}
     {#        {{ dump(form) }} #}
 
     {#    {{ form_start(form, {'attr': {'class': 'form-inline'}}) }}#}
@@ -79,4 +80,8 @@
     {{ form_widget(form.ok) }}#}
 
     {{ form_end(form) }}
+    
+  {#  <a href="{{ path('popote_menu_delete', {id:id}) }}">
+        Supprimer
+    </a>#}
 {% endblock %}

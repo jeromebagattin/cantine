@@ -17,11 +17,16 @@ class MenuType extends AbstractType {
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
+        $jour = 'Lundi';
+        $typePlat = 'Entree';
+        $lettre = 'A';
+        
         $builder
                 ->add('dateMenu', 'date')
                 ->add('dateValidation', 'date')
                 
                 
+        
 //                ->add('plats', 'entity', array(
 //                    'class' => 'CAFPopoteBundle:Plat',
 //                    'label' => 'Plats du menu : ',

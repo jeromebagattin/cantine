@@ -58,7 +58,7 @@ class MenuController extends Controller {
         return $menu;
     }
 
-    private function generateForm(Request $request) {
+    private function generateForm(Request $request, Menu $menu) {
         $semaine = array();
         $cases = Array(
             'Entree' => ['A', 'B', 'C', 'D'],
@@ -68,22 +68,37 @@ class MenuController extends Controller {
             'Dessert' => ['F', 'L', 'X']
         );
 
+        if (null !== $menu->getDateMenu()) {
+            $defautDateMenu = $menu->getDateMenu();
+            $defautDateValidation = $menu->getDateValidation();
+        } else {
+            $defautDateMenu = $defautDateValidation = new \DateTime('now');
+        }
+
         $formBuilder = $this->createFormBuilder($semaine);
-        $formBuilder->add('dateMenu', 'date', array('data' => new \DateTime('now'),
+        $formBuilder->add('dateMenu', 'date', array('data' => $defautDateMenu,
                     'format' => 'yyyy-MM-dd'
                 ))
-                ->add('dateValidation', 'date', array('data' => new \DateTime('now'),
+                ->add('dateValidation', 'date', array('data' => $defautDateValidation,
                     'format' => 'yyyy-MM-dd'
         ));
 
+        $indexPlat = 0;
         foreach ([0, 1, 2, 3, 4] as $jour) {  // Lundi ... Vendredi
             foreach ($cases as $typePlat => $lettres) {
                 foreach ($lettres as $key => $lettre) {
+                    $defautPlat = '';
+                    if (isset($menu->getMp()[$indexPlat])) {
+                        $defautPlat = $menu->getMp()[$indexPlat++]->getPlat()->getId();
+                    }
                     $formBuilder->add($jour . $typePlat . $lettre, 'choice', array(
                         'choices' => $this->fillSemaine($typePlat),
                         'property_path' => '[' . $jour . '][' . $typePlat . '][' . $lettre . ']',
-                        'label' => $lettre
+                        'label' => $lettre,
+                        'data' => $defautPlat
                     ));
+
+                    $indexPlat ++;
                 }
             }
         }
@@ -99,7 +114,7 @@ class MenuController extends Controller {
         $repository = $em->getRepository('CAFPopoteBundle:Plat');
 
         $menu = new Menu();
-        $form = $this->generateForm($request);
+        $form = $this->generateForm($request, $menu);
 
         if ($form->handleRequest($request)->isValid()) {
             $data = $form->getData();
@@ -124,9 +139,6 @@ class MenuController extends Controller {
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Menu bien enregistrée.');
-            return $this->render('CAFPopoteBundle:Menu:add.html.twig', array(
-                        'form' => $form->createView(),
-            ));
             return $this->redirect($this->generateUrl('popote_menu_index', array('id' => $menu->getId())));
         }
 
@@ -155,8 +167,12 @@ class MenuController extends Controller {
 
     public function editAction(Menu $menu, Request $request) {
         $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('CAFPopoteBundle:Plat');
+        
+        
+        //$form = $this->createForm(new MenuType(), $menu);
+        $form = $this->generateForm($request, $menu);
 
-        $form = $this->createForm(new MenuType(), $menu);
 
         foreach ($menu->getMp() as $mp) {
             $menu->removeMp($mp);
@@ -165,6 +181,23 @@ class MenuController extends Controller {
         $em->persist($menu);
 
         if ($form->handleRequest($request)->isValid()) {
+            $data = $form->getData();
+            $menu->setDateMenu($data['dateMenu']);
+            $menu->setDateValidation($data['dateValidation']);
+
+            $date = new \DateTime($data['dateMenu']->format('Y-m-d H:i:s'));
+            foreach ($data as $jour => $dataJour) {
+                if (is_array($dataJour)) {
+                    foreach ($dataJour as $typePlat => $dataType) {
+                        foreach ($dataType as $lettre => $idPlat) {
+                            $plat = $repository->findById($idPlat);
+                            $date = new \DateTime($data['dateMenu']->format('Y-m-d H:i:s'));
+                            $date->add(new \DateInterval('P' . $jour . 'D'));
+                            $menu->setPlats($plat, $lettre, $date);
+                        }
+                    }
+                }
+            }
 
             $em->persist($menu);
             $em->flush();
@@ -173,7 +206,7 @@ class MenuController extends Controller {
 
         return $this->render('CAFPopoteBundle:Menu:edit.html.twig', array(
                     'form' => $form->createView(),
-                    'id' => $menu->getId()
+                    'id' => $menu->getId(),
         ));
     }
 
