@@ -89,7 +89,7 @@ class MenuController extends Controller {
                 foreach ($lettres as $key => $lettre) {
                     $defautPlat = '';
                     if (isset($menu->getMp()[$indexPlat])) {
-                        $defautPlat = $menu->getMp()[$indexPlat++]->getPlat()->getId();
+                        $defautPlat = $menu->getMp()[$indexPlat]->getPlat()->getId();
                     }
                     $formBuilder->add($jour . $typePlat . $lettre, 'choice', array(
                         'choices' => $this->fillSemaine($typePlat),
