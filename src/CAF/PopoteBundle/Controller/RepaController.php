@@ -38,14 +38,32 @@ class RepaController extends Controller {
      */
     public function addAction(Menu $menu, Request $request) {
         $em = $this->getDoctrine()->getManager();
-
         $repa = new Repa($menu);
+$semaine = array();
 
-        $form = $this->createForm(new RepaType(), $repa);
+        if (null !== $menu->getDateMenu()) {
+            $defautDateMenu = $menu->getDateMenu();
+            $defautDateValidation = $menu->getDateValidation();
+        } else {
+            $defautDateMenu = $defautDateValidation = new \DateTime('now');
+        }
+
+        $formBuilder = $this->createFormBuilder($semaine);
+        $formBuilder->add('dateMenu', 'date', array('data' => $defautDateMenu,
+                    'format' => 'yyyy-MM-dd'
+                ));
+                
+
+        $formBuilder->add('ok', 'submit');
+
+        $form = $formBuilder->getForm();
+        print_r($repa->getDateMenu());
+        
+        //$form = $this->createForm(new RepaType(), $repa);
 
         if ($form->handleRequest($request)->isValid()) {
-            $em->persist($repa);
-            $em->flush();
+//            $em->persist($repa);
+//            $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Repa bien enregistrée.');
             return $this->redirect($this->generateUrl('popote_repa_index', array('id' => $repa->getId())));
