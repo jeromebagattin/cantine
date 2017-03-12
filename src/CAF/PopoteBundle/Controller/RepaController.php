@@ -38,8 +38,9 @@ class RepaController extends Controller {
      */
     public function addAction(Menu $menu, Request $request) {
         $em = $this->getDoctrine()->getManager();
+        
         $repa = new Repa($menu);
-$semaine = array();
+        $semaine = array();
 
         if (null !== $menu->getDateMenu()) {
             $defautDateMenu = $menu->getDateMenu();
@@ -50,15 +51,30 @@ $semaine = array();
 
         $formBuilder = $this->createFormBuilder($semaine);
         $formBuilder->add('dateMenu', 'date', array('data' => $defautDateMenu,
-                    'format' => 'yyyy-MM-dd'
-                ));
-                
+            'format' => 'yyyy-MM-dd'
+        ));
+
+       
+        foreach ([0, 1, 2, 3, 4] as $jour) {  // Lundi ... Vendredi
+            foreach ($cases as $typePlat => $lettres) {
+                foreach ($lettres as $key => $lettre) {
+                    $defautPlat = '';
+                   
+                    $formBuilder->add($jour . $typePlat . $lettre, 'choice', array(
+                        'choices' => $this->fillSemaine($typePlat),
+                        'property_path' => '[' . $jour . '][' . $typePlat . '][' . $lettre . ']',
+                        'label' => $lettre,
+                    ));
+                }
+            }
+        }
+        
 
         $formBuilder->add('ok', 'submit');
 
         $form = $formBuilder->getForm();
         print_r($repa->getDateMenu());
-        
+
         //$form = $this->createForm(new RepaType(), $repa);
 
         if ($form->handleRequest($request)->isValid()) {
@@ -71,6 +87,7 @@ $semaine = array();
 
         return $this->render('CAFPopoteBundle:Repa:add.html.twig', array(
                     'form' => $form->createView(),
+                    'menu' => $menu
         ));
     }
 
