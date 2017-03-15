@@ -9,7 +9,7 @@
 {% block cafpopote_body %}
     <h3>Ajouter un repa</h3>
 
-    {{dump(menu) }}
+{#    {{dump(menu) }}#}
     {#        {{ dump(form) }} #}
 
     {#    {{ form_start(form, {'attr': {'class': 'form-inline'}}) }}#}
@@ -62,7 +62,7 @@
             </div>#}
 
         </div>
-        {#<div class="row">
+        <div class="row">
             <div class="col-xs-12"> &nbsp; </div>
         </div>
         <div class="row">
@@ -71,7 +71,7 @@
             <div class="col-xs-1 col-xs-offset-1 form-control-static text-right"> {{ form_label(form.dateValidation) }} </div>
             <div class="col-xs-2"> {{ form_widget(form.dateValidation) }} </div>
             <div class="col-xs-4 text-right"> {{ form_widget(form.ok) }} </div>
-        </div>#}
+        </div>
     </div>
 
     {{ form_row(form.ok) }}

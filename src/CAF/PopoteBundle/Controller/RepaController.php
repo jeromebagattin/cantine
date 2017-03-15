@@ -33,14 +33,49 @@ class RepaController extends Controller {
         return new Response($content);
     }
 
+    private function fillSemaine($id) {
+        $repository = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('CAFPopoteBundle:Plat')
+        ;
+
+        $results = $repository->createQueryBuilder('p')
+                ->leftJoin('p.mp', 'mp')
+                ->leftJoin('mp.menu', 'menu')
+                ->addSelect('p')
+                ->where('menu.id = :id')
+                ->setParameter('id', $id)
+                ->getQuery()
+                ->getResult()
+        ;
+
+        $menu = array();
+        foreach ($results as $plat) {
+            $menu[$plat->getId()] = $plat->getLibelle();
+        }
+
+        return $menu;
+    }
+
     /**
      * @ParamConverter("menu", options={"mapping": {"idMenu": "id"}})
      */
     public function addAction(Menu $menu, Request $request) {
         $em = $this->getDoctrine()->getManager();
-        
+
         $repa = new Repa($menu);
+        print_r($menu->getMp()[0]->getPlat()->getLibelle());
+        
         $semaine = array();
+
+        $cases = Array(
+            'Entree' => ['A', 'B', 'C', 'D'],
+            'Plat' => ['U', 'G', 'E'],
+            'Legume' => ['H', 'O', 'S', 'I'],
+            'Laitage' => ['R', 'M', 'T'],
+            'Dessert' => ['F', 'L', 'X']
+        );
 
         if (null !== $menu->getDateMenu()) {
             $defautDateMenu = $menu->getDateMenu();
@@ -52,28 +87,33 @@ class RepaController extends Controller {
         $formBuilder = $this->createFormBuilder($semaine);
         $formBuilder->add('dateMenu', 'date', array('data' => $defautDateMenu,
             'format' => 'yyyy-MM-dd'
+             ))
+                ->add('dateValidation', 'date', array('data' => $defautDateValidation,
+                    'format' => 'yyyy-MM-dd'
         ));
 
-       
+        $indexPlat = 0;
         foreach ([0, 1, 2, 3, 4] as $jour) {  // Lundi ... Vendredi
             foreach ($cases as $typePlat => $lettres) {
                 foreach ($lettres as $key => $lettre) {
                     $defautPlat = '';
-                   
+
                     $formBuilder->add($jour . $typePlat . $lettre, 'choice', array(
-                        'choices' => $this->fillSemaine($typePlat),
+                        'choices' => [$menu->getMp()[$indexPlat++]->getPlat()->getLibelle()], //$this->fillJourPlat($typePlat),
                         'property_path' => '[' . $jour . '][' . $typePlat . '][' . $lettre . ']',
                         'label' => $lettre,
+                        'expanded' => true,
+                        'multiple' => 'true'
                     ));
                 }
             }
         }
-        
+
 
         $formBuilder->add('ok', 'submit');
 
         $form = $formBuilder->getForm();
-        print_r($repa->getDateMenu());
+       
 
         //$form = $this->createForm(new RepaType(), $repa);
 
