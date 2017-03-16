@@ -33,42 +33,8 @@ class RepaController extends Controller {
         return new Response($content);
     }
 
-    private function fillSemaine($id) {
-        $repository = $this
-                ->getDoctrine()
-                ->getManager()
-                ->getRepository('CAFPopoteBundle:Plat')
-        ;
-
-        $results = $repository->createQueryBuilder('p')
-                ->leftJoin('p.mp', 'mp')
-                ->leftJoin('mp.menu', 'menu')
-                ->addSelect('p')
-                ->where('menu.id = :id')
-                ->setParameter('id', $id)
-                ->getQuery()
-                ->getResult()
-        ;
-
-        $menu = array();
-        foreach ($results as $plat) {
-            $menu[$plat->getId()] = $plat->getLibelle();
-        }
-
-        return $menu;
-    }
-
-    /**
-     * @ParamConverter("menu", options={"mapping": {"idMenu": "id"}})
-     */
-    public function addAction(Menu $menu, Request $request) {
-        $em = $this->getDoctrine()->getManager();
-
-        $repa = new Repa($menu);
-        print_r($menu->getMp()[0]->getPlat()->getLibelle());
-        
+    private function generateForm(Request $request, Menu $menu) {
         $semaine = array();
-
         $cases = Array(
             'Entree' => ['A', 'B', 'C', 'D'],
             'Plat' => ['U', 'G', 'E'],
@@ -86,8 +52,8 @@ class RepaController extends Controller {
 
         $formBuilder = $this->createFormBuilder($semaine);
         $formBuilder->add('dateMenu', 'date', array('data' => $defautDateMenu,
-            'format' => 'yyyy-MM-dd'
-             ))
+                    'format' => 'yyyy-MM-dd'
+                ))
                 ->add('dateValidation', 'date', array('data' => $defautDateValidation,
                     'format' => 'yyyy-MM-dd'
         ));
@@ -97,29 +63,65 @@ class RepaController extends Controller {
             foreach ($cases as $typePlat => $lettres) {
                 foreach ($lettres as $key => $lettre) {
                     $defautPlat = '';
-
+                    if (isset($menu->getMp()[$indexPlat])) {
+                        $defautPlat = $menu->getMp()[$indexPlat]->getPlat()->getId();
+                    }
                     $formBuilder->add($jour . $typePlat . $lettre, 'choice', array(
-                        'choices' => [$menu->getMp()[$indexPlat++]->getPlat()->getLibelle()], //$this->fillJourPlat($typePlat),
+                        'choices' => [$menu->getMp()[$indexPlat]->getPlat()->getId() => $menu->getMp()[$indexPlat]->getPlat()->getLibelle()],
                         'property_path' => '[' . $jour . '][' . $typePlat . '][' . $lettre . ']',
                         'label' => $lettre,
                         'expanded' => true,
-                        'multiple' => 'true'
+                        'required' => false,
+//                        'multiple' => 'true',
+//                        'data' => $defautPlat
                     ));
+
+                    $indexPlat ++;
                 }
             }
         }
 
-
         $formBuilder->add('ok', 'submit');
 
         $form = $formBuilder->getForm();
-       
+        return $form;
+    }
+    
+    /**
+     * @ParamConverter("menu", options={"mapping": {"idMenu": "id"}})
+     */
+    public function addAction(Menu $menu, Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('CAFPopoteBundle:Plat');
+        
+        $repa = new Repa($menu);
+//        print_r($menu->getMp()[0]->getPlat()->getLibelle());
 
-        //$form = $this->createForm(new RepaType(), $repa);
+        $form = $this->generateForm($request, $menu);
+        
 
         if ($form->handleRequest($request)->isValid()) {
-//            $em->persist($repa);
-//            $em->flush();
+            $data = $form->getData();
+//            print_r($data);exit;
+            $repa->setDateMenu($data['dateMenu']);
+            $repa->setDateValidation($data['dateValidation']);
+
+            $date = new \DateTime($data['dateMenu']->format('Y-m-d H:i:s'));
+            foreach ($data as $jour => $dataJour) {
+                if (is_array($dataJour)) {
+                    foreach ($dataJour as $typePlat => $dataType) {
+                        foreach ($dataType as $lettre => $idPlat) {
+                            $plat = $repository->findById($idPlat);
+                            $date = new \DateTime($data['dateMenu']->format('Y-m-d H:i:s'));
+                            $date->add(new \DateInterval('P' . $jour . 'D'));
+                            $repa->setPlats($plat, $lettre, $date);
+                        }
+                    }
+                }
+            }
+            
+            $em->persist($repa);
+            $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Repa bien enregistrée.');
             return $this->redirect($this->generateUrl('popote_repa_index', array('id' => $repa->getId())));
