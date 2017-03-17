@@ -38,13 +38,7 @@ class RepaController extends Controller {
         $formatter->setPattern("EEEE");
 
         $semaine = array();
-        $cases = Array(
-            'Entree' => ['A', 'B', 'C', 'D'],
-            'Plat' => ['U', 'G', 'E'],
-            'Legume' => ['H', 'O', 'S', 'I'],
-            'Laitage' => ['R', 'M', 'T'],
-            'Dessert' => ['F', 'L', 'X']
-        );
+        
 
         $tabMenu = [];
         foreach ($menu->getMp() as $mp) {
@@ -55,8 +49,6 @@ class RepaController extends Controller {
 
             $tabMenu[$jour][$typePlat][$id] = $plat;
         }
-
-//       print_r($tabMenu);exit;
         
         if (null !== $menu->getDateMenu()) {
             $defautDateMenu = $menu->getDateMenu();
