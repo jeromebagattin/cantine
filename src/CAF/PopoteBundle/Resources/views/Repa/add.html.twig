@@ -10,7 +10,7 @@
     <h3>Ajouter un repa</h3>
 
 {#    {{dump(menu) }}#}
-            {{ dump(form) }} 
+{#            {{ dump(form) }} #}
 
     {#    {{ form_start(form, {'attr': {'class': 'form-inline'}}) }}#}
     {{ form_start(form) }}
@@ -67,9 +67,10 @@
                 {% for key,valeur in form.children[2:10]  %}
 {#                                            {{ form_label(valeur, '', {'attr': {'class': 'btn btn-block btn-primary btn-xs mybut'}}) }}#}
                     
-           <label class="btn btn-block btn-success">
+          
+               {{ form_label(valeur, '', {'attr': {'class': 'btn btn-block btn-primary btn-xs mybut'}}) }}
                     {{ form_widget(valeur) }} 
-                  </label>  
+                 
 
                 {% endfor %}  
                 </div>
