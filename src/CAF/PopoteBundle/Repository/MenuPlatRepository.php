@@ -15,4 +15,14 @@ class MenuPlatRepository extends \Doctrine\ORM\EntityRepository
                         ->createQueryBuilder('mp')
         ;
     }
+    
+     public function myFindId($id) {
+        return $this
+                        ->createQueryBuilder('a')
+                        ->where('a.id = :id')
+                        ->setParameter('id', $id)
+                        ->getQuery()
+                        ->getOneOrNullResult()
+        ;
+    }
 }

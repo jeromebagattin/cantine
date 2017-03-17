@@ -34,6 +34,9 @@ class RepaController extends Controller {
     }
 
     private function generateForm(Request $request, Menu $menu) {
+        $formatter = new \IntlDateFormatter(\Locale::getDefault(), \IntlDateFormatter::NONE, \IntlDateFormatter::NONE);
+        $formatter->setPattern("EEEE");
+
         $semaine = array();
         $cases = Array(
             'Entree' => ['A', 'B', 'C', 'D'],
@@ -43,6 +46,18 @@ class RepaController extends Controller {
             'Dessert' => ['F', 'L', 'X']
         );
 
+        $tabMenu = [];
+        foreach ($menu->getMp() as $mp) {
+            $jour = $formatter->format($mp->getJourMenu());
+            $typePlat = $mp->getPlat()->getTypePlat()->getLibelle();
+            $plat = $mp->getPlat()->getLibelle();
+            $id = $mp->getId();
+
+            $tabMenu[$jour][$typePlat][$id] = $plat;
+        }
+
+//       print_r($tabMenu);exit;
+        
         if (null !== $menu->getDateMenu()) {
             $defautDateMenu = $menu->getDateMenu();
             $defautDateValidation = $menu->getDateValidation();
@@ -58,26 +73,18 @@ class RepaController extends Controller {
                     'format' => 'yyyy-MM-dd'
         ));
 
-        $indexPlat = 0;
-        foreach ([0, 1, 2, 3, 4] as $jour) {  // Lundi ... Vendredi
-            foreach ($cases as $typePlat => $lettres) {
-                foreach ($lettres as $key => $lettre) {
-                    $defautPlat = '';
-                    if (isset($menu->getMp()[$indexPlat])) {
-                        $defautPlat = $menu->getMp()[$indexPlat]->getPlat()->getId();
-                    }
-                    $formBuilder->add($jour . $typePlat . $lettre, 'choice', array(
-                        'choices' => [$menu->getMp()[$indexPlat]->getPlat()->getId() => $menu->getMp()[$indexPlat]->getPlat()->getLibelle()],
-                        'property_path' => '[' . $jour . '][' . $typePlat . '][' . $lettre . ']',
-                        'label' => $lettre,
-                        'expanded' => true,
-                        'required' => false,
-//                        'multiple' => 'true',
-//                        'data' => $defautPlat
-                    ));
 
-                    $indexPlat ++;
-                }
+        foreach ($tabMenu as $jour => $menus) {
+            foreach ($menus as $typePlat => $mp) {
+                $formBuilder->add($jour . $typePlat, 'choice', array(
+                    'choices' => $mp,
+                    'property_path' => '[' . $jour . '][' . $typePlat . ']',
+                    'label' => $jour . $typePlat,
+                    'expanded' => true,
+                    'multiple' => true,
+//                'required' => false,
+//                        'data' => $defautPlat
+                ));
             }
         }
 
@@ -86,19 +93,19 @@ class RepaController extends Controller {
         $form = $formBuilder->getForm();
         return $form;
     }
-    
+
     /**
      * @ParamConverter("menu", options={"mapping": {"idMenu": "id"}})
      */
     public function addAction(Menu $menu, Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('CAFPopoteBundle:Plat');
-        
+        $repository = $em->getRepository('CAFPopoteBundle:MenuPlat');
+
         $repa = new Repa($menu);
 //        print_r($menu->getMp()[0]->getPlat()->getLibelle());
 
         $form = $this->generateForm($request, $menu);
-        
+
 
         if ($form->handleRequest($request)->isValid()) {
             $data = $form->getData();
@@ -107,19 +114,23 @@ class RepaController extends Controller {
             $repa->setDateValidation($data['dateValidation']);
 
             $date = new \DateTime($data['dateMenu']->format('Y-m-d H:i:s'));
+            $j = 0;
             foreach ($data as $jour => $dataJour) {
                 if (is_array($dataJour)) {
-                    foreach ($dataJour as $typePlat => $dataType) {
-                        foreach ($dataType as $lettre => $idPlat) {
-                            $plat = $repository->findById($idPlat);
+                    foreach ($dataJour as $typePlat => $menuPlats) {
+                        foreach ($menuPlats as $idMenuPlat) {
+                            $menuPlat = $repository->myFindId($idMenuPlat);
+                            $plat = $menuPlat->getPlat();
+                            $lettre = $menuPlat->getLettre();
                             $date = new \DateTime($data['dateMenu']->format('Y-m-d H:i:s'));
-                            $date->add(new \DateInterval('P' . $jour . 'D'));
-                            $repa->setPlats($plat, $lettre, $date);
+                            $date->add(new \DateInterval('P' . $j . 'D'));
+                            $repa->setPlats([$plat], $lettre, $date);
                         }
                     }
+                  $j ++;  
                 }
             }
-            
+
             $em->persist($repa);
             $em->flush();
 
